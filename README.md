@@ -16,4 +16,16 @@ For help getting started with Flutter, view our
 samples, guidance on mobile development, and a full API reference.
 
 ## Notes
-For problem related to graddle files: [view this link](https://stackoverflow.com/a/60565001)
+
+### Graddle error
+For problems related to graddle files: [view this link](https://stackoverflow.com/a/60565001)
+Also change minium required version to suitable version 
+
+### Keytool
+Get keytool SHA1:
+- download java and add bin/ forder to environtment
+- run command:
+```
+keytool -list -v -alias androiddebugkey -keystore "C:\Users\<Your-user-name>\.android\debug.keystore"
+```
+For more [information](https://developers.google.com/android/guides/client-auth)
