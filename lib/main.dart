@@ -1,4 +1,5 @@
 import 'package:check_bird/screens/authentication/authenticate_screen.dart';
+import 'package:check_bird/screens/chat/chat_screen.dart';
 import 'package:check_bird/screens/home/home_screen.dart';
 import 'package:check_bird/screens/welcome/welcome_screen.dart';
 import 'package:flutter/material.dart';
@@ -21,11 +22,12 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'CheckBird',
       theme: appTheme,
-      home:  const WelcomeScreen(),
+      initialRoute: WelcomeScreen.routeName,
       routes: {
         HomeScreen.routeName : (context) => const HomeScreen(),
         AuthenticateScreen.routeName : (context) => const AuthenticateScreen(),
         WelcomeScreen.routeName: (context) => const WelcomeScreen(),
+        ChatScreen.routeName: (context) => const ChatScreen(),
       },
     );
   }
