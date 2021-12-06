@@ -21,7 +21,6 @@ class AuthenticateScreen extends StatelessWidget {
           children: [
             ElevatedButton(
               onPressed: () async {
-                await Authentication.signOut();
                 Navigator.pushReplacementNamed(context, HomeScreen.routeName);
               },
               child: const Text("Use a local account"),
