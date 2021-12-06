@@ -1,4 +1,5 @@
 import 'package:check_bird/screens/chat/widgets/message_bubble.dart';
+import 'package:check_bird/services/authentication.dart';
 import 'package:flutter/material.dart';
 import 'package:paginate_firestore/paginate_firestore.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -9,15 +10,24 @@ class MessagesLog extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return PaginateFirestore(
-      itemBuilder: (context, documentSnapshots, index) {
-        final data = documentSnapshots[index].data() as Map<String, dynamic>;
-        return MessageBubble(data: data);
+    return StreamBuilder<QuerySnapshot>(
+      stream: ref.orderBy('created', descending: true).snapshots(),
+      builder: (BuildContext context, AsyncSnapshot<dynamic> snapshot) {
+        if (snapshot.connectionState == ConnectionState.waiting) {
+          return const Center(child: CircularProgressIndicator(),);
+        }
+        final chatDocs = snapshot.data!.docs;
+        return ListView.builder(
+          reverse: true,
+          itemBuilder: (context, index) {
+            return MessageBubble(
+              message: chatDocs[index]['text'],
+              isMe: chatDocs[index]['userId'] == Authentication.user!.uid,
+            );
+          },
+          itemCount: chatDocs.length,
+        );
       },
-      query: ref.orderBy('created'),
-      itemBuilderType: PaginateBuilderType.listView,
-      isLive: true,
-      onEmpty: const Center(child: Text("There's no messages yet"),),
     );
   }
 }

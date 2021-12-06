@@ -12,7 +12,7 @@ class MessageInput extends StatelessWidget {
       ref.add({
         'text': 'this is a messages',
         'userId': Authentication.user!.uid,
-        'created': Timestamp.now().toString(),
+        'created': Timestamp.now(),
       });
     }, child: const Text("Send Message"));
   }
