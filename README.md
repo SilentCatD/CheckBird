@@ -29,3 +29,7 @@ Get keytool SHA1:
 keytool -list -v -alias androiddebugkey -keystore "C:\Users\<Your-user-name>\.android\debug.keystore"
 ```
 For more [information](https://developers.google.com/android/guides/client-auth)
+
+### MultiDex error
+To change multidex size/ fix multidex error: [this link](https://stackoverflow.com/a/49837980)
+
