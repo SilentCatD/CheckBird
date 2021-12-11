@@ -41,7 +41,7 @@ class HomeScreen extends StatelessWidget {
                     onPressed: () {
                       const String topicId = 'nX4v5niYcD1BUX4pI7i8';
                       const String groupId = 'ZmxNXfkjyuHlMgYybWmx';
-                      const ChatType chatType = ChatType.topicChat;
+                      const ChatType chatType = ChatType.groupChat;
                       Navigator.pushNamed(
                         context,
                         ChatScreen.routeName,

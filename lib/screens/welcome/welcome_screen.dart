@@ -20,7 +20,7 @@ class WelcomeScreen extends StatelessWidget {
             return const Center(child: CircularProgressIndicator());
           }
           return AnimatedSwitcher(
-            duration: const Duration(milliseconds: 500),
+            duration: const Duration(milliseconds: 300),
             child: snapshot.hasData ? const HomeScreen() : const AuthenticateScreen(),
             transitionBuilder: (child, animation) {
              const begin = Offset(0, 1);
