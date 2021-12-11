@@ -10,13 +10,14 @@ class Message {
     required this.userId,
     required this.created,
     required this.text,
+    required this.userImageUrl,
   });
 
   final bool isMe;
   final Timestamp created;
   final String text;
   final String userId;
-// final String userId;
+  final String userImageUrl;
 }
 
 class MessageProvider {
@@ -60,7 +61,9 @@ class MessageProvider {
             created: msgData['created'],
             text: msgData['text'].toString(),
             isMe: Authentication.user!.uid == msgData['userId'],
-            userId: msgData['userId']);
+            userId: msgData['userId'],
+            userImageUrl: msgData['userImageUrl'],
+            );
       }).toList();
     });
   }
