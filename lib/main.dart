@@ -1,6 +1,7 @@
 import 'package:check_bird/screens/authentication/authenticate_screen.dart';
 import 'package:check_bird/screens/chat/chat_screen.dart';
 import 'package:check_bird/screens/home/home_screen.dart';
+import 'package:check_bird/screens/not_implemented/not_implemented_screen.dart';
 import 'package:check_bird/screens/welcome/welcome_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:check_bird/utils/theme.dart';
@@ -28,6 +29,11 @@ class MyApp extends StatelessWidget {
         AuthenticateScreen.routeName : (context) => const AuthenticateScreen(),
         WelcomeScreen.routeName: (context) => const WelcomeScreen(),
         ChatScreen.routeName: (context) => const ChatScreen(),
+      },
+      onUnknownRoute: (settings) {
+        return MaterialPageRoute(builder: (context) {
+          return const NotImplementedScreen();
+        });
       },
     );
   }

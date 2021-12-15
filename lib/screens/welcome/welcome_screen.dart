@@ -8,9 +8,6 @@ class WelcomeScreen extends StatelessWidget {
 
   const WelcomeScreen({Key? key}) : super(key: key);
 
-  /// A StreamBuilder shall be used here with FirebaseAuth as its stream, which
-  /// will then determine the login-state of user and show HomePage or
-  /// AuthenticateScreen accordingly.
   @override
   Widget build(BuildContext context) {
     return StreamBuilder<User?>(
@@ -22,13 +19,13 @@ class WelcomeScreen extends StatelessWidget {
           return AnimatedSwitcher(
             duration: const Duration(milliseconds: 300),
             child: snapshot.hasData ? const HomeScreen() : const AuthenticateScreen(),
-            transitionBuilder: (child, animation) {
-             const begin = Offset(0, 1);
-             const end = Offset.zero;
-             const curve = Curves.ease;
-             var tween = Tween(begin: begin, end: end).chain(CurveTween(curve: curve));
-             return SlideTransition(position: animation.drive(tween), child: child,);
-            },
+            // transitionBuilder: (child, animation) {
+            //  const begin = Offset(0, 1);
+            //  const end = Offset.zero;
+            //  const curve = Curves.ease;
+            //  var tween = Tween(begin: begin, end: end).chain(CurveTween(curve: curve));
+            //  return SlideTransition(position: animation.drive(tween), child: child,);
+            // },
           );
         });
   }
