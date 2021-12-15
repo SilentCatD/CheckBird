@@ -41,6 +41,7 @@ dependencies:
   intl: ^0.17.0
   cloud_firestore: ^3.1.1
   paginate_firestore: ^1.0.3
+  animations: ^2.0.2
 
 dev_dependencies:
   flutter_test:

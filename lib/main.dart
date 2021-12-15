@@ -1,7 +1,11 @@
 import 'package:check_bird/screens/authentication/authenticate_screen.dart';
 import 'package:check_bird/screens/chat/chat_screen.dart';
+import 'package:check_bird/screens/group/group_screen.dart';
 import 'package:check_bird/screens/home/home_screen.dart';
+import 'package:check_bird/screens/main_navigator/main_navigator_screen.dart';
 import 'package:check_bird/screens/not_implemented/not_implemented_screen.dart';
+import 'package:check_bird/screens/shop/shop_screen.dart';
+import 'package:check_bird/screens/task/task_screen.dart';
 import 'package:check_bird/screens/welcome/welcome_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:check_bird/utils/theme.dart';
@@ -25,6 +29,10 @@ class MyApp extends StatelessWidget {
       theme: appTheme,
       initialRoute: WelcomeScreen.routeName,
       routes: {
+        GroupScreen.routeName: (context) => const GroupScreen(),
+        ShopScreen.routeName: (context) => const ShopScreen(),
+        TaskScreen.routeName: (context) => const TaskScreen(),
+        MainNavigatorScreen.routeName: (context) => const MainNavigatorScreen(),
         HomeScreen.routeName : (context) => const HomeScreen(),
         AuthenticateScreen.routeName : (context) => const AuthenticateScreen(),
         WelcomeScreen.routeName: (context) => const WelcomeScreen(),
