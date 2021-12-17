@@ -1,6 +1,6 @@
 import 'package:check_bird/screens/authentication/authenticate_screen.dart';
-import 'package:check_bird/screens/chat/chat_screen.dart';
-import 'package:check_bird/screens/group/group_screen.dart';
+import 'package:check_bird/screens/group_detail/group_detail_screen.dart';
+import 'package:check_bird/screens/groups/groups_screen.dart';
 import 'package:check_bird/screens/home/home_screen.dart';
 import 'package:check_bird/screens/main_navigator/main_navigator_screen.dart';
 import 'package:check_bird/screens/not_implemented/not_implemented_screen.dart';
@@ -36,7 +36,7 @@ class MyApp extends StatelessWidget {
         HomeScreen.routeName : (context) => const HomeScreen(),
         AuthenticateScreen.routeName : (context) => const AuthenticateScreen(),
         WelcomeScreen.routeName: (context) => const WelcomeScreen(),
-        ChatScreen.routeName: (context) => const ChatScreen(),
+        GroupDetailScreen.routeName: (context) => const GroupDetailScreen(),
       },
       onUnknownRoute: (settings) {
         return MaterialPageRoute(builder: (context) {

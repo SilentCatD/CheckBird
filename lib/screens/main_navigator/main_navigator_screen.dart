@@ -1,5 +1,5 @@
 import 'package:animations/animations.dart';
-import 'package:check_bird/screens/group/group_screen.dart';
+import 'package:check_bird/screens/groups/groups_screen.dart';
 import 'package:check_bird/screens/home/home_screen.dart';
 import 'package:check_bird/screens/shop/shop_screen.dart';
 import 'package:check_bird/screens/task/task_screen.dart';

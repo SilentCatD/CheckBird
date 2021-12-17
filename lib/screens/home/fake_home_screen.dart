@@ -1,10 +1,11 @@
 import 'package:check_bird/models/chat_screen_arguments.dart';
-import 'package:check_bird/screens/chat/chat_screen.dart';
 import 'package:check_bird/screens/welcome/welcome_screen.dart';
 import 'package:check_bird/services/authentication.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:check_bird/models/chat_type.dart';
+
+/// THIS FILE IS IMPORTANT FOR EXAMPLE USES OF ChatScreenArguments DO NOT DELETE IT!
 
 class HomeScreen extends StatelessWidget {
   static const routeName = '/home-screen';
@@ -44,7 +45,7 @@ class HomeScreen extends StatelessWidget {
                 const ChatType chatType = ChatType.groupChat;
                 Navigator.pushNamed(
                   context,
-                  ChatScreen.routeName,
+                  '/TODO',
                   arguments: const ChatScreenArguments(
                     groupId: groupId,
                     topicId: topicId,

@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 
 class NotImplementedScreen extends StatelessWidget {
   const NotImplementedScreen({Key? key}) : super(key: key);
-
+  static const routeName = '/TODO';
   @override
   Widget build(BuildContext context) {
     return Scaffold(

@@ -10,32 +10,37 @@ class AuthenticateScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     var size = MediaQuery.of(context).size;
     return Scaffold(
-      body: Column(
-        children: [
-          SizedBox(
-            height: size.height * 0.5,
-            child: Image.asset(
-              'assets/images/checkbird-logo.png',
-              fit: BoxFit.cover,
+      body: Align(
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.center,
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Container(
+              height: size.height * 0.5,
+              margin: const EdgeInsets.symmetric(horizontal: 20),
+              child: Image.asset(
+                'assets/images/checkbird-logo.png',
+                fit: BoxFit.contain,
+              ),
             ),
-          ),
-          const Text(
-            "CheckBird",
-            style: TextStyle(
-              fontSize: 50,
-              fontFamily: 'Engagement',
+            SizedBox(
+              height: size.height * 0.05,
             ),
-          ),
-          SizedBox(
-            height: size.height * 0.2,
-          ),
-          GoogleLoginButton(
-            width: size.width * 0.8,
-          ),
-          SizedBox(
-            height: size.height * 0.03,
-          ),
-          TextButton(
+            const Text(
+              "CheckBird",
+              style: TextStyle(
+                fontSize: 50,
+                fontFamily: 'Engagement',
+              ),
+            ),
+            const Spacer(),
+            GoogleLoginButton(
+              width: size.width * 0.8,
+            ),
+            SizedBox(
+              height: size.height * 0.03,
+            ),
+            TextButton(
               onPressed: () {
                 Navigator.of(context).pushNamed('/TODO');
               },
@@ -46,8 +51,13 @@ class AuthenticateScreen extends StatelessWidget {
                   color: Colors.black,
                   fontSize: 18,
                 ),
-              )),
-        ],
+              ),
+            ),
+            SizedBox(
+              height: size.height * 0.05,
+            )
+          ],
+        ),
       ),
     );
   }

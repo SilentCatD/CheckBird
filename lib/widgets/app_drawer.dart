@@ -11,7 +11,7 @@ class AppDrawer extends StatelessWidget {
       child: Column(
         children: [
           Container(
-            color: Colors.deepPurple,
+            color: Theme.of(context).colorScheme.secondary,
             height: size.height * 0.3,
           ),
           Expanded(

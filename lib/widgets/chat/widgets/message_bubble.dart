@@ -3,13 +3,16 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 
 class MessageBubble extends StatelessWidget {
-  const MessageBubble(
-      {Key? key,
-      required this.message,
-      required this.isMe})
-      : super(key: key);
+  const MessageBubble({
+    Key? key,
+    required this.message,
+    required this.photoUrl,
+    required this.isMe,
+  }) : super(key: key);
+
   final String message;
   final bool isMe;
+  final String photoUrl;
 
   @override
   Widget build(BuildContext context) {
