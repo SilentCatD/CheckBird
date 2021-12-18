@@ -3,6 +3,7 @@ import 'package:check_bird/screens/groups/groups_screen.dart';
 import 'package:check_bird/screens/home/home_screen.dart';
 import 'package:check_bird/screens/shop/shop_screen.dart';
 import 'package:check_bird/screens/task/task_screen.dart';
+import 'package:check_bird/services/authentication.dart';
 import 'package:check_bird/widgets/app_drawer.dart';
 import 'package:flutter/material.dart';
 
@@ -61,7 +62,7 @@ class _MainNavigatorScreenState extends State<MainNavigatorScreen> {
       floatingActionButton: FloatingActionButton(
         child: const Icon(Icons.add_task, size: 40,color: Colors.white,),
 
-        onPressed: () {},
+        onPressed: () {Authentication.signOut();},
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
       bottomNavigationBar: BottomAppBar(

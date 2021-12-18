@@ -5,5 +5,6 @@ ThemeData appTheme = ThemeData(
   fontFamily: 'OpenSans',
   colorScheme: const ColorScheme.light().copyWith(
     secondary: Colors.lightBlue,
+    primary: Colors.blue,
   ),
 );

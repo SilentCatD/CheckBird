@@ -18,7 +18,7 @@ class GroupScreen extends StatelessWidget {
           },
           icon: const Icon(Icons.menu),
         ),
-        title: const Text("Group Screen"),
+        title: const Text("Group"),
         actions: [
           IconButton(onPressed: (){}, icon: const Icon(Icons.adjust)),
         ],
