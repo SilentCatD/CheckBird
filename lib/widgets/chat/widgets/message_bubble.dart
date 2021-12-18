@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
 class MessageBubble extends StatefulWidget {
-  MessageBubble({
+  const MessageBubble({
     Key? key,
     required this.message,
     required this.photoUrl,
@@ -15,7 +15,7 @@ class MessageBubble extends StatefulWidget {
   final Timestamp sendAt;
   final String senderName;
   final String message;
-  bool isMe;
+  final bool isMe;
   final String photoUrl;
 
   @override
@@ -29,7 +29,6 @@ class _MessageBubbleState extends State<MessageBubble> {
   void initState() {
     // TODO: implement initState
     super.initState();
-    widget.isMe = false; // change this to view design of other's messages
   }
 
   String get _sendAtString {
@@ -60,7 +59,7 @@ class _MessageBubbleState extends State<MessageBubble> {
           },
           borderRadius: BorderRadius.circular(15),
           child: Container(
-            constraints: BoxConstraints(maxWidth: constraint.maxWidth * 0.6),
+            constraints: BoxConstraints(maxWidth: widget.isMe ? constraint.maxWidth* 0.7 : constraint.maxWidth * 0.6),
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(15),
             ),
