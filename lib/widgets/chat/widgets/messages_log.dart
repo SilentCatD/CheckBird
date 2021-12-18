@@ -4,9 +4,10 @@ import 'package:check_bird/widgets/chat/widgets/message_bubble.dart';
 import 'package:flutter/material.dart';
 
 class MessagesLog extends StatelessWidget {
-  const MessagesLog({Key? key, required this.chatScreenArguments})
+  const MessagesLog({Key? key, required this.chatScreenArguments, required this.messagesLogController})
       : super(key: key);
   final ChatScreenArguments chatScreenArguments;
+  final ScrollController messagesLogController;
 
   @override
   Widget build(BuildContext context) {
@@ -20,6 +21,7 @@ class MessagesLog extends StatelessWidget {
           );
         }
         return ListView.builder(
+          controller: messagesLogController,
           itemBuilder: (context, index) {
             return MessageBubble(
               key: ValueKey(messages.data![index].id),

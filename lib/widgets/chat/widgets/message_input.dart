@@ -3,9 +3,13 @@ import 'package:check_bird/widgets//chat/models/message_provider.dart';
 import 'package:flutter/material.dart';
 
 class MessageInput extends StatefulWidget {
-  const MessageInput({Key? key, required this.chatScreenArguments})
+  const MessageInput(
+      {Key? key,
+      required this.chatScreenArguments,
+      required this.messagesLogController})
       : super(key: key);
   final ChatScreenArguments chatScreenArguments;
+  final ScrollController messagesLogController;
 
   @override
   State<MessageInput> createState() => _MessageInputState();
@@ -32,12 +36,17 @@ class _MessageInputState extends State<MessageInput> {
   );
   var focused = false;
 
-  void _sendChat(String text) {
-    MessageProvider().sendChat(
+  void _sendChat(String text) async {
+    await MessageProvider().sendChat(
       text: text,
       topicId: widget.chatScreenArguments.topicId,
       groupId: widget.chatScreenArguments.groupId,
       chatType: widget.chatScreenArguments.chatType,
+    );
+    await widget.messagesLogController.animateTo(
+      widget.messagesLogController.position.minScrollExtent,
+      duration: const Duration(milliseconds: 500),
+      curve: Curves.fastOutSlowIn,
     );
   }
 
@@ -84,8 +93,11 @@ class _MessageInputState extends State<MessageInput> {
                   });
                 },
                 decoration: InputDecoration(
-                  hintText: focused ?_hintTextFocused.data : _hintTextUnfocused.data,
-                  hintStyle: focused ? _hintTextFocused.style : _hintTextUnfocused.style,
+                  hintText:
+                      focused ? _hintTextFocused.data : _hintTextUnfocused.data,
+                  hintStyle: focused
+                      ? _hintTextFocused.style
+                      : _hintTextUnfocused.style,
                   border: const OutlineInputBorder(),
                   enabledBorder: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(50),
