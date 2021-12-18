@@ -20,6 +20,7 @@ class GroupScreen extends StatelessWidget {
         ),
         title: const Text("Group"),
         actions: [
+          IconButton(onPressed: (){}, icon: const Icon(Icons.group_add)),
           IconButton(onPressed: (){}, icon: const Icon(Icons.adjust)),
         ],
       ),
