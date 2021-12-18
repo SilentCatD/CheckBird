@@ -7,6 +7,7 @@ class ChatWidget extends StatelessWidget {
   ChatWidget({Key? key, required this.args}) : super(key: key);
   final ChatScreenArguments args;
   final _controller = ScrollController();
+
   @override
   Widget build(BuildContext context) {
     return Column(
