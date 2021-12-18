@@ -8,9 +8,17 @@ class ShopScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return  Scaffold(
-      drawer: const AppDrawer(),
       appBar: AppBar(
-        title: const Text("Shop screen"),
+        leading: IconButton(
+          onPressed: (){
+            Scaffold.of(context).openDrawer();
+          },
+          icon: const Icon(Icons.menu),
+        ),
+        title: const Text("Shop"),
+        actions: [
+          IconButton(onPressed: (){}, icon: const Icon(Icons.adjust)),
+        ],
       ),
       body: const Center(
         child: Text("This is Shop screen"),

@@ -11,9 +11,17 @@ class GroupScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      drawer: const AppDrawer(),
       appBar: AppBar(
+        leading: IconButton(
+          onPressed: (){
+            Scaffold.of(context).openDrawer();
+          },
+          icon: const Icon(Icons.menu),
+        ),
         title: const Text("Group Screen"),
+        actions: [
+          IconButton(onPressed: (){}, icon: const Icon(Icons.adjust)),
+        ],
       ),
       body: Center(
         child: ListTile(

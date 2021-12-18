@@ -8,9 +8,17 @@ class TaskScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      drawer: const AppDrawer(),
       appBar: AppBar(
-        title: const Text("Task screen"),
+        leading: IconButton(
+          onPressed: (){
+            Scaffold.of(context).openDrawer();
+          },
+          icon: const Icon(Icons.menu),
+        ),
+        title: const Text("Task"),
+        actions: [
+          IconButton(onPressed: (){}, icon: const Icon(Icons.adjust)),
+        ],
       ),
       body: const Center(
         child: Text("This is task screen"),

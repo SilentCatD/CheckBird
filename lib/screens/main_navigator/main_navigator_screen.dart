@@ -3,6 +3,7 @@ import 'package:check_bird/screens/groups/groups_screen.dart';
 import 'package:check_bird/screens/home/home_screen.dart';
 import 'package:check_bird/screens/shop/shop_screen.dart';
 import 'package:check_bird/screens/task/task_screen.dart';
+import 'package:check_bird/widgets/app_drawer.dart';
 import 'package:flutter/material.dart';
 
 class MainNavigatorScreen extends StatefulWidget {
@@ -45,6 +46,7 @@ class _MainNavigatorScreenState extends State<MainNavigatorScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      drawer: const AppDrawer(),
       extendBody: true,
       body: PageTransitionSwitcher(
         transitionBuilder: (Widget child, Animation<double> primaryAnimation,
@@ -57,7 +59,8 @@ class _MainNavigatorScreenState extends State<MainNavigatorScreen> {
         child: _screen[_selectedScreenIndex],
       ),
       floatingActionButton: FloatingActionButton(
-        child: const Icon(Icons.add_circle_rounded),
+        child: const Icon(Icons.add_task, size: 40,color: Colors.white,),
+
         onPressed: () {},
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,

@@ -1,3 +1,4 @@
+import 'package:check_bird/services/authentication.dart';
 import 'package:check_bird/widgets/app_drawer.dart';
 import 'package:flutter/material.dart';
 
@@ -9,9 +10,27 @@ class HomeScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      drawer: const AppDrawer(),
       appBar: AppBar(
-        title: const Text("Home"),
+        leading: IconButton(
+          onPressed: (){
+            Scaffold.of(context).openDrawer();
+          },
+          icon: const Icon(Icons.menu),
+        ),
+        iconTheme: IconThemeData(
+          color: Theme.of(context).primaryColor,
+        ),
+        backgroundColor: Colors.white,
+        centerTitle: true,
+        title: CircleAvatar(
+          backgroundColor: Colors.white,
+          child: Image.asset(
+            'assets/images/checkbird-logo.png',
+          ),
+        ),
+        actions: [
+          IconButton(onPressed: (){}, icon: const Icon(Icons.adjust)),
+        ],
       ),
       body: const Center(
         child: Text("This is home screen"),
