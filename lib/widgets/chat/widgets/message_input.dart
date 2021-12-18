@@ -13,10 +13,9 @@ class MessageInput extends StatefulWidget {
 
 class _MessageInputState extends State<MessageInput> {
   final _controller = TextEditingController();
-
   final _focusNode = FocusNode();
-  String _enteredMessages = "";
-  final Text _hintTextUnfocused = Text(
+  var _enteredMessages = "";
+  final _hintTextUnfocused = Text(
     "Aa...",
     style: TextStyle(
       color: Colors.grey.shade700,
@@ -24,14 +23,14 @@ class _MessageInputState extends State<MessageInput> {
       letterSpacing: 2,
     ),
   );
-  final Text _hintTextFocused = Text(
+  final _hintTextFocused = Text(
     "Input messages to send...",
     style: TextStyle(
       color: Colors.grey.shade700,
       fontSize: 13,
     ),
   );
-  late Text hintText;
+  var focused = false;
 
   void _sendChat(String text) {
     MessageProvider().sendChat(
@@ -45,15 +44,22 @@ class _MessageInputState extends State<MessageInput> {
   @override
   void initState() {
     super.initState();
-    hintText = _hintTextUnfocused;
     _focusNode.addListener(() {
-      if (_focusNode.hasFocus) {
-        hintText = _hintTextFocused;
-      } else {
-        hintText = _hintTextUnfocused;
-      }
-      setState(() {});
+      setState(() {
+        if (_focusNode.hasFocus) {
+          focused = true;
+        } else {
+          focused = false;
+        }
+      });
     });
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+    _controller.dispose();
+    _focusNode.dispose();
   }
 
   @override
@@ -65,32 +71,35 @@ class _MessageInputState extends State<MessageInput> {
         children: [
           Flexible(
             flex: 8,
-            child: TextField(
-              focusNode: _focusNode,
-              controller: _controller,
-              keyboardType: TextInputType.multiline,
-              maxLines: null,
-              onChanged: (text) {
-                setState(() {
-                  _enteredMessages = text;
-                });
-              },
-              decoration: InputDecoration(
-                hintText: hintText.data,
-                hintStyle: hintText.style,
-                border: const OutlineInputBorder(),
-                enabledBorder: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(50),
-                  borderSide: const BorderSide(color: Colors.white),
+            child: Container(
+              margin: const EdgeInsets.symmetric(horizontal: 10),
+              child: TextField(
+                focusNode: _focusNode,
+                controller: _controller,
+                keyboardType: TextInputType.multiline,
+                maxLines: null,
+                onChanged: (text) {
+                  setState(() {
+                    _enteredMessages = text;
+                  });
+                },
+                decoration: InputDecoration(
+                  hintText: focused ?_hintTextFocused.data : _hintTextUnfocused.data,
+                  hintStyle: focused ? _hintTextFocused.style : _hintTextUnfocused.style,
+                  border: const OutlineInputBorder(),
+                  enabledBorder: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(50),
+                    borderSide: const BorderSide(color: Colors.white),
+                  ),
+                  focusedBorder: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(10),
+                    borderSide: const BorderSide(color: Colors.white),
+                  ),
+                  fillColor: Colors.white,
+                  filled: true,
+                  isDense: true,
+                  contentPadding: const EdgeInsets.all(8), // Added this
                 ),
-                focusedBorder: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(10),
-                  borderSide: const BorderSide(color: Colors.white),
-                ),
-                fillColor: Colors.white,
-                filled: true,
-                isDense: true,
-                contentPadding: const EdgeInsets.all(8),  // Added this
               ),
             ),
           ),
@@ -101,14 +110,16 @@ class _MessageInputState extends State<MessageInput> {
                 style: ElevatedButton.styleFrom(
                   shape: const CircleBorder(),
                 ),
-                onPressed: _enteredMessages.trim().isEmpty ? null :() {
-                  _sendChat(_enteredMessages.trim());
-                  _focusNode.unfocus();
-                  _controller.clear();
-                  setState(() {
-                    _enteredMessages = "";
-                  });
-                },
+                onPressed: _enteredMessages.trim().isEmpty
+                    ? null
+                    : () {
+                        _sendChat(_enteredMessages.trim());
+                        _focusNode.unfocus();
+                        _controller.clear();
+                        setState(() {
+                          _enteredMessages = "";
+                        });
+                      },
                 child: const Padding(
                   padding: EdgeInsets.all(12.0),
                   child: Icon(Icons.send),

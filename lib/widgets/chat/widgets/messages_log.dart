@@ -26,6 +26,8 @@ class MessagesLog extends StatelessWidget {
               message: messages.data![index].text,
               isMe: messages.data![index].isMe,
               photoUrl: messages.data![index].userImageUrl,
+              senderName: messages.data![index].userName,
+              sendAt: messages.data![index].created,
             );
           },
           reverse: true,
