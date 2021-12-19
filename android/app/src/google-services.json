@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "483781811955",
+    "project_id": "checkbird-d2804",
+    "storage_bucket": "checkbird-d2804.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:483781811955:android:43bd8448949b682884a186",
+        "android_client_info": {
+          "package_name": "com.example.check_bird"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "483781811955-9f8d9tqr0plkmc1dptbfs1c25mi4a8b2.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.check_bird",
+            "certificate_hash": "149edaafd9afd1a2fb7a5c813b69c425a758dd4a"
+          }
+        },
+        {
+          "client_id": "483781811955-fcmi6r54gshlf6khpe084rt37lktvda3.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.check_bird",
+            "certificate_hash": "4aee1bce017cf287b1bcec88e597118279c3490b"
+          }
+        },
+        {
+          "client_id": "483781811955-v9bb0qtk566vpflo3lm6s8lbseql83ca.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDE9srFEVCARSKxg-FpztuGkfZKQ-l4eSs"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "483781811955-v9bb0qtk566vpflo3lm6s8lbseql83ca.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
