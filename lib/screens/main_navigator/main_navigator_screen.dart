@@ -62,7 +62,7 @@ class _MainNavigatorScreenState extends State<MainNavigatorScreen> {
       floatingActionButton: FloatingActionButton(
         child: const Icon(Icons.add_task, size: 40,color: Colors.white,),
 
-        onPressed: () {Authentication.signOut();},
+        onPressed: () {},
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
       bottomNavigationBar: BottomAppBar(
