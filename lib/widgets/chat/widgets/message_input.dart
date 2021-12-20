@@ -1,5 +1,9 @@
+import 'dart:math';
+
 import 'package:check_bird/models/chat_screen_arguments.dart';
 import 'package:check_bird/widgets//chat/models/message_provider.dart';
+import 'package:check_bird/widgets/chat/widgets/preview_image_screen.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:flutter/material.dart';
 
 class MessageInput extends StatefulWidget {
@@ -35,6 +39,15 @@ class _MessageInputState extends State<MessageInput> {
     ),
   );
   var focused = false;
+
+  void _pickImages(ImageSource imageSource) async {
+    var picker = ImagePicker();
+    XFile? image =
+        await picker.pickImage(source: imageSource, imageQuality: 50);
+    if (image == null) return;
+    Navigator.of(context).push(MaterialPageRoute(
+        builder: (context) => PreviewImageScreen(imagePath: image.path)));
+  }
 
   void _sendChat(String text) async {
     await MessageProvider().sendChat(
@@ -115,14 +128,28 @@ class _MessageInputState extends State<MessageInput> {
               ),
             ),
           ),
-          Flexible(
-            flex: 2,
-            child: Center(
-              child: ElevatedButton(
-                style: ElevatedButton.styleFrom(
-                  shape: const CircleBorder(),
-                ),
-                onPressed: _enteredMessages.trim().isEmpty
+          if (!focused)
+            IconButton(
+              onPressed: () {
+                _pickImages(ImageSource.camera);
+              },
+              icon: const Icon(Icons.camera_alt_rounded),
+              color: Colors.white,
+            ),
+          if (!focused)
+            IconButton(
+              onPressed: () {
+                _pickImages(ImageSource.gallery);
+              },
+              icon: const Icon(Icons.image),
+              color: Colors.white,
+            ),
+          ElevatedButton(
+            style: ElevatedButton.styleFrom(
+              shape: const CircleBorder(),
+            ),
+            onPressed: focused
+                ? _enteredMessages.trim().isEmpty
                     ? null
                     : () {
                         _sendChat(_enteredMessages.trim());
@@ -131,12 +158,25 @@ class _MessageInputState extends State<MessageInput> {
                         setState(() {
                           _enteredMessages = "";
                         });
-                      },
-                child: const Padding(
-                  padding: EdgeInsets.all(12.0),
-                  child: Icon(Icons.send),
-                ),
-              ),
+                      }
+                : () {
+                    _sendChat('\u{2705}');
+                    _focusNode.unfocus();
+                    _controller.clear();
+                    setState(() {
+                      _enteredMessages = "";
+                    });
+                  },
+            child: Padding(
+              padding: const EdgeInsets.all(12.0),
+              child: focused
+                  ? const Icon(
+                      Icons.send,
+                    )
+                  : const Icon(
+                      Icons.check_box,
+                      color: Colors.white,
+                    ),
             ),
           ),
         ],
