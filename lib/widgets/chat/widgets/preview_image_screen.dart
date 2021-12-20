@@ -1,4 +1,5 @@
 import 'package:check_bird/models/chat_type.dart';
+import 'package:check_bird/widgets/chat/models/message_provider.dart';
 import 'package:flutter/material.dart';
 import 'dart:io';
 
@@ -44,9 +45,7 @@ class PreviewImageScreen extends StatelessWidget {
                 margin: const EdgeInsets.only(bottom: 20),
                 child: ElevatedButton(
                     onPressed: () {
-                      // TODO
-                      // send image to FireStore
-
+                      MessageProvider().sendImg(image: image, chatType: chatType, groupId: groupId, topicId: topicId);
                       Navigator.of(context).pop();
                     },
                     child: const Icon(Icons.check))),

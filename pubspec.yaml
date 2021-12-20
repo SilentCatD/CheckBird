@@ -43,6 +43,8 @@ dependencies:
   paginate_firestore: ^1.0.3
   animations: ^2.0.2
   image_picker: ^0.8.4+4
+  firebase_storage: ^10.2.4
+  uuid: ^3.0.5
 
 dev_dependencies:
   flutter_test:

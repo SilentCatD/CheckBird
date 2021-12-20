@@ -43,6 +43,7 @@ class _MessagesLogState extends State<MessagesLog> {
                     photoUrl: messages.data![index].userImageUrl,
                     senderName: messages.data![index].userName,
                     sendAt: messages.data![index].created,
+                    mediaType: messages.data![index].mediaType,
                   );
                 },
                 reverse: true,

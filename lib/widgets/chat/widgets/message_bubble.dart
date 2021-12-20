@@ -1,3 +1,4 @@
+import 'package:check_bird/widgets/chat/models/media_type.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
@@ -10,8 +11,10 @@ class MessageBubble extends StatefulWidget {
     required this.isMe,
     required this.senderName,
     required this.sendAt,
+    required this.mediaType,
   }) : super(key: key);
 
+  final MediaType mediaType;
   final Timestamp sendAt;
   final String senderName;
   final String message;
@@ -39,12 +42,16 @@ class _MessageBubbleState extends State<MessageBubble> {
 
   Widget _buildMessageMainText(BoxConstraints constraint) {
     return Container(
-      margin: const EdgeInsets.symmetric(vertical: 4, horizontal: 8),
+      margin: widget.mediaType == MediaType.text
+          ? const EdgeInsets.symmetric(vertical: 4, horizontal: 8)
+          : null,
       child: Material(
         borderRadius: BorderRadius.circular(15),
-        color: true ? widget.isMe
-            ? Theme.of(context).colorScheme.secondary
-            : (showTime ? Colors.grey.shade400 : Colors.grey.shade300) :null,
+        color: widget.mediaType == MediaType.text
+            ? widget.isMe
+                ? Theme.of(context).colorScheme.secondary
+                : (showTime ? Colors.grey.shade400 : Colors.grey.shade300)
+            : null,
         child: InkWell(
           onTap: () {
             setState(() {
@@ -53,20 +60,27 @@ class _MessageBubbleState extends State<MessageBubble> {
           },
           borderRadius: BorderRadius.circular(15),
           child: Container(
-            constraints: BoxConstraints(maxWidth: widget.isMe ? constraint.maxWidth* 0.7 : constraint.maxWidth * 0.6),
+            constraints: BoxConstraints(
+                maxWidth: widget.isMe
+                    ? constraint.maxWidth * 0.7
+                    : constraint.maxWidth * 0.6),
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(15),
             ),
             padding: const EdgeInsets.all(8),
-            margin: const EdgeInsets.symmetric(vertical: 4, horizontal: 8),
-            child: Text(
-              widget.message,
-              softWrap: true,
-              style: TextStyle(
-                color: widget.isMe ? Colors.white : Colors.black,
-                fontSize: 16,
-              ),
-            ),
+            margin: widget.mediaType == MediaType.text
+                ? const EdgeInsets.symmetric(vertical: 4, horizontal: 8)
+                : null,
+            child: widget.mediaType == MediaType.text
+                ? Text(
+                    widget.message,
+                    softWrap: true,
+                    style: TextStyle(
+                      color: widget.isMe ? Colors.white : Colors.black,
+                      fontSize: 16,
+                    ),
+                  )
+                : Image.network(widget.message),
           ),
         ),
       ),
@@ -75,51 +89,53 @@ class _MessageBubbleState extends State<MessageBubble> {
 
   @override
   Widget build(BuildContext context) {
-    return LayoutBuilder(builder: (context, constraint) {
-      return Column(
-        children: [
-          if (showTime)
-            Container(
-              margin: const EdgeInsets.all(10),
-              padding: const EdgeInsets.all(10),
-              child: Text(
-                _sendAtString,
-                overflow: TextOverflow.ellipsis,
-                textAlign: TextAlign.center,
-                style: const TextStyle(color: Colors.grey),
+    return LayoutBuilder(
+      builder: (context, constraint) {
+        return Column(
+          children: [
+            if (showTime)
+              Container(
+                margin: const EdgeInsets.all(10),
+                padding: const EdgeInsets.all(10),
+                child: Text(
+                  _sendAtString,
+                  overflow: TextOverflow.ellipsis,
+                  textAlign: TextAlign.center,
+                  style: const TextStyle(color: Colors.grey),
+                ),
               ),
-            ),
-          Row(
-            mainAxisAlignment:
-                widget.isMe ? MainAxisAlignment.end : MainAxisAlignment.start,
-            children: [
-              if (!widget.isMe)
-                Container(
-                  margin: const EdgeInsets.all(10),
-                  child: CircleAvatar(
-                    backgroundImage: NetworkImage(widget.photoUrl),
+            Row(
+              mainAxisAlignment:
+                  widget.isMe ? MainAxisAlignment.end : MainAxisAlignment.start,
+              children: [
+                if (!widget.isMe)
+                  Container(
+                    margin: const EdgeInsets.all(10),
+                    child: CircleAvatar(
+                      backgroundImage: NetworkImage(widget.photoUrl),
+                    ),
+                  ),
+                Expanded(
+                  child: Column(
+                    crossAxisAlignment: widget.isMe
+                        ? CrossAxisAlignment.end
+                        : CrossAxisAlignment.start,
+                    children: [
+                      if (!widget.isMe)
+                        Text(
+                          widget.senderName,
+                          style:
+                              const TextStyle(color: Colors.grey, fontSize: 13),
+                        ),
+                      _buildMessageMainText(constraint),
+                    ],
                   ),
                 ),
-              Expanded(
-                child: Column(
-                  crossAxisAlignment: widget.isMe
-                      ? CrossAxisAlignment.end
-                      : CrossAxisAlignment.start,
-                  children: [
-                    if (!widget.isMe)
-                      Text(
-                        widget.senderName,
-                        style:
-                            const TextStyle(color: Colors.grey, fontSize: 13),
-                      ),
-                    _buildMessageMainText(constraint),
-                  ],
-                ),
-              ),
-            ],
-          ),
-        ],
-      );
-    });
+              ],
+            ),
+          ],
+        );
+      },
+    );
   }
 }
