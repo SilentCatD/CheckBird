@@ -1,6 +1,6 @@
 import 'package:check_bird/models/group_detail_argument.dart';
 import 'package:check_bird/screens/group_detail/group_detail_screen.dart';
-import 'package:check_bird/widgets/app_drawer.dart';
+import 'package:check_bird/services/authentication.dart';
 import 'package:flutter/material.dart';
 
 class GroupScreen extends StatelessWidget {
@@ -25,12 +25,12 @@ class GroupScreen extends StatelessWidget {
         ],
       ),
       body: Center(
-        child: ListTile(
+        child: Authentication.user == null ? const Text("You need to login to use this feature") : ListTile(
           tileColor: Colors.blue,
           onTap: () {
             Navigator.of(context).pushNamed(GroupDetailScreen.routeName, arguments: GroupDetailArgument(groupId: groupId));
           },
-          title: const Text('Fake group'),
+          title:  const Text('Fake group'),
           subtitle: Text(groupId),
         ),
       ),
