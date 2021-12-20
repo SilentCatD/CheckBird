@@ -1,5 +1,6 @@
 import 'package:check_bird/models/chat_type.dart';
 import 'package:check_bird/services/authentication.dart';
+import 'package:check_bird/widgets/chat/models/media_type.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
 class Message {
@@ -7,16 +8,19 @@ class Message {
     required this.isMe,
     required this.userId,
     required this.created,
-    required this.text,
+    required this.data,
     required this.userImageUrl,
     required this.userName,
     required this.id,
+    required this.mediaType,
   });
+
+  final MediaType mediaType;
   final String id;
   final String userName;
   final bool isMe;
   final Timestamp created;
-  final String text;
+  final String data;
   final String userId;
   final String userImageUrl;
 }
@@ -39,13 +43,25 @@ class MessageProvider {
   }
 
   Future<void> sendChat(
-      {required String text,
+      {required String data,
       required ChatType chatType,
       required String groupId,
-      String? topicId}) async {
+      String? topicId,
+      required MediaType mediaType}) async {
     var ref = _ref(chatType, groupId, topicId);
+
+    late String type;
+    if (mediaType == MediaType.text){
+      type = 'text';
+    }else if (mediaType == MediaType.image){
+      type = 'image';
+    }
+    // If there is send video feature in the future, another if check is needed here
+
+
     await ref.add({
-      'text': text,
+      'type':  type,
+      'data': data,
       'userId': Authentication.user!.uid,
       'userName': Authentication.user!.displayName,
       'created': Timestamp.now(),
@@ -59,10 +75,18 @@ class MessageProvider {
     return ref.orderBy('created', descending: true).snapshots().map((snapshot) {
       return snapshot.docs.map((msg) {
         var msgData = msg.data()! as Map<String, dynamic>;
+        late MediaType type;
+        if (msgData['type'] == 'text'){
+          type = MediaType.text;
+        }
+        else if (msgData['type'] == 'image'){
+          type = MediaType.image;
+        }
         return Message(
+          mediaType: type,
           id: msg.id,
           created: msgData['created'],
-          text: msgData['text'].toString(),
+          data: msgData['data'].toString(),
           isMe: Authentication.user!.uid == msgData['userId'],
           userId: msgData['userId'],
           userImageUrl: msgData['userImageUrl'],

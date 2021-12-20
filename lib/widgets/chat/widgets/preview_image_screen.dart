@@ -1,10 +1,19 @@
+import 'package:check_bird/models/chat_type.dart';
 import 'package:flutter/material.dart';
-import 'package:image_picker/image_picker.dart';
 import 'dart:io';
 
 class PreviewImageScreen extends StatelessWidget {
-  const PreviewImageScreen({Key? key, required this.imagePath}) : super(key: key);
+  const PreviewImageScreen(
+      {Key? key,
+      required this.imagePath,
+      required this.chatType,
+      required this.groupId,
+      required this.topicId})
+      : super(key: key);
   final String imagePath;
+  final String groupId;
+  final String? topicId;
+  final ChatType chatType;
 
   @override
   Widget build(BuildContext context) {
@@ -24,13 +33,23 @@ class PreviewImageScreen extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.end,
           mainAxisAlignment: MainAxisAlignment.spaceAround,
           children: [
-            Container(margin: const EdgeInsets.only(bottom: 20), child: ElevatedButton(onPressed: (){
-              Navigator.of(context).pop();
-            }, child: const Icon(Icons.cancel))),
-            Container(margin: const EdgeInsets.only(bottom: 20) ,child: ElevatedButton(onPressed: (){
-              // TODO
-              // send image to FireStore and return url string
-            }, child: const Icon(Icons.check))),
+            Container(
+                margin: const EdgeInsets.only(bottom: 20),
+                child: ElevatedButton(
+                    onPressed: () {
+                      Navigator.of(context).pop();
+                    },
+                    child: const Icon(Icons.cancel))),
+            Container(
+                margin: const EdgeInsets.only(bottom: 20),
+                child: ElevatedButton(
+                    onPressed: () {
+                      // TODO
+                      // send image to FireStore
+
+                      Navigator.of(context).pop();
+                    },
+                    child: const Icon(Icons.check))),
           ],
         ),
       ),

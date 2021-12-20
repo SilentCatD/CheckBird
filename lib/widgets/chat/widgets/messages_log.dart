@@ -38,7 +38,7 @@ class _MessagesLogState extends State<MessagesLog> {
                 itemBuilder: (context, index) {
                   return MessageBubble(
                     key: ValueKey(messages.data![index].id),
-                    message: messages.data![index].text,
+                    message: messages.data![index].data,
                     isMe: messages.data![index].isMe,
                     photoUrl: messages.data![index].userImageUrl,
                     senderName: messages.data![index].userName,
