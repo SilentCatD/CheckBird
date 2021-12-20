@@ -1,7 +1,6 @@
-import 'dart:math';
-
 import 'package:check_bird/models/chat_screen_arguments.dart';
 import 'package:check_bird/widgets//chat/models/message_provider.dart';
+import 'package:check_bird/widgets/chat/models/media_type.dart';
 import 'package:check_bird/widgets/chat/widgets/preview_image_screen.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:flutter/material.dart';
@@ -45,13 +44,22 @@ class _MessageInputState extends State<MessageInput> {
     XFile? image =
         await picker.pickImage(source: imageSource, imageQuality: 50);
     if (image == null) return;
-    Navigator.of(context).push(MaterialPageRoute(
-        builder: (context) => PreviewImageScreen(imagePath: image.path)));
+    Navigator.of(context).push(
+      MaterialPageRoute(
+        builder: (context) => PreviewImageScreen(
+          imagePath: image.path,
+          groupId: widget.chatScreenArguments.groupId,
+          topicId: widget.chatScreenArguments.topicId,
+          chatType: widget.chatScreenArguments.chatType,
+        ),
+      ),
+    );
   }
 
   void _sendChat(String text) async {
     await MessageProvider().sendChat(
-      text: text,
+      mediaType: MediaType.text,
+      data: text,
       topicId: widget.chatScreenArguments.topicId,
       groupId: widget.chatScreenArguments.groupId,
       chatType: widget.chatScreenArguments.chatType,

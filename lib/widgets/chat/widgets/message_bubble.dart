@@ -25,12 +25,6 @@ class MessageBubble extends StatefulWidget {
 class _MessageBubbleState extends State<MessageBubble> {
   bool showTime = false;
 
-  @override
-  void initState() {
-    // TODO: implement initState
-    super.initState();
-  }
-
   String get _sendAtString {
     final sendTime = widget.sendAt.toDate();
     final now = DateTime.now();
@@ -48,9 +42,9 @@ class _MessageBubbleState extends State<MessageBubble> {
       margin: const EdgeInsets.symmetric(vertical: 4, horizontal: 8),
       child: Material(
         borderRadius: BorderRadius.circular(15),
-        color: widget.isMe
+        color: true ? widget.isMe
             ? Theme.of(context).colorScheme.secondary
-            : (showTime ? Colors.grey.shade400 : Colors.grey.shade300),
+            : (showTime ? Colors.grey.shade400 : Colors.grey.shade300) :null,
         child: InkWell(
           onTap: () {
             setState(() {
