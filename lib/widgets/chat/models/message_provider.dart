@@ -5,6 +5,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'dart:io';
 import 'package:uuid/uuid.dart';
+import 'package:ntp/ntp.dart';
 
 class Message {
   const Message({
@@ -88,7 +89,7 @@ class MessageProvider {
       'data': data,
       'userId': Authentication.user!.uid,
       'userName': Authentication.user!.displayName,
-      'created': Timestamp.now(),
+      'created': await NTP.now(),
       'userImageUrl': Authentication.user!.photoURL,
     });
   }
