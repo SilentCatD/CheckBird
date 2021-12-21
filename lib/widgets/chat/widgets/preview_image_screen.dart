@@ -28,6 +28,7 @@ class PreviewImageScreen extends StatelessWidget {
         decoration: BoxDecoration(
           image: DecorationImage(
             image: Image.file(image).image,
+            fit: BoxFit.cover,
           ),
         ),
         child: Row(
@@ -42,13 +43,19 @@ class PreviewImageScreen extends StatelessWidget {
                     },
                     child: const Icon(Icons.cancel))),
             Container(
-                margin: const EdgeInsets.only(bottom: 20),
-                child: ElevatedButton(
-                    onPressed: () {
-                      MessageProvider().sendImg(image: image, chatType: chatType, groupId: groupId, topicId: topicId);
-                      Navigator.of(context).pop();
-                    },
-                    child: const Icon(Icons.check))),
+              margin: const EdgeInsets.only(bottom: 20),
+              child: ElevatedButton(
+                onPressed: () {
+                  MessageProvider().sendImg(
+                      image: image,
+                      chatType: chatType,
+                      groupId: groupId,
+                      topicId: topicId);
+                  Navigator.of(context).pop();
+                },
+                child: const Icon(Icons.check),
+              ),
+            ),
           ],
         ),
       ),

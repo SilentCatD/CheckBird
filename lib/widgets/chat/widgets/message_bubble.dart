@@ -1,4 +1,5 @@
 import 'package:check_bird/widgets/chat/models/media_type.dart';
+import 'package:check_bird/widgets/chat/widgets/image_view_chat_screen.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
@@ -127,7 +128,33 @@ class _MessageBubbleState extends State<MessageBubble> {
                           style:
                               const TextStyle(color: Colors.grey, fontSize: 13),
                         ),
-                      _buildMessageMainText(constraint),
+                      if (widget.mediaType == MediaType.text)
+                        TextMedia(
+                          constraints: constraint,
+                          text: widget.message,
+                          onPress: () {
+                            setState(() {
+                              showTime = !showTime;
+                            });
+                          },
+                          isMe: widget.isMe,
+                          showTime: showTime,
+                        )
+                      else if (widget.mediaType == MediaType.image)
+                        ImageMedia(
+                          isMe: widget.isMe,
+                          onPress: () {
+                            Navigator.of(context).push(
+                              MaterialPageRoute(
+                                builder: (context) => ImageViewChatScreen(
+                                  imageUrl: widget.message,
+                                ),
+                              ),
+                            );
+                          },
+                          constraints: constraint,
+                          imageUrl: widget.message,
+                        )
                     ],
                   ),
                 ),
@@ -136,6 +163,91 @@ class _MessageBubbleState extends State<MessageBubble> {
           ],
         );
       },
+    );
+  }
+}
+
+class ImageMedia extends StatelessWidget {
+  const ImageMedia(
+      {Key? key,
+      required this.isMe,
+      required this.onPress,
+      required this.constraints,
+      required this.imageUrl})
+      : super(key: key);
+  final String imageUrl;
+  final bool isMe;
+  final Function() onPress;
+  final BoxConstraints constraints;
+
+  @override
+  Widget build(BuildContext context) {
+    return InkWell(
+      onTap: onPress,
+      child: Container(
+        margin: const EdgeInsets.symmetric(vertical: 10, horizontal: 8),
+        constraints: BoxConstraints(
+            maxWidth:
+                isMe ? constraints.maxWidth * 0.8 : constraints.maxWidth * 0.8),
+        child: ClipRRect(
+          borderRadius: BorderRadius.circular(20),
+          child: Image.network(
+            imageUrl,
+            fit: BoxFit.cover,
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+class TextMedia extends StatelessWidget {
+  const TextMedia(
+      {Key? key,
+      required this.constraints,
+      required this.text,
+      required this.onPress,
+      required this.isMe,
+      required this.showTime})
+      : super(key: key);
+  final BoxConstraints constraints;
+  final String text;
+  final Function() onPress;
+  final bool isMe;
+  final bool showTime;
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      margin: const EdgeInsets.symmetric(vertical: 4, horizontal: 8),
+      child: Material(
+        borderRadius: BorderRadius.circular(15),
+        color: isMe
+            ? Theme.of(context).colorScheme.secondary
+            : (showTime ? Colors.grey.shade400 : Colors.grey.shade300),
+        child: InkWell(
+          onTap: onPress,
+          borderRadius: BorderRadius.circular(15),
+          child: Container(
+              constraints: BoxConstraints(
+                  maxWidth: isMe
+                      ? constraints.maxWidth * 0.7
+                      : constraints.maxWidth * 0.6),
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(15),
+              ),
+              padding: const EdgeInsets.all(8),
+              margin: const EdgeInsets.symmetric(vertical: 4, horizontal: 8),
+              child: Text(
+                text,
+                softWrap: true,
+                style: TextStyle(
+                  color: isMe ? Colors.white : Colors.black,
+                  fontSize: 16,
+                ),
+              )),
+        ),
+      ),
     );
   }
 }
