@@ -1,4 +1,5 @@
 import 'package:check_bird/models/group_detail_argument.dart';
+import 'package:check_bird/screens/focus/focus_screen.dart';
 import 'package:check_bird/screens/group_detail/group_detail_screen.dart';
 import 'package:check_bird/services/authentication.dart';
 import 'package:flutter/material.dart';
@@ -21,7 +22,9 @@ class GroupScreen extends StatelessWidget {
         title: const Text("Group"),
         actions: [
           IconButton(onPressed: (){}, icon: const Icon(Icons.group_add)),
-          IconButton(onPressed: (){}, icon: const Icon(Icons.adjust)),
+          IconButton(onPressed: (){
+            Navigator.of(context).pushNamed(FocusScreen.routeName);
+          }, icon: const Icon(Icons.adjust)),
         ],
       ),
       body: Center(

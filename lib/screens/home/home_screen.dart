@@ -1,3 +1,4 @@
+import 'package:check_bird/screens/focus/focus_screen.dart';
 import 'package:check_bird/services/authentication.dart';
 import 'package:check_bird/widgets/app_drawer.dart';
 import 'package:flutter/material.dart';
@@ -29,7 +30,9 @@ class HomeScreen extends StatelessWidget {
           ),
         ),
         actions: [
-          IconButton(onPressed: (){}, icon: const Icon(Icons.adjust)),
+          IconButton(onPressed: (){
+            Navigator.of(context).pushNamed(FocusScreen.routeName);
+          }, icon: const Icon(Icons.adjust)),
         ],
       ),
       body: const Center(
