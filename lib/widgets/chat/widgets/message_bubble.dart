@@ -188,7 +188,7 @@ class ImageMedia extends StatelessWidget {
         margin: const EdgeInsets.symmetric(vertical: 10, horizontal: 8),
         constraints: BoxConstraints(
             maxWidth:
-                isMe ? constraints.maxWidth * 0.8 : constraints.maxWidth * 0.8),
+                isMe ? constraints.maxWidth *0.8: constraints.maxWidth * 0.7),
         child: ClipRRect(
           borderRadius: BorderRadius.circular(20),
           child: Image.network(
