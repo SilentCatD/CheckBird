@@ -1,3 +1,4 @@
+import 'package:check_bird/screens/focus/before-focus-screen.dart';
 import 'package:check_bird/screens/flappy_bird/flappy_bird_screen.dart';
 import 'package:check_bird/screens/focus/focus_screen.dart';
 import 'package:check_bird/services/authentication.dart';
@@ -32,7 +33,7 @@ class HomeScreen extends StatelessWidget {
         ),
         actions: [
           IconButton(onPressed: (){
-            Navigator.of(context).pushNamed(FocusScreen.routeName);
+            Navigator.of(context).pushNamed(BeforeFocusScreen.routeName);
           }, icon: const Icon(Icons.adjust)),
         ],
       ),

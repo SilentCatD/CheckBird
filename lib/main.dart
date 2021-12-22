@@ -1,4 +1,5 @@
 import 'package:check_bird/screens/authentication/authenticate_screen.dart';
+import 'package:check_bird/screens/focus/before-focus-screen.dart';
 import 'package:check_bird/screens/flappy_bird/flappy_bird_screen.dart';
 import 'package:check_bird/screens/focus/focus_screen.dart';
 import 'package:check_bird/screens/group_detail/group_detail_screen.dart';
@@ -32,6 +33,7 @@ class MyApp extends StatelessWidget {
       theme: appTheme,
       initialRoute: WelcomeScreen.routeName,
       routes: {
+        BeforeFocusScreen.routeName: (context) => const BeforeFocusScreen(),
         FlappyBirdScreen.routeName: (context) => const FlappyBirdScreen(),
         FocusScreen.routeName: (context) => const FocusScreen(),
         GroupScreen.routeName: (context) => const GroupScreen(),
