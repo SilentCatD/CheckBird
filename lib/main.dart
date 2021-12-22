@@ -30,7 +30,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'CheckBird',
       theme: appTheme,
-      initialRoute: FlappyBirdScreen.routeName,//WelcomeScreen.routeName,
+      initialRoute: WelcomeScreen.routeName,
       routes: {
         FlappyBirdScreen.routeName: (context) => const FlappyBirdScreen(),
         FocusScreen.routeName: (context) => const FocusScreen(),

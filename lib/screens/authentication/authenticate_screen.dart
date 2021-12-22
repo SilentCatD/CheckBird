@@ -1,4 +1,5 @@
 import 'package:check_bird/screens/authentication/widgets/google_login_button.dart';
+import 'package:check_bird/screens/flappy_bird/flappy_bird_screen.dart';
 import 'package:flutter/material.dart';
 
 class AuthenticateScreen extends StatelessWidget {
@@ -15,12 +16,15 @@ class AuthenticateScreen extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.center,
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Container(
-              height: size.height * 0.5,
-              margin: const EdgeInsets.symmetric(horizontal: 20),
-              child: Image.asset(
-                'assets/images/checkbird-logo.png',
-                fit: BoxFit.contain,
+            GestureDetector(
+              onTap: () => Navigator.of(context).pushNamed(FlappyBirdScreen.routeName),
+              child: Container(
+                height: size.height * 0.5,
+                margin: const EdgeInsets.symmetric(horizontal: 20),
+                child: Image.asset(
+                  'assets/images/checkbird-logo.png',
+                  fit: BoxFit.contain,
+                ),
               ),
             ),
             SizedBox(
