@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'package:check_bird/screens/focus/button_widget.dart';
+import 'package:check_bird/screens/home/home_screen.dart';
 import 'package:flutter/material.dart';
 
 class FocusScreen extends StatefulWidget {
@@ -37,7 +38,7 @@ class _FocusScreenState extends State<FocusScreen> {
       resetTimer();
     }
 
-    timer = Timer.periodic(const Duration(milliseconds: 20), (_) => subTime());
+    timer = Timer.periodic(const Duration(seconds: 1), (_) => subTime());
   }
 
   void resetTimer() {
@@ -75,26 +76,66 @@ class _FocusScreenState extends State<FocusScreen> {
 
         ),
         onWillPop: () async {
-          return true;
+          return false;
         }
     );
   }
 
   Widget buildButtons() {
     final isRunning = timer == null ? false : timer!.isActive;
-    final isCompleted = (duration.inSeconds == 0 ||
-        duration.inSeconds != widget.countDownTime.inSeconds);
+    final isCompleted = (duration.inSeconds == 0);
     if (isRunning || !isCompleted) {
       return ButtonWidget(
         text: 'Cancel',
-        onClicked: stopTimer,
+        onClicked: () {
+          stopTimer(reset: false);
+          showDialog<String>(
+            context: context,
+            builder: (BuildContext context) => AlertDialog(
+              title: const Text('Notification'),
+              content: const Text('Do you want to give up'),
+              actions: <Widget>[
+                TextButton(
+                  onPressed: () =>
+                        Navigator.pushAndRemoveUntil(
+                        context,
+                        MaterialPageRoute(builder: (BuildContext context) => const HomeScreen()),
+                        ModalRoute.withName(HomeScreen.routeName) // Replace this with your root screen's route name (usually '/')
+                    ),
+                  child: const Text('Yes'),
+                ),
+                TextButton(
+                  onPressed: () {
+                    startTime(reset: false);
+                    Navigator.pop(context, 'No');
+                  },
+                  child: const Text('No'),
+                ),
+              ],
+            ),
+          );
+        },
       );
     } else {
-      return ButtonWidget(
-          text: "Again",
-          onClicked: () {
-            startTime();
-          });
+      return Row(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          ButtonWidget(
+              text: "Again",
+              onClicked: () {
+                startTime();
+              }),
+          const SizedBox(width: 15),
+          ButtonWidget(
+              text: "Exit",
+              onClicked: () {
+                Navigator.pushAndRemoveUntil(
+                    context,
+                    MaterialPageRoute(builder: (BuildContext context) => const HomeScreen()),
+                ModalRoute.withName(HomeScreen.routeName)); //
+              }),
+        ],
+      );
     }
   }
 
