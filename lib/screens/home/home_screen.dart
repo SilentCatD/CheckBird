@@ -1,3 +1,4 @@
+import 'package:check_bird/screens/flappy_bird/flappy_bird_screen.dart';
 import 'package:check_bird/screens/focus/focus_screen.dart';
 import 'package:check_bird/services/authentication.dart';
 import 'package:check_bird/widgets/app_drawer.dart';
