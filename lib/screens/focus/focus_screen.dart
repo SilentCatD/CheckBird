@@ -1,30 +1,27 @@
 import 'dart:async';
-import 'package:check_bird/screens/focus/before-focus-screen.dart';
 import 'package:check_bird/screens/focus/button_widget.dart';
 import 'package:flutter/material.dart';
 
 class FocusScreen extends StatefulWidget {
-  const FocusScreen({Key? key}) : super(key: key);
+  const FocusScreen({Key? key, required this.countDownTime}) : super(key: key);
   static const routeName = '/focus-screen';
-
+  final Duration countDownTime;
   @override
   _FocusScreenState createState() => _FocusScreenState();
 }
 
 class _FocusScreenState extends State<FocusScreen> {
-  Duration countDownTime = const Duration();
   Duration duration = const Duration();
   Timer? timer;
 
-  // @override
-  // void initState() {
-  //   super.initState();
-  //   startTime();
-  // }
+  @override
+  void initState() {
+    super.initState();
+    startTime();
+  }
 
   void subTime() {
     const subSeconds = -1;
-
     setState(() {
       final seconds = duration.inSeconds + subSeconds;
       if (seconds < 0) {
@@ -44,7 +41,7 @@ class _FocusScreenState extends State<FocusScreen> {
   }
 
   void resetTimer() {
-    setState(() => duration = countDownTime);
+    setState(() => duration = widget.countDownTime);
   }
 
   void stopTimer({bool reset = true}) {
@@ -56,9 +53,6 @@ class _FocusScreenState extends State<FocusScreen> {
 
   @override
   Widget build(BuildContext context) {
-    final inputTime = ModalRoute.of(context)!.settings.arguments as InputTime;
-    countDownTime = Duration(minutes: int.parse(inputTime.data));
-    print("-----------------------------------"+ countDownTime.inSeconds.toString());
     return WillPopScope(
         child: Scaffold(
           body: Stack(children: <Widget>[
@@ -89,7 +83,7 @@ class _FocusScreenState extends State<FocusScreen> {
   Widget buildButtons() {
     final isRunning = timer == null ? false : timer!.isActive;
     final isCompleted = (duration.inSeconds == 0 ||
-        duration.inSeconds != countDownTime.inSeconds);
+        duration.inSeconds != widget.countDownTime.inSeconds);
     if (isRunning || !isCompleted) {
       return ButtonWidget(
         text: 'Cancel',
@@ -112,7 +106,7 @@ class _FocusScreenState extends State<FocusScreen> {
         fit: StackFit.expand,
         children: [
           CircularProgressIndicator(
-            value: duration.inSeconds / countDownTime.inSeconds,
+            value: duration.inSeconds / widget.countDownTime.inSeconds,
             valueColor: const AlwaysStoppedAnimation(Colors.blue),
             strokeWidth: 12,
             backgroundColor: Colors.greenAccent,
