@@ -35,7 +35,6 @@ class MyApp extends StatelessWidget {
       routes: {
         BeforeFocusScreen.routeName: (context) => const BeforeFocusScreen(),
         FlappyBirdScreen.routeName: (context) => const FlappyBirdScreen(),
-        FocusScreen.routeName: (context) => const FocusScreen(),
         GroupScreen.routeName: (context) => const GroupScreen(),
         ShopScreen.routeName: (context) => const ShopScreen(),
         TaskScreen.routeName: (context) => const TaskScreen(),

@@ -53,7 +53,6 @@ class _BeforeFocusScreenState extends State<BeforeFocusScreen> {
                         text: "Start time",
                         onClicked: () {
                           if (inputTime.text.isNotEmpty) {
-                            print(inputTime.text);
                             Navigator.of(context).push(
                               MaterialPageRoute(builder: (BuildContext context) {
                                return FocusScreen(countDownTime: Duration(minutes: int.parse(inputTime.text)));
