@@ -1,4 +1,5 @@
-import 'package:check_bird/screens/focus/focus_screen.dart';
+import 'package:check_bird/screens/focus/focus-popup.dart';
+import 'package:check_bird/screens/focus/countdown_screen.dart';
 import 'package:check_bird/widgets/app_drawer.dart';
 import 'package:flutter/material.dart';
 
@@ -21,7 +22,7 @@ class TaskScreen extends StatelessWidget {
         actions: [
           IconButton(
               onPressed: () {
-                Navigator.of(context).pushNamed(FocusScreen.routeName);
+                FocusPopUp.myState.createAlertDialog(context);
               },
               icon: const Icon(Icons.adjust)),
         ],

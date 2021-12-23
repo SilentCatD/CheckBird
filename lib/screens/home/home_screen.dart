@@ -1,9 +1,9 @@
-import 'package:check_bird/screens/focus/before-focus-screen.dart';
 import 'package:check_bird/screens/flappy_bird/flappy_bird_screen.dart';
-import 'package:check_bird/screens/focus/focus_screen.dart';
+import 'package:check_bird/screens/focus/countdown_screen.dart';
 import 'package:check_bird/services/authentication.dart';
 import 'package:check_bird/widgets/app_drawer.dart';
 import 'package:flutter/material.dart';
+import 'package:check_bird/screens/focus/focus-popup.dart';
 
 class HomeScreen extends StatelessWidget {
   static const routeName = '/home-screen';
@@ -33,7 +33,7 @@ class HomeScreen extends StatelessWidget {
         ),
         actions: [
           IconButton(onPressed: (){
-            Navigator.of(context).pushNamed(BeforeFocusScreen.routeName);
+            FocusPopUp.myState.createAlertDialog(context);
           }, icon: const Icon(Icons.adjust)),
         ],
       ),
