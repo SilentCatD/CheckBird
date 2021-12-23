@@ -3,15 +3,15 @@ import 'package:check_bird/screens/focus/button_widget.dart';
 import 'package:check_bird/screens/home/home_screen.dart';
 import 'package:flutter/material.dart';
 
-class FocusScreen extends StatefulWidget {
-  const FocusScreen({Key? key, required this.countDownTime}) : super(key: key);
+class CountDownScreen extends StatefulWidget {
+  const CountDownScreen({Key? key, required this.countDownTime}) : super(key: key);
   static const routeName = '/focus-screen';
   final Duration countDownTime;
   @override
-  _FocusScreenState createState() => _FocusScreenState();
+  _CountDownScreenState createState() => _CountDownScreenState();
 }
 
-class _FocusScreenState extends State<FocusScreen> {
+class _CountDownScreenState extends State<CountDownScreen> {
   Duration duration = const Duration();
   Timer? timer;
 
@@ -69,7 +69,7 @@ class _FocusScreenState extends State<FocusScreen> {
                   children: [
                     buildTimer(context),
                     const SizedBox(height: 20),
-                    buildButtons()
+                    buildButtons(context)
                   ],
                 )),
           ]),
@@ -81,7 +81,7 @@ class _FocusScreenState extends State<FocusScreen> {
     );
   }
 
-  Widget buildButtons() {
+  Widget buildButtons(BuildContext contextMain) {
     final isRunning = timer == null ? false : timer!.isActive;
     final isCompleted = (duration.inSeconds == 0);
     if (isRunning || !isCompleted) {
@@ -96,18 +96,17 @@ class _FocusScreenState extends State<FocusScreen> {
               content: const Text('Do you want to give up'),
               actions: <Widget>[
                 TextButton(
-                  onPressed: () =>
-                        Navigator.pushAndRemoveUntil(
-                        context,
-                        MaterialPageRoute(builder: (BuildContext context) => const HomeScreen()),
-                        ModalRoute.withName(HomeScreen.routeName) // Replace this with your root screen's route name (usually '/')
-                    ),
+                  onPressed: () {
+                    Navigator.pop(context);
+                    Navigator.pop(contextMain);
+                  },
                   child: const Text('Yes'),
                 ),
                 TextButton(
                   onPressed: () {
                     startTime(reset: false);
-                    Navigator.pop(context, 'No');
+                    Navigator.pop(context);
+
                   },
                   child: const Text('No'),
                 ),
@@ -129,10 +128,7 @@ class _FocusScreenState extends State<FocusScreen> {
           ButtonWidget(
               text: "Exit",
               onClicked: () {
-                Navigator.pushAndRemoveUntil(
-                    context,
-                    MaterialPageRoute(builder: (BuildContext context) => const HomeScreen()),
-                ModalRoute.withName(HomeScreen.routeName)); //
+                Navigator.pop(contextMain);
               }),
         ],
       );
