@@ -9,6 +9,7 @@ import 'package:check_bird/screens/main_navigator/main_navigator_screen.dart';
 import 'package:check_bird/screens/not_implemented/not_implemented_screen.dart';
 import 'package:check_bird/screens/shop/shop_screen.dart';
 import 'package:check_bird/screens/task/task_screen.dart';
+import 'package:check_bird/screens/test/test_screen.dart';
 import 'package:check_bird/screens/welcome/welcome_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:check_bird/utils/theme.dart';
@@ -33,6 +34,7 @@ class MyApp extends StatelessWidget {
       theme: appTheme,
       initialRoute: WelcomeScreen.routeName,
       routes: {
+        TestScreen.routeName: (context) => const TestScreen(),
         BeforeFocusScreen.routeName: (context) => const BeforeFocusScreen(),
         FlappyBirdScreen.routeName: (context) => const FlappyBirdScreen(),
         GroupScreen.routeName: (context) => const GroupScreen(),
