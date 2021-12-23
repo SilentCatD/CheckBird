@@ -1,26 +1,24 @@
-import 'package:check_bird/screens/focus/focus-popup.dart';
-import 'package:check_bird/widgets/app_drawer.dart';
+import 'package:check_bird/widgets/focus/focus_widget.dart';
 import 'package:flutter/material.dart';
 
 class ShopScreen extends StatelessWidget {
   static const routeName = '/shop-screen';
+
   const ShopScreen({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return  Scaffold(
+    return Scaffold(
       appBar: AppBar(
         leading: IconButton(
-          onPressed: (){
+          onPressed: () {
             Scaffold.of(context).openDrawer();
           },
           icon: const Icon(Icons.menu),
         ),
         title: const Text("Shop"),
-        actions: [
-          IconButton(onPressed: (){
-            FocusPopUp.myState.createAlertDialog(context);
-          }, icon: const Icon(Icons.adjust)),
+        actions: const [
+          FocusButton(),
         ],
       ),
       body: const Center(

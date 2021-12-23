@@ -1,9 +1,5 @@
-import 'package:check_bird/screens/flappy_bird/flappy_bird_screen.dart';
-import 'package:check_bird/screens/focus/countdown_screen.dart';
-import 'package:check_bird/services/authentication.dart';
-import 'package:check_bird/widgets/app_drawer.dart';
+import 'package:check_bird/widgets/focus/focus_widget.dart';
 import 'package:flutter/material.dart';
-import 'package:check_bird/screens/focus/focus-popup.dart';
 
 class HomeScreen extends StatelessWidget {
   static const routeName = '/home-screen';
@@ -15,7 +11,7 @@ class HomeScreen extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         leading: IconButton(
-          onPressed: (){
+          onPressed: () {
             Scaffold.of(context).openDrawer();
           },
           icon: const Icon(Icons.menu),
@@ -31,10 +27,8 @@ class HomeScreen extends StatelessWidget {
             'assets/images/checkbird-logo.png',
           ),
         ),
-        actions: [
-          IconButton(onPressed: (){
-            FocusPopUp.myState.createAlertDialog(context);
-          }, icon: const Icon(Icons.adjust)),
+        actions: const [
+          FocusButton(),
         ],
       ),
       body: const Center(

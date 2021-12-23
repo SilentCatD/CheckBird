@@ -1,7 +1,7 @@
 import 'package:check_bird/models/group_detail_argument.dart';
-import 'package:check_bird/screens/focus/focus-popup.dart';
 import 'package:check_bird/screens/group_detail/group_detail_screen.dart';
 import 'package:check_bird/services/authentication.dart';
+import 'package:check_bird/widgets/focus/focus_widget.dart';
 import 'package:flutter/material.dart';
 
 class GroupScreen extends StatelessWidget {
@@ -22,9 +22,7 @@ class GroupScreen extends StatelessWidget {
         title: const Text("Group"),
         actions: [
           IconButton(onPressed: (){}, icon: const Icon(Icons.group_add)),
-          IconButton(onPressed: (){
-            FocusPopUp.myState.createAlertDialog(context);
-          }, icon: const Icon(Icons.adjust)),
+          FocusButton(),
         ],
       ),
       body: Center(
