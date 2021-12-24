@@ -1,3 +1,7 @@
+import 'dart:io';
+
+import 'package:check_bird/models/todo/todo.dart';
+import 'package:check_bird/models/todo/todo_list_controller.dart';
 import 'package:check_bird/screens/authentication/authenticate_screen.dart';
 import 'package:check_bird/screens/flappy_bird/flappy_bird_screen.dart';
 import 'package:check_bird/screens/group_detail/group_detail_screen.dart';
@@ -13,14 +17,26 @@ import 'package:flutter/material.dart';
 import 'package:check_bird/utils/theme.dart';
 import 'package:flutter/services.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:hive/hive.dart';
+import 'package:hive_flutter/hive_flutter.dart';
+import 'package:path_provider/path_provider.dart';
 
+import 'models/todo/todo_type.dart';
+
+Future loadLocalData() async {
+  await TodoListController().openBox();
+}
 
 void main() async{
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
-  SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]).then((_) {
-    runApp(const MyApp());
-  });
+  await SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]);
+  Directory directory = await getApplicationDocumentsDirectory();
+  await Hive.initFlutter(directory.path);
+  Hive.registerAdapter(TodoAdapter());
+  Hive.registerAdapter(TodoTypeAdapter());
+  await loadLocalData();
+  runApp(const MyApp());
 }
 
 class MyApp extends StatelessWidget {

@@ -55,7 +55,6 @@ class _WeekDayPickerState extends State<WeekDayPicker> {
     Size size = MediaQuery.of(context).size;
     return Container(
       color: widget.backgroundColor,
-      width: size.width,
       height: size.height * 0.05,
       child: SingleChildScrollView(
         scrollDirection: Axis.horizontal,

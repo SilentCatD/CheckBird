@@ -1,5 +1,4 @@
-import 'package:check_bird/models/chat_type.dart';
-
+import 'package:check_bird/models/chat/chat_type.dart';
 class ChatScreenArguments{
   final String groupId;
   final String? topicId;

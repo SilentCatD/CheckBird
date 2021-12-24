@@ -48,7 +48,6 @@ class _MainNavigatorScreenState extends State<MainNavigatorScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       drawer: const AppDrawer(),
-      extendBody: true,
       body: PageTransitionSwitcher(
         transitionBuilder: (Widget child, Animation<double> primaryAnimation,
             Animation<double> secondaryAnimation) {

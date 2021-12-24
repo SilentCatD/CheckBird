@@ -1,5 +1,5 @@
-import 'package:check_bird/models/chat_screen_arguments.dart';
-import 'package:check_bird/models/chat_type.dart';
+import 'package:check_bird/models/chat/chat_screen_arguments.dart';
+import 'package:check_bird/models/chat/chat_type.dart';
 import 'package:check_bird/widgets/chat/chat_widget.dart';
 import 'package:flutter/material.dart';
 

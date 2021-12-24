@@ -6,7 +6,7 @@ import 'package:flutter/material.dart';
 
 class GroupDetailScreen extends StatelessWidget {
   const GroupDetailScreen({Key? key}) : super(key: key);
-  static const routeName = '/group-detail-screen';
+  static const routeName = '/chat-detail-screen';
 
   @override
   Widget build(BuildContext context) {

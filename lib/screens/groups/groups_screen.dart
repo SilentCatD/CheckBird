@@ -31,7 +31,7 @@ class GroupScreen extends StatelessWidget {
           onTap: () {
             Navigator.of(context).pushNamed(GroupDetailScreen.routeName, arguments: GroupDetailArgument(groupId: groupId));
           },
-          title:  const Text('Fake group'),
+          title:  const Text('Fake chat'),
           subtitle: Text(groupId),
         ),
       ),

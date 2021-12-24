@@ -1,4 +1,4 @@
-import 'package:check_bird/models/chat_type.dart';
+import 'package:check_bird/models/chat/chat_type.dart';
 import 'package:check_bird/services/authentication.dart';
 import 'package:check_bird/widgets/chat/models/media_type.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';

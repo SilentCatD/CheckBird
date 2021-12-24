@@ -1,4 +1,4 @@
-import 'package:check_bird/models/chat_screen_arguments.dart';
+import 'package:check_bird/models/chat/chat_screen_arguments.dart';
 import 'package:check_bird/widgets/chat/widgets/message_input.dart';
 import 'package:check_bird/widgets/chat/widgets/messages_log.dart';
 import 'package:flutter/material.dart';
