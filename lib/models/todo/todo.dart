@@ -14,12 +14,27 @@ class Todo extends HiveObject {
     this.deadline,
     this.notification,
     this.weekdays,
+    this.groupId,
   });
+
   // or use this to avoid confusion
-  Todo.task({required this.todoName, this.todoDescription, this.color, this.deadline, this.notification}){
+  Todo.task(
+      {required this.todoName,
+      this.todoDescription,
+      this.color,
+      this.deadline,
+      this.notification,
+      this.groupId}) {
     type = TodoType.task;
   }
-  Todo.habit({required this.todoName, this.todoDescription, this.color, this.weekdays, this.notification}){
+
+  Todo.habit(
+      {required this.todoName,
+      this.todoDescription,
+      this.color,
+      this.weekdays,
+      this.notification,
+      this.groupId}) {
     type = TodoType.habit;
   }
 
@@ -45,19 +60,19 @@ class Todo extends HiveObject {
   DateTime? createdDate;
   @HiveField(10)
   DateTime? lastModified;
+  @HiveField(11)
+  String? groupId; // null if this to-do not belong to any group
 
   int get streak {
     // TODO: based on lastCompleted and weekdays to calculate habits streak
     return 0;
   }
 
-
   void toggleCompleted() {
     DateTime now = DateTime.now();
     if (lastCompleted == null) {
       lastCompleted = now;
-    }
-    else {
+    } else {
       lastCompleted = null;
     }
     lastModified = now;
@@ -76,6 +91,8 @@ class Todo extends HiveObject {
 
   Future<void> syncData() async {
     // TODO: sync this to firebase, last modified may help
+    // Check if this need sync or not ? if yes sync TO database or sync FROM database
+    // Sync accordingly
   }
 
   Map<String, dynamic> toJson() {
