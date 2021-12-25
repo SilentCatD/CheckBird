@@ -2,6 +2,7 @@ import 'dart:io';
 
 import 'package:check_bird/models/todo/todo.dart';
 import 'package:check_bird/models/todo/todo_list_controller.dart';
+import 'package:check_bird/screens/addTask/add_task_screen.dart';
 import 'package:check_bird/screens/authentication/authenticate_screen.dart';
 import 'package:check_bird/screens/flappy_bird/flappy_bird_screen.dart';
 import 'package:check_bird/screens/group_detail/group_detail_screen.dart';
@@ -58,6 +59,7 @@ class MyApp extends StatelessWidget {
         AuthenticateScreen.routeName : (context) => const AuthenticateScreen(),
         WelcomeScreen.routeName: (context) => const WelcomeScreen(),
         GroupDetailScreen.routeName: (context) => const GroupDetailScreen(),
+        AddTaskScreen.routeName: (context) => const AddTaskScreen(),
       },
       onUnknownRoute: (settings) {
         return MaterialPageRoute(builder: (context) {

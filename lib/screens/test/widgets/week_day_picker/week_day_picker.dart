@@ -25,7 +25,7 @@ class WeekDayPicker extends StatefulWidget {
 }
 
 class _WeekDayPickerState extends State<WeekDayPicker> {
-  final listOfDays = ['M', 'T', 'W', 'T', 'F', 'S', 'S'];
+  final listOfDays = ['Mo', 'Tu', 'We', 'Th', 'Fr', 'Sa', 'Su'];
   final onChangedReturn = [false, false, false, false, false, false, false];
   late List<DayItem> days;
 
