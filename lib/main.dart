@@ -4,6 +4,7 @@ import 'package:check_bird/models/todo/todo.dart';
 import 'package:check_bird/models/todo/todo_list_controller.dart';
 import 'package:check_bird/screens/addTask/add_task_screen.dart';
 import 'package:check_bird/screens/authentication/authenticate_screen.dart';
+import 'package:check_bird/screens/create_task/create_todo_screen.dart';
 import 'package:check_bird/screens/flappy_bird/flappy_bird_screen.dart';
 import 'package:check_bird/screens/group_detail/group_detail_screen.dart';
 import 'package:check_bird/screens/groups/groups_screen.dart';
@@ -49,6 +50,7 @@ class MyApp extends StatelessWidget {
       theme: appTheme,
       initialRoute: WelcomeScreen.routeName,
       routes: {
+        CreateTodoScreen.routeName: (context) => const CreateTodoScreen(),
         TestScreen.routeName: (context) => const TestScreen(),
         FlappyBirdScreen.routeName: (context) => const FlappyBirdScreen(),
         GroupScreen.routeName: (context) => const GroupScreen(),

@@ -1,4 +1,5 @@
 import 'package:animations/animations.dart';
+import 'package:check_bird/screens/create_task/create_todo_screen.dart';
 import 'package:check_bird/screens/groups/groups_screen.dart';
 import 'package:check_bird/screens/home/home_screen.dart';
 import 'package:check_bird/screens/shop/shop_screen.dart';
@@ -61,7 +62,9 @@ class _MainNavigatorScreenState extends State<MainNavigatorScreen> {
       floatingActionButton: FloatingActionButton(
         child: const Icon(Icons.add_task, size: 40,color: Colors.white,),
 
-        onPressed: () {},
+        onPressed: () {
+          Navigator.of(context).pushNamed(CreateTodoScreen.routeName);
+        },
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
       bottomNavigationBar: BottomAppBar(

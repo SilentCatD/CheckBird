@@ -49,6 +49,7 @@ dependencies:
   hive: ^2.0.5
   hive_flutter: ^1.1.0
   path_provider: ^2.0.2
+  flutter_material_color_picker: ^1.1.0+2
 
 dev_dependencies:
   flutter_test:
