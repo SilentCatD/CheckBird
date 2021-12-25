@@ -1,5 +1,5 @@
 import 'package:check_bird/models/chat/chat_screen_arguments.dart';
-import 'package:check_bird/widgets/chat/models/message_provider.dart';
+import 'package:check_bird/widgets/chat/models/messages_controller.dart';
 import 'package:check_bird/widgets/chat/widgets/message_bubble.dart';
 import 'package:flutter/material.dart';
 
@@ -20,7 +20,7 @@ class _MessagesLogState extends State<MessagesLog> {
   @override
   Widget build(BuildContext context) {
     return StreamBuilder<List<Message>>(
-      stream: MessageProvider().messagesStream(
+      stream: MessagesController().messagesStream(
           widget.chatScreenArguments.chatType,
           widget.chatScreenArguments.groupId,
           widget.chatScreenArguments.topicId),

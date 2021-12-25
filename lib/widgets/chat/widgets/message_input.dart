@@ -1,5 +1,5 @@
 import 'package:check_bird/models/chat/chat_screen_arguments.dart';
-import 'package:check_bird/widgets//chat/models/message_provider.dart';
+import 'package:check_bird/widgets/chat/models/messages_controller.dart';
 import 'package:check_bird/widgets/chat/models/media_type.dart';
 import 'package:check_bird/widgets/chat/widgets/preview_image_screen.dart';
 import 'package:image_picker/image_picker.dart';
@@ -57,7 +57,7 @@ class _MessageInputState extends State<MessageInput> {
   }
 
   void _sendChat(String text) async {
-    await MessageProvider().sendChat(
+    await MessagesController().sendChat(
       mediaType: MediaType.text,
       data: text,
       topicId: widget.chatScreenArguments.topicId,

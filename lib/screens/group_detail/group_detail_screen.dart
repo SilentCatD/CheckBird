@@ -29,9 +29,9 @@ class GroupDetailScreen extends StatelessWidget {
           ),
           body: TabBarView(
             children: [
-              GroupTopicTab(),
+              GroupTopicTab(groupId: args.groupId,),
               GroupChatTab(groupId: args.groupId,),
-              GroupInfoTab(),
+              GroupInfoTab(groupId: args.groupId,),
             ],
           ),
         ),

@@ -40,16 +40,4 @@ class TodoListController {
   void removeTodo(Todo todo) {
     todo.delete();
   }
-
-  void editTodo(Todo oldTodo, Todo newTodo) {
-    // only these field are editable
-    oldTodo.todoName = newTodo.todoName;
-    oldTodo.notification = newTodo.notification;
-    oldTodo.deadline = newTodo.deadline;
-    oldTodo.color = newTodo.color;
-    oldTodo.todoDescription = newTodo.todoDescription;
-    oldTodo.weekdays = newTodo.weekdays;
-    oldTodo.lastCompleted = DateTime.now();
-    oldTodo.save();
-  }
 }

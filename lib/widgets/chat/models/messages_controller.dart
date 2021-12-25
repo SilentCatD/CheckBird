@@ -29,7 +29,7 @@ class Message {
   final String userImageUrl;
 }
 
-class MessageProvider {
+class MessagesController {
   CollectionReference _textRef(
       ChatType chatType, String groupId, String? topicId) {
     var db = FirebaseFirestore.instance;
@@ -53,7 +53,7 @@ class MessageProvider {
     required String groupId,
     String? topicId,
   }) async {
-    var ref = FirebaseStorage.instance.ref().child('chatImg').child(groupId);
+    var ref = FirebaseStorage.instance.ref().child('img').child(groupId).child('group-chat');
     if (chatType == ChatType.topicChat) {
       ref = ref.child(topicId!);
     }

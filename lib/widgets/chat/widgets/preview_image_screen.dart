@@ -1,5 +1,5 @@
 import 'package:check_bird/models/chat/chat_type.dart';
-import 'package:check_bird/widgets/chat/models/message_provider.dart';
+import 'package:check_bird/widgets/chat/models/messages_controller.dart';
 import 'package:flutter/material.dart';
 import 'dart:io';
 
@@ -46,7 +46,7 @@ class PreviewImageScreen extends StatelessWidget {
               margin: const EdgeInsets.only(bottom: 20),
               child: ElevatedButton(
                 onPressed: () {
-                  MessageProvider().sendImg(
+                  MessagesController().sendImg(
                       image: image,
                       chatType: chatType,
                       groupId: groupId,

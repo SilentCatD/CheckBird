@@ -79,6 +79,25 @@ class Todo extends HiveObject {
     save();
   }
 
+  void editTodo({
+    String? newName,
+    String? newDescription,
+    int? newColor,
+    DateTime? newNotification,
+    DateTime? newDeadline,
+    List<bool>? newWeekdays,
+  }) {
+    // remember to check if anything changed before call this function, if not dont call it
+    // only these field are editable
+    todoName = newName ?? todoName;
+    todoDescription = (newDescription) ?? todoDescription;
+    color = newColor ?? color;
+    notification = newNotification ?? notification;
+    deadline = newDeadline ?? deadline;
+    weekdays = newWeekdays ?? weekdays;
+    save();
+  }
+
   bool get isCompleted {
     if (lastCompleted != null) {
       DateTime now = DateTime.now();
