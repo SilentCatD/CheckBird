@@ -31,7 +31,7 @@ class _CreatePostScreenState extends State<CreatePostScreen> {
         // extendBodyBehindAppBar: true,
         // backgroundColor: Colors.white,
         appBar: AppBar(
-          backgroundColor: Colors.white,
+          backgroundColor: Theme.of(context).canvasColor,
           elevation: 0,
           leading: IconButton(
             icon: const Icon(Icons.arrow_back),
