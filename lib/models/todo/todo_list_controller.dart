@@ -8,8 +8,8 @@ class TodoListController {
     await Hive.openBox<Todo>('todos');
   }
 
-  Future<void> syncTodo() async {
-    // TODO: last modified field of each todo may help
+  Future<void> syncTodoList() async {
+    // TODO: sync all todo to firebase using their own `sync` function
   }
 
   Future<void> closeBox() async {
@@ -19,13 +19,6 @@ class TodoListController {
   Box<Todo> getTodoList() {
     // use ValueListenableBuilder to listen to this
     return Hive.box<Todo>('todos');
-  }
-
-  void todoCompleted(Todo todo) {
-    DateTime now = DateTime.now();
-    todo.lastCompleted = now;
-    todo.lastModified = now;
-    todo.save();
   }
 
   void addTodo(Todo todo) {

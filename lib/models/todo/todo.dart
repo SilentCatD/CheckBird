@@ -5,6 +5,7 @@ part 'todo.g.dart';
 
 @HiveType(typeId: 0)
 class Todo extends HiveObject {
+  // you can use this if you want
   Todo({
     required this.todoName,
     this.todoDescription,
@@ -14,6 +15,13 @@ class Todo extends HiveObject {
     this.notification,
     this.weekdays,
   });
+  // or use this to avoid confusion
+  Todo.task({required this.todoName, this.todoDescription, this.color, this.deadline, this.notification}){
+    type = TodoType.task;
+  }
+  Todo.habit({required this.todoName, this.todoDescription, this.color, this.weekdays, this.notification}){
+    type = TodoType.habit;
+  }
 
   @HiveField(0)
   String? id;
@@ -22,7 +30,7 @@ class Todo extends HiveObject {
   @HiveField(2)
   String? todoDescription;
   @HiveField(3)
-  final TodoType type;
+  late final TodoType type;
   @HiveField(4)
   int? color;
   @HiveField(5)
@@ -43,6 +51,19 @@ class Todo extends HiveObject {
     return 0;
   }
 
+
+  void toggleCompleted() {
+    DateTime now = DateTime.now();
+    if (lastCompleted == null) {
+      lastCompleted = now;
+    }
+    else {
+      lastCompleted = null;
+    }
+    lastModified = now;
+    save();
+  }
+
   bool get isCompleted {
     if (lastCompleted != null) {
       DateTime now = DateTime.now();
@@ -51,6 +72,10 @@ class Todo extends HiveObject {
           now.day == lastCompleted!.day;
     }
     return false;
+  }
+
+  Future<void> syncData() async {
+    // TODO: sync this to firebase, last modified may help
   }
 
   Map<String, dynamic> toJson() {
