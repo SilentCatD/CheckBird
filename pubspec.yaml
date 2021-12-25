@@ -49,6 +49,8 @@ dependencies:
   hive: ^2.0.5
   hive_flutter: ^1.1.0
   path_provider: ^2.0.2
+  flutter_local_notifications: ^9.1.5
+  flutter_speed_dial: ^5.0.0+1
 
 dev_dependencies:
   flutter_test:
