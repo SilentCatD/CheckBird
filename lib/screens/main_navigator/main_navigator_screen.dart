@@ -4,7 +4,6 @@ import 'package:check_bird/screens/groups/groups_screen.dart';
 import 'package:check_bird/screens/home/home_screen.dart';
 import 'package:check_bird/screens/shop/shop_screen.dart';
 import 'package:check_bird/screens/task/task_screen.dart';
-import 'package:check_bird/services/authentication.dart';
 import 'package:check_bird/widgets/app_drawer.dart';
 import 'package:flutter/material.dart';
 
@@ -63,7 +62,26 @@ class _MainNavigatorScreenState extends State<MainNavigatorScreen> {
         child: const Icon(Icons.add_task, size: 40,color: Colors.white,),
 
         onPressed: () {
-          Navigator.of(context).pushNamed(CreateTodoScreen.routeName);
+          Navigator.of(context).push(
+            PageRouteBuilder(
+                pageBuilder: (BuildContext context, Animation<double> animation,
+                    Animation<double> secondaryAnimation) =>
+                const CreateTodoScreen(),
+                transitionsBuilder:
+                    (context, animation, secondaryAnimation, child) {
+                  const begin = Offset(0.0, 1.0);
+                  const end = Offset.zero;
+                  const curve = Curves.ease;
+
+                  var tween = Tween(begin: begin, end: end)
+                      .chain(CurveTween(curve: curve));
+
+                  return SlideTransition(
+                    position: animation.drive(tween),
+                    child: child,
+                  );
+                }),
+          );
         },
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,

@@ -1,4 +1,4 @@
-import 'package:check_bird/screens/group_detail/widgets/create_post_screen.dart';
+import 'package:check_bird/screens/create_post/create_post_screen.dart';
 import 'package:flutter/material.dart';
 
 class GroupTopicTab extends StatelessWidget {
