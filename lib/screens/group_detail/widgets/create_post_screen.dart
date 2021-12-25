@@ -14,10 +14,13 @@ class CreatePostScreen extends StatefulWidget {
 class _CreatePostScreenState extends State<CreatePostScreen> {
   // When finished, return post object by Navigator.of(context).pop(newPost);
 
-  bool _hasContent = false;
+  bool get _hasContent{
+   return _image != null || _enteredText.trim().isNotEmpty;
+  }
   // change type to File?
-  String? image;
-
+  String? _image;
+  String _enteredText = "";
+  final _textController = TextEditingController();
   final _focusNode = FocusNode();
 
   @override
@@ -93,24 +96,30 @@ class _CreatePostScreenState extends State<CreatePostScreen> {
                   height: size.height * 0.08,
                 ),
                 TextField(
+                  controller: _textController,
                   focusNode: _focusNode,
                   keyboardType: TextInputType.multiline,
                   maxLines: null,
                   decoration:
                       const InputDecoration(hintText: "What's on your mind?"),
+                  onChanged: (value) {
+                    setState(() {
+                      _enteredText =value;
+                    });
+                  },
                 ),
                 SizedBox(
                   height: size.height * 0.05,
                 ),
                 Align(
                   alignment: Alignment.topRight,
-                  child: image == null ? ElevatedButton(
+                  child: _image == null ? ElevatedButton(
                     child: const Text("Add image"),
                     onPressed: (){
                       if (_focusNode.hasPrimaryFocus) _focusNode.unfocus();
                       setState(() {
                         // TODO: open img picker
-                        image = 'a';
+                        _image = 'a';
                       });
                     },
                   ) : Row(
@@ -121,7 +130,7 @@ class _CreatePostScreenState extends State<CreatePostScreen> {
                         onPressed: (){
                           if (_focusNode.hasPrimaryFocus) _focusNode.unfocus();
                           setState(() {
-                            image = null;
+                            _image = null;
                           });
                         },
                       ),
