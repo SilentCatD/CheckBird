@@ -20,15 +20,24 @@ class _CreateTodoScreenState extends State<CreateTodoScreen> {
   final _formKey = GlobalKey<FormState>();
   String _todoName = "";
   String _todoDescription = "";
-  TodoType todoType = TodoType.task;
+  TodoType _todoType = TodoType.task;
   var _backgroundColor = Colors.white;
   var _textColor = Colors.black;
+  DateTime? _dueDate;
+  DateTime? _notification;
 
   void _submit() {
     FocusScope.of(context).unfocus();
     var isValid = _formKey.currentState!.validate();
     if (!isValid) return;
     _formKey.currentState!.save();
+    print(_todoName);
+    print(_todoDescription);
+    print(_backgroundColor);
+    print(_textColor);
+    print(_todoType);
+    print(_dueDate);
+    print(_notification);
   }
 
   @override
@@ -41,66 +50,72 @@ class _CreateTodoScreenState extends State<CreateTodoScreen> {
           appBar: AppBar(),
         ),
         body: SingleChildScrollView(
-          child: Column(
-            children: [
-              Form(
-                autovalidateMode: AutovalidateMode.onUserInteraction,
-                key: _formKey,
-                child: Padding(
-                  padding: const EdgeInsets.all(20.0),
-                  child: Column(
-                    children: [
-                      TodoNameInput(onSaved: (value) {
-                        _todoName = value;
-                      }),
-                      SizedBox(
-                        height: size.height * 0.02,
-                      ),
-                      SizedBox(
-                        height: size.height * 0.25,
-                        child: TodoDescriptionInput(onSaved: (value) {
-                          _todoDescription = value;
-                        }),
-                      ),
-                    ],
-                  ),
-                ),
-              ),
-              PickColor(
-                backgroundColor: _backgroundColor,
-                textColor: _textColor,
-                setBackgroundColor: (color) {
-                  setState(() {
-                    _backgroundColor = color;
-                  });
-                },
-                setTextColor: (color) {
-                  setState(() {
-                    _textColor = color;
-                  });
-                },
-              ),
-              ToggleHabitTask(
-                  todoType: todoType,
-                  onChanged: (_) {
-                    setState(() {
-                      FocusManager.instance.primaryFocus?.unfocus();
-                      if (todoType == TodoType.habit) {
-                        todoType = TodoType.task;
-                      } else {
-                        todoType = TodoType.habit;
-                      }
-                    });
+          child: Form(
+            autovalidateMode: AutovalidateMode.onUserInteraction,
+            key: _formKey,
+            child: Padding(
+              padding: const EdgeInsets.all(20.0),
+              child: Column(
+                children: [
+                  TodoNameInput(onSaved: (value) {
+                    _todoName = value;
                   }),
-
-              if(todoType == TodoType.task) const TaskCustom(),
-              if (todoType == TodoType.habit) const HabitCustom(),
-              ElevatedButton(
-                  onPressed: () {
-                    _submit();
-                  },
-                  child: const Text("Add todo"))
-            ],
+                  SizedBox(
+                    height: size.height * 0.02,
+                  ),
+                  SizedBox(
+                    height: size.height * 0.25,
+                    child: TodoDescriptionInput(onSaved: (value) {
+                      _todoDescription = value;
+                    }),
+                  ),
+                  PickColor(
+                    backgroundColor: _backgroundColor,
+                    textColor: _textColor,
+                    setBackgroundColor: (color) {
+                      setState(() {
+                        _backgroundColor = color;
+                      });
+                    },
+                    setTextColor: (color) {
+                      setState(() {
+                        _textColor = color;
+                      });
+                    },
+                  ),
+                  ToggleHabitTask(
+                      todoType: _todoType,
+                      onChanged: (_) {
+                        setState(() {
+                          FocusManager.instance.primaryFocus?.unfocus();
+                          if (_todoType == TodoType.habit) {
+                            _todoType = TodoType.task;
+                          } else {
+                            _todoType = TodoType.habit;
+                          }
+                        });
+                      }),
+                  if (_todoType == TodoType.task)
+                    TaskCustom(
+                      initialDate: _dueDate,
+                      onChangedDue: (value) {
+                        setState(() {
+                          _dueDate = DateTime.parse(value);
+                        });
+                      },
+                      onChangedNotification: (value) {
+                        _notification = value;
+                      },
+                    ),
+                  if (_todoType == TodoType.habit) const HabitCustom(),
+                  ElevatedButton(
+                      onPressed: () {
+                        _submit();
+                      },
+                      child: const Text("Add todo"))
+                ],
+              ),
+            ),
           ),
         ),
       ),

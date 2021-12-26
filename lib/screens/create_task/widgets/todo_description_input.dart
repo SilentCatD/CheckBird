@@ -13,7 +13,7 @@ class TodoDescriptionInput extends StatelessWidget {
       textAlignVertical: TextAlignVertical.top,
       decoration: const InputDecoration(
         hintText: "Todo description...",
-        hintStyle: TextStyle(letterSpacing: 2),
+        hintStyle: TextStyle(letterSpacing: 1),
         border: OutlineInputBorder(),
       ),
       onSaved: (value) {

@@ -11,7 +11,7 @@ class TodoNameInput extends StatelessWidget {
       maxLines: 1,
       maxLength: 50,
       decoration: const InputDecoration(
-        hintStyle: TextStyle(letterSpacing: 2),
+        hintStyle: TextStyle(letterSpacing: 1),
         hintText: "Todo name...",
         border: OutlineInputBorder(),
       ),

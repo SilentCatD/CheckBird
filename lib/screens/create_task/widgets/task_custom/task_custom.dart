@@ -1,10 +1,128 @@
+import 'package:date_time_picker/date_time_picker.dart';
 import 'package:flutter/material.dart';
 
-class TaskCustom extends StatelessWidget {
-  const TaskCustom({Key? key}) : super(key: key);
+int daysBetween(DateTime from, DateTime to) {
+  from = DateTime(from.year, from.month, from.day);
+  to = DateTime(to.year, to.month, to.day);
+  return (to.difference(from).inHours / 24).round();
+}
+
+enum Notification {
+  none, // not set notification
+  db1, // 1 day before
+  db2, // 2 day before
+  db3, // 3 day before
+}
+
+class TaskCustom extends StatefulWidget {
+  const TaskCustom(
+      {Key? key, required this.initialDate, required this.onChangedDue, required this.onChangedNotification})
+      : super(key: key);
+  final DateTime? initialDate;
+  final void Function(String value) onChangedDue;
+  final void Function(DateTime? dateTime) onChangedNotification;
+
 
   @override
+  State<TaskCustom> createState() => _TaskCustomState();
+}
+
+class _TaskCustomState extends State<TaskCustom> {
+  static final Map<Notification, String> _notiType = {
+    Notification.none: "Don't remind me",
+    Notification.db1: "1 Day before",
+    Notification.db2: "2 Day before",
+    Notification.db3: "3 Day before",
+  };
+
+  DateTime _pickedDay = DateTime.now();
+  Notification _pickedNotiType = Notification.none;
+  @override
   Widget build(BuildContext context) {
-    return const Center(child: Text("Custom Task"),);
+    return Column(
+      children: [
+        const ListTile(
+          title: Text(
+            "Due date",
+            style: TextStyle(fontWeight: FontWeight.bold),
+          ),
+        ),
+        DateTimePicker(
+          initialValue: widget.initialDate == null
+              ? _pickedDay.add(const Duration(minutes: 5)).toString()
+              : widget.initialDate.toString(),
+          type: DateTimePickerType.dateTimeSeparate,
+          firstDate: DateTime.now(),
+          lastDate: DateTime(DateTime.now().year + 5),
+          onChanged: (value) {
+            setState(() {
+              _pickedDay = DateTime.parse(value);
+            });
+            widget.onChangedDue(value);
+          },
+          errorInvalidText: "Test",
+          validator: (value) {
+            if (_pickedDay.isBefore(DateTime.now())) {
+              return "Can't schedule a task in the past!";
+            }
+            return null;
+          },
+          onSaved: (value) {
+            widget.onChangedDue(value!);
+          },
+        ),
+        const ListTile(
+          title: Text(
+            "Notification",
+            style: TextStyle(fontWeight: FontWeight.bold),
+          ),
+        ),
+        DropdownButton<Notification>(
+          value: _pickedNotiType,
+          items: [
+            DropdownMenuItem(
+              child: Text(_notiType[Notification.none]!),
+              value: Notification.none,
+            ),
+            if (daysBetween(DateTime.now(), _pickedDay) >= 1)
+              DropdownMenuItem(
+                child: Text(_notiType[Notification.db1]!),
+                value: Notification.db1,
+              ),
+            if (daysBetween(DateTime.now(), _pickedDay) >= 2)
+              DropdownMenuItem(
+                child: Text(_notiType[Notification.db2]!),
+                value: Notification.db2,
+              ),
+            if (daysBetween(DateTime.now(), _pickedDay) >= 3)
+              DropdownMenuItem(
+                child: Text(_notiType[Notification.db3]!),
+                value: Notification.db3,
+              ),
+          ],
+          onChanged: (value) {
+            setState(() {
+              _pickedNotiType = value!;
+            });
+            Duration? daysDuration;
+            if(value == Notification.db1){
+              daysDuration = const Duration(days: 1);
+            }
+            else if(value == Notification.db2){
+              daysDuration = const Duration(days: 2);
+            }
+            else if(value == Notification.db3){
+              daysDuration = const Duration(days: 3);
+            }
+
+            if(daysDuration == null) {
+              widget.onChangedNotification(null);
+            } else {
+              widget.onChangedNotification(_pickedDay.subtract(daysDuration));
+            }
+          },
+        )
+      ],
+    );
   }
 }
