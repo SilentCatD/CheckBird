@@ -1,3 +1,4 @@
+import 'package:check_bird/screens/group_detail/widgets/posts_log/posts_log.dart';
 import 'package:flutter/material.dart';
 
 import 'create_post/create_post_screen.dart';
@@ -9,7 +10,7 @@ class GroupTopicTab extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Container(),
+      body: PostsLog(groupId: groupId,),
       floatingActionButton: FloatingActionButton(
         child: const Icon(Icons.add),
         onPressed: () async {
