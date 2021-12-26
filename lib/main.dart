@@ -12,6 +12,7 @@ import 'package:check_bird/screens/not_implemented/not_implemented_screen.dart';
 import 'package:check_bird/screens/shop/shop_screen.dart';
 import 'package:check_bird/screens/task/task_screen.dart';
 import 'package:check_bird/screens/welcome/welcome_screen.dart';
+import 'package:check_bird/services/notifactions.dart';
 import 'package:flutter/material.dart';
 import 'package:check_bird/utils/theme.dart';
 import 'package:flutter/services.dart';
@@ -19,8 +20,6 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:hive/hive.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:path_provider/path_provider.dart';
-import 'package:check_bird/utils/notifications.dart';
-
 import 'models/todo/todo_type.dart';
 
 Future loadLocalData() async {

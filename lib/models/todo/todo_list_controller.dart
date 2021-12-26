@@ -1,3 +1,5 @@
+import 'package:check_bird/models/todo/todo_type.dart';
+import 'package:check_bird/services/notifactions.dart';
 import 'package:hive/hive.dart';
 import 'package:uuid/uuid.dart';
 
@@ -30,10 +32,13 @@ class TodoListController {
     todo.createdDate = now;
     todo.lastModified = now;
     todoList.add(todo);
-    
-    String title = "Notification CheckBird";
-    String body = "Deadline: " + todo.deadline.toString();
-    await NotificationService().createScheduleNotification(todo.id.hashCode, title, body, todo.notification!, false);
+
+    if(todo.type == TodoType.task && todo.notification != null) {
+      String title = "Notification CheckBird";
+      String body = "Deadline: " + todo.deadline.toString();
+      await NotificationService().createScheduleNotification(
+          todo.id.hashCode, title, body, todo.notification!, false);
+    }
   }
 
   void removeAllTodo() {

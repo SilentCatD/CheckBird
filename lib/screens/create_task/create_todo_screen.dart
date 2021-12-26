@@ -88,6 +88,7 @@ class _CreateTodoScreenState extends State<CreateTodoScreen> {
             notification: _notification),
       );
     }
+    Navigator.of(context).pop();
   }
 
   @override
