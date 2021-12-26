@@ -1,8 +1,17 @@
-import 'package:check_bird/services/authentication.dart';
-import 'package:flutter/material.dart';
 import 'dart:io';
 
+import 'package:check_bird/screens/create_post/widgets/image_type_dialog.dart';
+import 'package:check_bird/services/authentication.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:image_cropper/image_cropper.dart';
+import 'package:image_picker/image_picker.dart';
+
+enum AppState {
+  free,
+  picked,
+  cropped,
+}
 
 class CreatePostScreen extends StatefulWidget {
   const CreatePostScreen({Key? key}) : super(key: key);
@@ -12,22 +21,77 @@ class CreatePostScreen extends StatefulWidget {
 }
 
 class _CreatePostScreenState extends State<CreatePostScreen> {
-  // When finished, return post object by Navigator.of(context).pop(newPost);
-
-  bool get _hasContent{
-   return _image != null || _enteredText.trim().isNotEmpty;
+  bool get _hasContent {
+    return _image != null || _enteredText.trim().isNotEmpty;
   }
+
   // change type to File?
-  String? _image;
+  File? _image;
   String _enteredText = "";
   final _textController = TextEditingController();
   final _focusNode = FocusNode();
+  AppState state = AppState.free;
+
+  Future<void> _pickImage(ImageSource imageSource) async {
+    var _pickedImg = await ImagePicker().pickImage(source: imageSource);
+    if (_pickedImg != null) {
+      setState(() {
+        _image = File(_pickedImg.path);
+        state = AppState.picked;
+      });
+    }
+  }
+
+  void _clearImage() {
+    _image = null;
+    setState(() {
+      state = AppState.free;
+    });
+  }
+
+  Future<void> _cropImage() async {
+    File? croppedFile = await ImageCropper.cropImage(
+        sourcePath: _image!.path,
+        aspectRatioPresets: Platform.isAndroid
+            ? [
+                CropAspectRatioPreset.square,
+                CropAspectRatioPreset.ratio3x2,
+                CropAspectRatioPreset.original,
+                CropAspectRatioPreset.ratio4x3,
+                CropAspectRatioPreset.ratio16x9
+              ]
+            : [
+                CropAspectRatioPreset.original,
+                CropAspectRatioPreset.square,
+                CropAspectRatioPreset.ratio3x2,
+                CropAspectRatioPreset.ratio4x3,
+                CropAspectRatioPreset.ratio5x3,
+                CropAspectRatioPreset.ratio5x4,
+                CropAspectRatioPreset.ratio7x5,
+                CropAspectRatioPreset.ratio16x9
+              ],
+        androidUiSettings: const AndroidUiSettings(
+            toolbarTitle: 'Cropper',
+            toolbarColor: Colors.deepOrange,
+            toolbarWidgetColor: Colors.white,
+            initAspectRatio: CropAspectRatioPreset.original,
+            lockAspectRatio: false),
+        iosUiSettings: const IOSUiSettings(
+          title: 'Cropper',
+        ));
+    if (croppedFile != null) {
+      _image = croppedFile;
+      setState(() {
+        state = AppState.cropped;
+      });
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
     return GestureDetector(
-      onTap: (){
+      onTap: () {
         FocusManager.instance.primaryFocus!.unfocus();
       },
       child: Scaffold(
@@ -104,7 +168,7 @@ class _CreatePostScreenState extends State<CreatePostScreen> {
                       const InputDecoration(hintText: "What's on your mind?"),
                   onChanged: (value) {
                     setState(() {
-                      _enteredText =value;
+                      _enteredText = value;
                     });
                   },
                 ),
@@ -113,45 +177,66 @@ class _CreatePostScreenState extends State<CreatePostScreen> {
                 ),
                 Align(
                   alignment: Alignment.topRight,
-                  child: _image == null ? ElevatedButton(
-                    child: const Text("Add image"),
-                    onPressed: (){
-                      if (_focusNode.hasPrimaryFocus) _focusNode.unfocus();
-                      setState(() {
-                        // TODO: open img picker
-                        _image = 'a';
-                      });
-                    },
-                  ) : Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                    children: [
-                      ElevatedButton(
-                        child: const Text("Remove"),
-                        onPressed: (){
-                          if (_focusNode.hasPrimaryFocus) _focusNode.unfocus();
-                          setState(() {
-                            _image = null;
-                          });
-                        },
-                      ),
-                      ElevatedButton(
-                        child: const Text("Edit"),
-                        onPressed: (){
-                          if (_focusNode.hasPrimaryFocus) _focusNode.unfocus();
-                          // TODO: open img cropper
-                        },
-                      ),
-                      ElevatedButton(
-                        child: const Text("Pick another"),
-                        onPressed: (){
-                          if (_focusNode.hasPrimaryFocus) _focusNode.unfocus();
-                          // TODO: open img picker
-
-                        },
-                      ),
-                    ],
-                  ),
+                  child: _image == null
+                      ? ElevatedButton(
+                          child: const Text("Add image"),
+                          onPressed: () async {
+                            if (_focusNode.hasPrimaryFocus) _focusNode.unfocus();
+                            final useCam = await showDialog(context: context, builder: (context) {
+                              return const ImageTypeDialog();
+                            });
+                            if(useCam == null) return;
+                            if(useCam){
+                              await _pickImage(ImageSource.camera);
+                            }else{
+                              await _pickImage(ImageSource.gallery);
+                            }
+                            await _cropImage();
+                          },
+                        )
+                      : Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                          children: [
+                            ElevatedButton(
+                              child: const Text("Remove"),
+                              onPressed: () {
+                                if (_focusNode.hasPrimaryFocus) _focusNode.unfocus();
+                                _clearImage();
+                              },
+                            ),
+                            ElevatedButton(
+                              child: const Text("Edit"),
+                              onPressed: () async{
+                                if (_focusNode.hasPrimaryFocus) _focusNode.unfocus();
+                                await _cropImage();
+                              },
+                            ),
+                            ElevatedButton(
+                              child: const Text("Pick another"),
+                              onPressed: () async {
+                                if (_focusNode.hasPrimaryFocus) _focusNode.unfocus();
+                                _clearImage();
+                                final useCam = await showDialog(context: context, builder: (context) {
+                                  return const ImageTypeDialog();
+                                });
+                                if(useCam == null) return;
+                                if(useCam){
+                                  await _pickImage(ImageSource.camera);
+                                }else{
+                                  await _pickImage(ImageSource.gallery);
+                                }
+                                await _cropImage();
+                              },
+                            ),
+                          ],
+                        ),
                 ),
+                if (_image != null)
+                  Center(
+                    child: SizedBox(
+                        width: size.width,
+                        child: Image.file(_image!)),
+                  ),
               ],
             ),
           ),

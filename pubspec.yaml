@@ -51,6 +51,7 @@ dependencies:
   path_provider: ^2.0.2
   flutter_material_color_picker: ^1.1.0+2
   date_time_picker: ^2.1.0
+  image_cropper: ^1.4.1
 
 dev_dependencies:
   flutter_test:
