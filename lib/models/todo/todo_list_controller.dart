@@ -1,6 +1,6 @@
 import 'package:hive/hive.dart';
 import 'package:uuid/uuid.dart';
-
+import 'package:check_bird/utils/notifications.dart';
 import 'todo.dart';
 
 class TodoListController {
@@ -21,7 +21,7 @@ class TodoListController {
     return Hive.box<Todo>('todos');
   }
 
-  void addTodo(Todo todo) {
+  Future<void> addTodo(Todo todo)  async{
     var todoList = getTodoList();
     String id = const Uuid().v1();
     DateTime now = DateTime.now();
@@ -30,6 +30,9 @@ class TodoListController {
     todo.createdDate = now;
     todo.lastModified = now;
     todoList.add(todo);
+    String title = "Notification CheckBird";
+    String body = "Deadline: " + todo.deadline.toString();
+    await NotificationService().createScheduleNotification(todo.id.hashCode, title, body, todo.notification!, false);
   }
 
   void removeAllTodo() {
