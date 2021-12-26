@@ -84,6 +84,14 @@ class Todo extends HiveObject {
     return deadline!;
   }
 
+  List<bool> getNewWeekdays(){
+    return weekdays!;
+  }
+  TodoType getType(){
+    return type;
+  }
+
+
   void toggleCompleted() {
     DateTime now = DateTime.now();
     if (lastCompleted == null) {

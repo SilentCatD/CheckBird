@@ -1,27 +1,23 @@
 import 'package:check_bird/models/todo/todo.dart';
 import 'package:check_bird/models/todo/todo_list_controller.dart';
+import 'package:check_bird/models/todo/todo_type.dart';
 import 'package:check_bird/screens/task/widgets/todo_item.dart';
 import 'package:flutter/material.dart';
 import 'package:hive/hive.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:table_calendar/table_calendar.dart';
 
-class TableBasicsExample extends StatefulWidget {
+class TableCalendarScreen extends StatefulWidget {
   static const routeName = '/task-calendar-screen';
 
-  const TableBasicsExample({Key? key}) : super(key: key);
+  const TableCalendarScreen({Key? key}) : super(key: key);
 
   @override
-  _TableBasicsExampleState createState() => _TableBasicsExampleState();
+  _TableCalendarScreenState createState() => _TableCalendarScreenState();
 }
 
-extension DateOnlyCompare on DateTime {
-  bool isSameDate(DateTime other) {
-    return year == other.year && month == other.month && day == other.day;
-  }
-}
 
-class _TableBasicsExampleState extends State<TableBasicsExample> {
+class _TableCalendarScreenState extends State<TableCalendarScreen> {
   CalendarFormat _calendarFormat = CalendarFormat.month;
   DateTime _focusedDay = DateTime.now();
   DateTime? _selectedDay;
@@ -36,22 +32,8 @@ class _TableBasicsExampleState extends State<TableBasicsExample> {
     super.initState();
 
     _selectedDay = _focusedDay;
-    _selectedEvents = ValueNotifier(_getEventsForDay(_selectedDay!));
+    _selectedEvents = ValueNotifier(_controller.getTaskForDay(_selectedDay!));
   }
-
-
-
-  List<Todo> _getEventsForDay(DateTime day) {
-    List<Todo> todolist = [];
-
-    for (int i = 0; i < box.length; i++) {
-      if (box.values.toList()[i].getDueTime().isSameDate(day)) {
-        todolist.add(box.values.toList()[i]);
-      }
-    }
-    return todolist;
-  }
-
 
   void _onDaySelected(DateTime selectedDay, DateTime focusedDay) {
     if (!isSameDay(_selectedDay, selectedDay)) {
@@ -60,7 +42,7 @@ class _TableBasicsExampleState extends State<TableBasicsExample> {
         _focusedDay = focusedDay;
       });
 
-      _selectedEvents.value = _getEventsForDay(selectedDay);
+      _selectedEvents.value = _controller.getTaskForDay(selectedDay);
     }
   }
 
@@ -78,7 +60,7 @@ class _TableBasicsExampleState extends State<TableBasicsExample> {
             focusedDay: _focusedDay,
             selectedDayPredicate: (day) => isSameDay(_selectedDay, day),
             calendarFormat: _calendarFormat,
-            eventLoader: _getEventsForDay,
+            eventLoader: _controller.getTaskForDay,
             onDaySelected: _onDaySelected,
             calendarStyle: const CalendarStyle(outsideDaysVisible: false),
             onFormatChanged: (format) {

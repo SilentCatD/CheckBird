@@ -4,9 +4,9 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
 class TodoItem extends StatelessWidget {
-  const TodoItem({Key? key, required this.todo}) : super(key: key);
+  const TodoItem({Key? key, required this.todo, this.isCheck = true}) : super(key: key);
   final Todo todo;
-
+  final bool isCheck;
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
@@ -68,7 +68,7 @@ class TodoItem extends StatelessWidget {
               },
             ),
           ),
-          Expanded(
+          if(isCheck) Expanded(
             child: Center(
               child: Transform.scale(
                 scale: 2,
