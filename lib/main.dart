@@ -19,6 +19,7 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:hive/hive.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:path_provider/path_provider.dart';
+import 'package:check_bird/utils/notifications.dart';
 
 import 'models/todo/todo_type.dart';
 
@@ -35,6 +36,7 @@ void main() async{
   Hive.registerAdapter(TodoAdapter());
   Hive.registerAdapter(TodoTypeAdapter());
   await loadLocalData();
+  await NotificationService().initialize();
   runApp(const MyApp());
 }
 

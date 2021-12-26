@@ -53,6 +53,7 @@ dependencies:
   date_time_picker: ^2.1.0
   image_cropper: ^1.4.1
   table_calendar: ^3.0.3
+  awesome_notifications: ^0.0.6+10
 
 dev_dependencies:
   flutter_test:
