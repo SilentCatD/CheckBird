@@ -57,6 +57,7 @@ class _TaskCustomState extends State<TaskCustom> {
           onChanged: (value) {
             setState(() {
               _pickedDay = DateTime.parse(value);
+              _pickedNotificationType = Notification.none;
             });
             widget.onChangedDue(value);
           },
