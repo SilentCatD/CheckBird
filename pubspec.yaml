@@ -52,6 +52,7 @@ dependencies:
   flutter_material_color_picker: ^1.1.0+2
   date_time_picker: ^2.1.0
   image_cropper: ^1.4.1
+  table_calendar: ^3.0.3
 
 dev_dependencies:
   flutter_test:

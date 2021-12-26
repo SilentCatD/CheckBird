@@ -70,7 +70,7 @@ class PostsController {
     });
   }
 
-  Stream<Post> post({required String groupId, required String postId}) {
+  Stream<Post> postStream({required String groupId, required String postId}) {
     final _ref = FirebaseFirestore.instance
         .collection('groups')
         .doc(groupId)
