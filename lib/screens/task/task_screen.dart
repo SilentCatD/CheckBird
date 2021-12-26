@@ -28,18 +28,18 @@ class TaskScreen extends StatelessWidget {
           FocusButton(),
         ],
       ),
-      body: Column(
-        children: [
-          Text(today.toString()),
-          Expanded(child: TodoList(day: today)),
-
-          Text(afterOneDay.toString()),
-          Expanded(child: TodoList(day: afterOneDay)),
-          Text(afterTwoDay.toString()),
-          Expanded(child: TodoList(day: afterTwoDay)),
-        ],
-      ),
-
+      // body: Column(
+      //   children: [
+      //     Text(today.toString()),
+      //     Expanded(child: TodoList(day: today)),
+      //
+      //     Text(afterOneDay.toString()),
+      //     Expanded(child: TodoList(day: afterOneDay)),
+      //     Text(afterTwoDay.toString()),
+      //     Expanded(child: TodoList(day: afterTwoDay)),
+      //   ],
+      // ),
+      body: TodoList(),
       floatingActionButton: FloatingActionButton(
         child: const Icon(Icons.add),
         onPressed: () {
