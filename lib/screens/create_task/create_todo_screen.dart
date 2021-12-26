@@ -26,12 +26,36 @@ class _CreateTodoScreenState extends State<CreateTodoScreen> {
   DateTime? _dueDate;
   DateTime? _notification;
   List<bool> _habitLoop = List.filled(7, true);
-
+  var _habitError = false; // phèn, mà hết cách rồi, nghĩ không ra
+  bool _showWarning = false;
   void _submit() {
     FocusScope.of(context).unfocus();
     var isValid = _formKey.currentState!.validate();
     if (!isValid) return;
+    var hasVal = false;
+    for (var i = 0; i < _habitLoop.length; i++) {
+      if (_habitLoop[i]) {
+        hasVal = true;
+        break;
+      }
+    }
+    if (!hasVal) {
+      setState(() {
+        _habitError = true;
+      });
+      if(!_showWarning) {
+        _showWarning = true;
+        Future.delayed(const Duration(seconds: 2), () {
+          setState(() {
+            _habitError = false;
+            _showWarning = false;
+          });
+        });
+      }
+      return;
+    }
     _formKey.currentState!.save();
+    // TODO: use these info to add todo item
     print(_todoName);
     print(_todoDescription);
     print(_backgroundColor);
@@ -111,10 +135,12 @@ class _CreateTodoScreenState extends State<CreateTodoScreen> {
                     ),
                   if (_todoType == TodoType.habit)
                     HabitCustom(
-                      onChanged: (values){
+                      onChanged: (values) {
                         _habitLoop = values;
                       },
                     ),
+                  if (_todoType == TodoType.habit && _habitError)
+                     Text("Habit required to have at least 1 day", style: TextStyle(color: Theme.of(context).errorColor),),
                   SizedBox(
                     height: size.height * 0.05,
                   ),
@@ -124,7 +150,9 @@ class _CreateTodoScreenState extends State<CreateTodoScreen> {
                     },
                     child: const Text("Add todo"),
                   ),
-                  SizedBox(height: size.height*0.05,),
+                  SizedBox(
+                    height: size.height * 0.05,
+                  ),
                 ],
               ),
             ),

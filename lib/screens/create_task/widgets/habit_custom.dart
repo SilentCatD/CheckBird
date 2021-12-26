@@ -60,12 +60,25 @@ class _HabitCustomState extends State<HabitCustom> {
             onChanged: (HabitLoopType? value) {
               setState(() {
                 _habitLoopType = value!;
+                var values = List.filled(7, false);
+                widget.onChanged(values);
               });
             },
           ),
         ),
         const SizedBox(height: 10,),
         if (_habitLoopType == HabitLoopType.custom) WeekDayPicker(
+          validate: (value){
+            var hasVal = false;
+            for(var i = 0; i < value.length; i ++) {
+              if(value[i]) {
+                hasVal = true;
+                break;
+              }
+            }
+            if(hasVal) return null;
+            return "Must pick at least 1 day";
+          },
           onChanged: (values) {
             widget.onChanged(values);
           },
