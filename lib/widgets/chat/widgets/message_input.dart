@@ -2,8 +2,10 @@ import 'package:check_bird/models/chat/chat_screen_arguments.dart';
 import 'package:check_bird/widgets/chat/models/messages_controller.dart';
 import 'package:check_bird/widgets/chat/models/media_type.dart';
 import 'package:check_bird/widgets/chat/widgets/preview_image_screen.dart';
+import 'package:image_cropper/image_cropper.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:flutter/material.dart';
+import 'dart:io';
 
 class MessageInput extends StatefulWidget {
   const MessageInput(
@@ -39,15 +41,56 @@ class _MessageInputState extends State<MessageInput> {
   );
   var focused = false;
 
+  Future<File?> _cropImage(File image) async {
+    File? croppedFile = await ImageCropper.cropImage(
+        sourcePath: image.path,
+        aspectRatioPresets: Platform.isAndroid
+            ? [
+          CropAspectRatioPreset.square,
+          CropAspectRatioPreset.ratio3x2,
+          CropAspectRatioPreset.original,
+          CropAspectRatioPreset.ratio4x3,
+          CropAspectRatioPreset.ratio16x9
+        ]
+            : [
+          CropAspectRatioPreset.original,
+          CropAspectRatioPreset.square,
+          CropAspectRatioPreset.ratio3x2,
+          CropAspectRatioPreset.ratio4x3,
+          CropAspectRatioPreset.ratio5x3,
+          CropAspectRatioPreset.ratio5x4,
+          CropAspectRatioPreset.ratio7x5,
+          CropAspectRatioPreset.ratio16x9
+        ],
+        androidUiSettings: const AndroidUiSettings(
+            toolbarTitle: 'Cropper',
+            toolbarColor: Colors.deepOrange,
+            toolbarWidgetColor: Colors.white,
+            initAspectRatio: CropAspectRatioPreset.original,
+            lockAspectRatio: false),
+        iosUiSettings: const IOSUiSettings(
+          title: 'Cropper',
+        ));
+    if (croppedFile != null) {
+      image = croppedFile;
+      return image;
+    }
+    return null;
+  }
+
+
   void _pickImages(ImageSource imageSource) async {
     var picker = ImagePicker();
-    XFile? image =
+    XFile? pickedImage =
         await picker.pickImage(source: imageSource, imageQuality: 50);
-    if (image == null) return;
+    if (pickedImage == null) return;
+    File img = File(pickedImage.path);
+    File? cropped = await _cropImage(img);
+    if(cropped== null) return;
     Navigator.of(context).push(
       MaterialPageRoute(
         builder: (context) => PreviewImageScreen(
-          imagePath: image.path,
+          imagePath: cropped.path,
           groupId: widget.chatScreenArguments.groupId,
           topicId: widget.chatScreenArguments.topicId,
           chatType: widget.chatScreenArguments.chatType,

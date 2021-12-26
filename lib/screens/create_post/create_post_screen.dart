@@ -231,6 +231,7 @@ class _CreatePostScreenState extends State<CreatePostScreen> {
                           ],
                         ),
                 ),
+                SizedBox(height: size.height*0.05,),
                 if (_image != null)
                   Center(
                     child: SizedBox(
