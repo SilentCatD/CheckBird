@@ -19,7 +19,7 @@ class NotificationService {
       'android/app/src/main/res/drawable/img.png',
       [
         NotificationChannel(
-          channelKey: 'bird_schedule_channel',
+          channelKey: 'CheckBird_schedule_channel',
           channelName: 'CheckBird notification',
           defaultColor: Colors.lightBlueAccent,
           locked: true,
