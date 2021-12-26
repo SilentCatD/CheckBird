@@ -1,6 +1,7 @@
 import 'dart:io';
 
-import 'package:check_bird/screens/create_post/widgets/image_type_dialog.dart';
+import 'package:check_bird/screens/group_detail/models/posts_controller.dart';
+import 'package:check_bird/screens/group_detail/widgets/create_post/widgets/image_type_dialog.dart';
 import 'package:check_bird/services/authentication.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
@@ -14,8 +15,8 @@ enum AppState {
 }
 
 class CreatePostScreen extends StatefulWidget {
-  const CreatePostScreen({Key? key}) : super(key: key);
-
+  const CreatePostScreen({Key? key, required this.groupId}) : super(key: key);
+  final String groupId;
   @override
   _CreatePostScreenState createState() => _CreatePostScreenState();
 }
@@ -114,7 +115,10 @@ class _CreatePostScreenState extends State<CreatePostScreen> {
                         ? Theme.of(context).primaryColor
                         : Colors.grey.shade300,
                     primary: Colors.black12),
-                onPressed: _hasContent ? () {} : null,
+                onPressed: _hasContent ? () {
+                  PostsController().createPostInDB(groupId: widget.groupId, text: _enteredText, img: _image);
+                  Navigator.pop(context);
+                } : null,
                 child: Text(
                   "Post",
                   style: TextStyle(

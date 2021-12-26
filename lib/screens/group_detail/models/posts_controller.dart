@@ -30,7 +30,7 @@ class PostsController {
     return dowUrl;
   }
 
-  Future<void> createPostInDB({required String groupId,required String text,File? img}) async {
+  Future<void> createPostInDB({required String groupId,String? text,File? img}) async {
     final db = FirebaseFirestore.instance;
     final ref = db.collection('groups').doc(groupId).collection('post');
     String? imgUrl;
@@ -46,6 +46,8 @@ class PostsController {
         'posterName': Authentication.user!.displayName,
         'postText': text,
         'posterImageUrl': imgUrl,
+        'posterId': Authentication.user!.uid,
+        'posterEmail': Authentication.user!.email,
       },
     });
   }

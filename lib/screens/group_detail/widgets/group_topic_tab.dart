@@ -1,5 +1,6 @@
-import 'package:check_bird/screens/create_post/create_post_screen.dart';
 import 'package:flutter/material.dart';
+
+import 'create_post/create_post_screen.dart';
 
 class GroupTopicTab extends StatelessWidget {
   const GroupTopicTab({Key? key, required this.groupId}) : super(key: key);
@@ -15,8 +16,7 @@ class GroupTopicTab extends StatelessWidget {
           Navigator.of(context).push(
             PageRouteBuilder(
                 pageBuilder: (BuildContext context, Animation<double> animation,
-                        Animation<double> secondaryAnimation) =>
-                    const CreatePostScreen(),
+                        Animation<double> secondaryAnimation) => CreatePostScreen(groupId: groupId,),
                 transitionsBuilder:
                     (context, animation, secondaryAnimation, child) {
                   const begin = Offset(0.0, 1.0);
