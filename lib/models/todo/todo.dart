@@ -26,7 +26,6 @@ class Todo extends HiveObject {
     this.deadline,
     this.notification,
     this.groupId,
-    this.notificationId,
     this.textColor,
     this.backgroundColor,
   }) {

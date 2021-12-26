@@ -1,3 +1,5 @@
+import 'package:check_bird/models/todo/todo.dart';
+import 'package:check_bird/models/todo/todo_list_controller.dart';
 import 'package:check_bird/models/todo/todo_type.dart';
 import 'package:check_bird/screens/create_task/widgets/create_todo_appbar.dart';
 import 'package:check_bird/screens/create_task/widgets/habit_custom.dart';
@@ -28,6 +30,7 @@ class _CreateTodoScreenState extends State<CreateTodoScreen> {
   List<bool> _habitLoop = List.filled(7, true);
   var _habitError = false; // phèn, mà hết cách rồi, nghĩ không ra
   bool _showWarning = false;
+
   void _submit() {
     FocusScope.of(context).unfocus();
     var isValid = _formKey.currentState!.validate();
@@ -43,7 +46,7 @@ class _CreateTodoScreenState extends State<CreateTodoScreen> {
       setState(() {
         _habitError = true;
       });
-      if(!_showWarning) {
+      if (!_showWarning) {
         _showWarning = true;
         Future.delayed(const Duration(seconds: 2), () {
           setState(() {
@@ -55,15 +58,36 @@ class _CreateTodoScreenState extends State<CreateTodoScreen> {
       return;
     }
     _formKey.currentState!.save();
-    // TODO: use these info to add todo item
-    print(_todoName);
-    print(_todoDescription);
-    print(_backgroundColor);
-    print(_textColor);
-    print(_todoType);
-    print(_dueDate);
-    print(_notification);
-    print(_habitLoop);
+    // print(_todoName);
+    // print(_todoDescription);
+    // print(_backgroundColor);
+    // print(_textColor);
+    // print(_todoType);
+    // print(_dueDate);
+    // print(_notification);
+    // print(_habitLoop);
+    if (_todoType == TodoType.habit) {
+      TodoListController().addTodo(
+        Todo.habit(
+          todoName: _todoName,
+          todoDescription: _todoDescription,
+          textColor: _textColor.value,
+          backgroundColor: _backgroundColor.value,
+          weekdays: _habitLoop,
+        ),
+      );
+    }
+    if (_todoType == TodoType.task) {
+      TodoListController().addTodo(
+        Todo.task(
+            todoName: _todoName,
+            todoDescription: _todoDescription,
+            textColor: _textColor.value,
+            backgroundColor: _backgroundColor.value,
+            deadline: _dueDate,
+            notification: _notification),
+      );
+    }
   }
 
   @override
@@ -140,7 +164,10 @@ class _CreateTodoScreenState extends State<CreateTodoScreen> {
                       },
                     ),
                   if (_todoType == TodoType.habit && _habitError)
-                     Text("Habit required to have at least 1 day", style: TextStyle(color: Theme.of(context).errorColor),),
+                    Text(
+                      "Habit required to have at least 1 day",
+                      style: TextStyle(color: Theme.of(context).errorColor),
+                    ),
                   SizedBox(
                     height: size.height * 0.05,
                   ),

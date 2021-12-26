@@ -26,21 +26,21 @@ class TaskScreen extends StatelessWidget {
         ],
       ),
       body: TodoList(),
-      floatingActionButton: FloatingActionButton(
-        child: const Icon(Icons.add),
-        onPressed: () {
-          // This is fake add
-          TodoListController().removeAllTodo();
-          //int year, [int month = 1,int day = 1,int hour = 0,int minute = 0,int second = 0,int millisecond = 0,int microsecond = 0,]
-          // DateTime deadline = DateTime(2021, 12, 30, 15, 21);
-          // TodoListController().addTodo(Todo(
-          //   todoName: "Task",
-          //   type: TodoType.task,
-          //   deadline: deadline,
-          // ));
-          // TodoListController().addTodo(Todo(todoName: "Habit", type: TodoType.habit));
-        },
-      ),
+      // floatingActionButton: FloatingActionButton(
+      //   child: const Icon(Icons.add),
+      //   onPressed: () {
+      //     // This is fake add
+      //     TodoListController().removeAllTodo();
+      //     //int year, [int month = 1,int day = 1,int hour = 0,int minute = 0,int second = 0,int millisecond = 0,int microsecond = 0,]
+      //     // DateTime deadline = DateTime(2021, 12, 30, 15, 21);
+      //     // TodoListController().addTodo(Todo(
+      //     //   todoName: "Task",
+      //     //   type: TodoType.task,
+      //     //   deadline: deadline,
+      //     // ));
+      //     // TodoListController().addTodo(Todo(todoName: "Habit", type: TodoType.habit));
+      //   },
+      // ),
     );
   }
 }
