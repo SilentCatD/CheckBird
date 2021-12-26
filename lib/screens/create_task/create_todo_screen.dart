@@ -1,8 +1,8 @@
 import 'package:check_bird/models/todo/todo_type.dart';
 import 'package:check_bird/screens/create_task/widgets/create_todo_appbar.dart';
-import 'package:check_bird/screens/create_task/widgets/habit_custom/habit_custom.dart';
+import 'package:check_bird/screens/create_task/widgets/habit_custom.dart';
 import 'package:check_bird/screens/create_task/widgets/pick_color.dart';
-import 'package:check_bird/screens/create_task/widgets/task_custom/task_custom.dart';
+import 'package:check_bird/screens/create_task/widgets/task_custom.dart';
 import 'package:check_bird/screens/create_task/widgets/todo_description_input.dart';
 import 'package:check_bird/screens/create_task/widgets/todo_name_input.dart';
 import 'package:check_bird/screens/create_task/widgets/toggle_habit_task.dart';
@@ -25,6 +25,7 @@ class _CreateTodoScreenState extends State<CreateTodoScreen> {
   var _textColor = Colors.black;
   DateTime? _dueDate;
   DateTime? _notification;
+  List<bool> _habitLoop = List.filled(7, true);
 
   void _submit() {
     FocusScope.of(context).unfocus();
@@ -38,6 +39,7 @@ class _CreateTodoScreenState extends State<CreateTodoScreen> {
     print(_todoType);
     print(_dueDate);
     print(_notification);
+    print(_habitLoop);
   }
 
   @override
@@ -107,12 +109,22 @@ class _CreateTodoScreenState extends State<CreateTodoScreen> {
                         _notification = value;
                       },
                     ),
-                  if (_todoType == TodoType.habit) const HabitCustom(),
-                  ElevatedButton(
-                      onPressed: () {
-                        _submit();
+                  if (_todoType == TodoType.habit)
+                    HabitCustom(
+                      onChanged: (values){
+                        _habitLoop = values;
                       },
-                      child: const Text("Add todo"))
+                    ),
+                  SizedBox(
+                    height: size.height * 0.05,
+                  ),
+                  ElevatedButton(
+                    onPressed: () {
+                      _submit();
+                    },
+                    child: const Text("Add todo"),
+                  ),
+                  SizedBox(height: size.height*0.05,),
                 ],
               ),
             ),

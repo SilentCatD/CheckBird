@@ -1,4 +1,4 @@
-import 'package:check_bird/screens/test/widgets/week_day_picker/widgets/day_item.dart';
+import 'package:check_bird/widgets/week_day_picker/widgets/day_item.dart';
 import 'package:flutter/material.dart';
 
 class WeekDayPicker extends StatefulWidget {
@@ -46,8 +46,9 @@ class _WeekDayPickerState extends State<WeekDayPicker> {
 
   void onChangedCaller(index) {
     onChangedReturn[index] = !onChangedReturn[index];
-    if (widget.onChanged != null);
-    widget.onChanged!(onChangedReturn);
+    if (widget.onChanged != null) {
+      widget.onChanged!(onChangedReturn);
+    }
   }
 
   @override

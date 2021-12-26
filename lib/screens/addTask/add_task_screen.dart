@@ -6,8 +6,8 @@ import 'package:check_bird/screens/addTask/widgets/name_task_input.dart';
 import 'package:check_bird/screens/addTask/widgets/repeat_habit.dart';
 import 'package:check_bird/screens/addTask/widgets/notification_task.dart';
 import 'package:check_bird/screens/addTask/widgets/title_switch.dart';
-import 'package:check_bird/screens/test/widgets/week_day_picker/week_day_picker.dart';
 import 'package:check_bird/widgets/focus/widgets/button_widget.dart';
+import 'package:check_bird/widgets/week_day_picker/week_day_picker.dart';
 import 'package:flutter/material.dart';
 
 class AddTaskScreen extends StatefulWidget {

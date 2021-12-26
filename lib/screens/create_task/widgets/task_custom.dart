@@ -36,7 +36,7 @@ class _TaskCustomState extends State<TaskCustom> {
   };
 
   DateTime _pickedDay = DateTime.now();
-  Notification _pickedNotiType = Notification.none;
+  Notification _pickedNotificationType = Notification.none;
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -78,8 +78,9 @@ class _TaskCustomState extends State<TaskCustom> {
           ),
         ),
         DropdownButton<Notification>(
-          value: _pickedNotiType,
+          value: _pickedNotificationType,
           items: [
+            // add function to generate more of this if you like
             DropdownMenuItem(
               child: Text(_notiType[Notification.none]!),
               value: Notification.none,
@@ -102,7 +103,7 @@ class _TaskCustomState extends State<TaskCustom> {
           ],
           onChanged: (value) {
             setState(() {
-              _pickedNotiType = value!;
+              _pickedNotificationType = value!;
             });
             Duration? daysDuration;
             if(value == Notification.db1){
