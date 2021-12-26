@@ -20,22 +20,24 @@ class TodoAdapter extends TypeAdapter<Todo> {
       todoName: fields[1] as String,
       todoDescription: fields[2] as String?,
       type: fields[3] as TodoType,
-      color: fields[4] as int?,
-      deadline: fields[5] as DateTime?,
-      notification: fields[8] as DateTime?,
-      weekdays: (fields[6] as List?)?.cast<bool>(),
-      groupId: fields[11] as String?,
+      backgroundColor: fields[4] as int?,
+      deadline: fields[6] as DateTime?,
+      notification: fields[9] as DateTime?,
+      weekdays: (fields[7] as List?)?.cast<bool>(),
+      groupId: fields[13] as String?,
+      notificationId: fields[10] as int?,
+      textColor: fields[5] as int?,
     )
       ..id = fields[0] as String?
-      ..lastCompleted = fields[7] as DateTime?
-      ..createdDate = fields[9] as DateTime?
-      ..lastModified = fields[10] as DateTime?;
+      ..lastCompleted = fields[8] as DateTime?
+      ..createdDate = fields[11] as DateTime?
+      ..lastModified = fields[12] as DateTime?;
   }
 
   @override
   void write(BinaryWriter writer, Todo obj) {
     writer
-      ..writeByte(12)
+      ..writeByte(14)
       ..writeByte(0)
       ..write(obj.id)
       ..writeByte(1)
@@ -45,20 +47,24 @@ class TodoAdapter extends TypeAdapter<Todo> {
       ..writeByte(3)
       ..write(obj.type)
       ..writeByte(4)
-      ..write(obj.color)
+      ..write(obj.backgroundColor)
       ..writeByte(5)
-      ..write(obj.deadline)
+      ..write(obj.textColor)
       ..writeByte(6)
-      ..write(obj.weekdays)
+      ..write(obj.deadline)
       ..writeByte(7)
-      ..write(obj.lastCompleted)
+      ..write(obj.weekdays)
       ..writeByte(8)
-      ..write(obj.notification)
+      ..write(obj.lastCompleted)
       ..writeByte(9)
-      ..write(obj.createdDate)
+      ..write(obj.notification)
       ..writeByte(10)
-      ..write(obj.lastModified)
+      ..write(obj.notificationId)
       ..writeByte(11)
+      ..write(obj.createdDate)
+      ..writeByte(12)
+      ..write(obj.lastModified)
+      ..writeByte(13)
       ..write(obj.groupId);
   }
 

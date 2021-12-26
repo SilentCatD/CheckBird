@@ -10,30 +10,35 @@ class Todo extends HiveObject {
     required this.todoName,
     this.todoDescription,
     required this.type,
-    this.color,
+    this.backgroundColor,
     this.deadline,
     this.notification,
     this.weekdays,
     this.groupId,
+    this.notificationId,
+    this.textColor,
   });
 
   // or use this to avoid confusion
-  Todo.task(
-      {required this.todoName,
-      this.todoDescription,
-      this.color,
-      this.deadline,
-      this.notification,
-      this.groupId}) {
+  Todo.task({
+    required this.todoName,
+    this.todoDescription,
+    this.deadline,
+    this.notification,
+    this.groupId,
+    this.notificationId,
+    this.textColor,
+    this.backgroundColor,
+  }) {
     type = TodoType.task;
   }
 
   Todo.habit(
       {required this.todoName,
       this.todoDescription,
-      this.color,
+      this.textColor,
+      this.backgroundColor,
       this.weekdays,
-      this.notification,
       this.groupId}) {
     type = TodoType.habit;
   }
@@ -47,25 +52,33 @@ class Todo extends HiveObject {
   @HiveField(3)
   late final TodoType type;
   @HiveField(4)
-  int? color;
+  int? backgroundColor;
   @HiveField(5)
-  DateTime? deadline; // only if this is task
+  int? textColor;
   @HiveField(6)
-  List<bool>? weekdays; // only if this is habit
+  DateTime? deadline; // only if this is task
   @HiveField(7)
-  DateTime? lastCompleted; // for habit
+  List<bool>? weekdays; // only if this is habit
   @HiveField(8)
-  DateTime? notification; // for notification
+  DateTime? lastCompleted; // for habit
   @HiveField(9)
-  DateTime? createdDate;
+  DateTime? notification; // for notification
   @HiveField(10)
-  DateTime? lastModified;
+  int? notificationId;
   @HiveField(11)
+  DateTime? createdDate;
+  @HiveField(12)
+  DateTime? lastModified;
+  @HiveField(13)
   String? groupId; // null if this to-do not belong to any group
 
   int get streak {
     // TODO: based on lastCompleted and weekdays to calculate habits streak
     return 0;
+  }
+
+  void deleteTodo() {
+    delete();
   }
 
   void toggleCompleted() {
@@ -82,8 +95,10 @@ class Todo extends HiveObject {
   void editTodo({
     String? newName,
     String? newDescription,
-    int? newColor,
+    int? newBackgroundColor,
+    int? newTextColor,
     DateTime? newNotification,
+    int? newNotificationId,
     DateTime? newDeadline,
     List<bool>? newWeekdays,
   }) {
@@ -91,8 +106,10 @@ class Todo extends HiveObject {
     // only these field are editable
     todoName = newName ?? todoName;
     todoDescription = (newDescription) ?? todoDescription;
-    color = newColor ?? color;
+    backgroundColor = newBackgroundColor ?? backgroundColor;
+    textColor = newTextColor ?? textColor;
     notification = newNotification ?? notification;
+    notificationId = notificationId ?? notificationId;
     deadline = newDeadline ?? deadline;
     weekdays = newWeekdays ?? weekdays;
     save();

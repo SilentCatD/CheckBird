@@ -37,7 +37,4 @@ class TodoListController {
     todoList.clear();
   }
 
-  void removeTodo(Todo todo) {
-    todo.delete();
-  }
 }
