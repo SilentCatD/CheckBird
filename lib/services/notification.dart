@@ -16,7 +16,7 @@ class NotificationService {
 
   Future<void> initialize() async {
     AwesomeNotifications().initialize(
-      'android/app/src/main/res/drawable/img.png',
+      'assets/images/flutter_icon.png',
       [
         NotificationChannel(
           channelKey: 'CheckBird_schedule_channel',
@@ -28,6 +28,14 @@ class NotificationService {
         ),
       ],
     );
+
+    AwesomeNotifications().isNotificationAllowed().then((isAllowed) {
+      if (!isAllowed) {
+
+        AwesomeNotifications().requestPermissionToSendNotifications();
+      }
+    });
+
   }
 
   Future<void> createInstantNotification(String title, String body) async {
@@ -44,7 +52,7 @@ class NotificationService {
 
 
   Future<void> createScheduleNotification(int id, String title,
-      String body, DateTime dateTime, bool reapeat) async {
+      String body, DateTime dateTime, bool repeat) async {
     await AwesomeNotifications().createNotification(
       content: NotificationContent(
         id: id,
@@ -59,7 +67,7 @@ class NotificationService {
           label: 'Mark Done',
         ),
       ],
-      schedule: NotificationCalendar.fromDate(date: dateTime, repeats: reapeat),
+      schedule: NotificationCalendar.fromDate(date: dateTime, repeats: repeat),
     );
   }
 

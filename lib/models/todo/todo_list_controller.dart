@@ -1,5 +1,6 @@
 import 'package:hive/hive.dart';
 import 'package:uuid/uuid.dart';
+import 'package:check_bird/services/notification.dart';
 
 import 'todo.dart';
 
@@ -33,7 +34,7 @@ class TodoListController {
     
     String title = "Notification CheckBird";
     String body = "Deadline: " + todo.deadline.toString();
-    await NotificationService().createScheduleNotification(todo.id.hashCode, title, body, todo.notification!, false);
+    await NotificationService().createScheduleNotification(todo.id.hashCode, title, body, DateTime.now().add(Duration(seconds: 5)), false);
   }
 
   void removeAllTodo() {

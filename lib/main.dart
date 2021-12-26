@@ -19,8 +19,7 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:hive/hive.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:path_provider/path_provider.dart';
-import 'package:check_bird/utils/notifications.dart';
-
+import 'package:check_bird/services/notification.dart';
 import 'models/todo/todo_type.dart';
 
 Future loadLocalData() async {
@@ -36,12 +35,15 @@ void main() async{
   Hive.registerAdapter(TodoAdapter());
   Hive.registerAdapter(TodoTypeAdapter());
   await loadLocalData();
+/*
   await NotificationService().initialize();
+*/
   runApp(const MyApp());
 }
 
 class MyApp extends StatelessWidget {
   const MyApp({Key? key}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
