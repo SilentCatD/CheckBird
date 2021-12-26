@@ -81,6 +81,10 @@ class Todo extends HiveObject {
     delete();
   }
 
+  DateTime getDueTime(){
+    return deadline!;
+  }
+
   void toggleCompleted() {
     DateTime now = DateTime.now();
     if (lastCompleted == null) {
