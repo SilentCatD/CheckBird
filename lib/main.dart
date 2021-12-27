@@ -35,9 +35,7 @@ void main() async{
   Hive.registerAdapter(TodoAdapter());
   Hive.registerAdapter(TodoTypeAdapter());
   await loadLocalData();
-/*
   await NotificationService().initialize();
-*/
   runApp(const MyApp());
 }
 

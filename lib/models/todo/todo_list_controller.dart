@@ -2,7 +2,7 @@ import 'package:check_bird/models/todo/todo_type.dart';
 import 'package:hive/hive.dart';
 import 'package:uuid/uuid.dart';
 import 'package:check_bird/services/notification.dart';
-
+import 'todo_type.dart';
 import 'todo.dart';
 
 
@@ -39,10 +39,15 @@ class TodoListController {
     todo.createdDate = now;
     todo.lastModified = now;
     todoList.add(todo);
-    
-    String title = "Notification CheckBird";
-    String body = "Deadline: " + todo.deadline.toString();
-    await NotificationService().createScheduleNotification(todo.id.hashCode, title, body, DateTime.now().add(Duration(seconds: 5)), false);
+
+    if(todo.type == TodoType.task) {
+      String title = "Notification CheckBird";
+      String body = "Deadline: " + todo.deadline.toString();
+      await NotificationService().createScheduleNotification(
+          todo.id.hashCode, title, body,
+          DateTime.now().add(Duration(seconds: 5)), false);
+    }
+
   }
 
   List<Todo> getHabitForWeekDays(int select) {
