@@ -6,7 +6,7 @@ class ImageTypeDialog extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return AlertDialog(
-      title: const Text("Specified image source"),
+      title: const Text("Where to pick image?"),
       content: const Text("Do you want to take a picture or choose one from your device?"),
       actions: [
         TextButton(onPressed: (){
