@@ -49,6 +49,55 @@ class PostsController {
     return dowUrl;
   }
 
+  Future<bool> isLiked(
+      {required String groupId, required String postId}) async {
+    var ref = FirebaseFirestore.instance
+        .collection('groups')
+        .doc(groupId)
+        .collection('post')
+        .doc(postId)
+        .collection('liker')
+        .doc(Authentication.user!.uid);
+    bool isLiked = false;
+    await FirebaseFirestore.instance.runTransaction((transaction) async {
+      DocumentSnapshot snapshot = await transaction.get(ref);
+      if (snapshot.exists) {
+        isLiked = true;
+      }
+    });
+    return isLiked;
+  }
+
+  Future<void> likePost(
+      {required String groupId, required String postId}) async {
+    var ref = FirebaseFirestore.instance
+        .collection('groups')
+        .doc(groupId)
+        .collection('post')
+        .doc(postId);
+    var likerRef = ref.collection('liker').doc(Authentication.user!.uid);
+    await FirebaseFirestore.instance.runTransaction(
+      (transaction) async {
+        DocumentSnapshot likerSnapshot = await transaction.get(likerRef);
+        DocumentSnapshot postSnapshot = await transaction.get(ref);
+        final data = postSnapshot.data()! as Map<String, dynamic>;
+        if (likerSnapshot.exists) {
+          transaction.delete(likerRef);
+          transaction.update(ref, {
+            "likeCount": data['likeCount'] - 1,
+          });
+        } else {
+          transaction.set(likerRef, {
+            'createdAt': Timestamp.now(),
+          });
+          transaction.update(ref, {
+            "likeCount": data['likeCount'] + 1,
+          });
+        }
+      },
+    );
+  }
+
   Future<void> createPostInDB(
       {required String groupId, String? text, File? img}) async {
     final db = FirebaseFirestore.instance;
@@ -76,7 +125,7 @@ class PostsController {
         .doc(groupId)
         .collection('post')
         .doc(postId);
-    return _ref.snapshots().map((snapshot){
+    return _ref.snapshots().map((snapshot) {
       var data = snapshot.data()!;
       return Post(
         chatCount: data['chatCount'],

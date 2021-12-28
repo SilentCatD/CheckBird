@@ -1,11 +1,12 @@
+import 'dart:io';
+
 import 'package:check_bird/models/chat/chat_type.dart';
 import 'package:check_bird/services/authentication.dart';
 import 'package:check_bird/widgets/chat/models/media_type.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_storage/firebase_storage.dart';
-import 'dart:io';
-import 'package:uuid/uuid.dart';
 import 'package:ntp/ntp.dart';
+import 'package:uuid/uuid.dart';
 
 class Message {
   const Message({
@@ -53,7 +54,11 @@ class MessagesController {
     required String groupId,
     String? topicId,
   }) async {
-    var ref = FirebaseStorage.instance.ref().child('img').child(groupId).child('group-chat');
+    var ref = FirebaseStorage.instance
+        .ref()
+        .child('img')
+        .child(groupId)
+        .child('group-chat');
     if (chatType == ChatType.topicChat) {
       ref = ref.child(topicId!);
     }
@@ -83,6 +88,20 @@ class MessagesController {
       type = 'image';
     }
     // If there is send video feature in the future, another if check is needed here
+    if (chatType == ChatType.topicChat) {
+      var topicRef = FirebaseFirestore.instance
+          .collection('groups')
+          .doc(groupId)
+          .collection('post')
+          .doc(topicId);
+      await FirebaseFirestore.instance.runTransaction((transaction) async {
+        DocumentSnapshot postSnapshot = await transaction.get(topicRef);
+        final data = postSnapshot.data()! as Map<String, dynamic>;
+        transaction.update(topicRef, {
+          "chatCount": data['chatCount'] + 1,
+        });
+      });
+    }
 
     await ref.add({
       'type': type,
