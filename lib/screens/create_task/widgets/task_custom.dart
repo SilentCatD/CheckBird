@@ -63,7 +63,8 @@ class _TaskCustomState extends State<TaskCustom> {
           },
           errorInvalidText: "Test",
           validator: (value) {
-            if (_pickedDay.isBefore(DateTime.now())) {
+            final pickedValue = DateTime.parse(value!);
+            if (pickedValue.isBefore(DateTime.now())) {
               return "Can't schedule a task in the past!";
             }
             return null;
