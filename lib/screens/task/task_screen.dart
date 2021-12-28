@@ -12,6 +12,9 @@ class TaskScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final today = DateTime(DateTime.now().year,DateTime.now().month,DateTime.now().day);
+    final afterOneDay = DateTime(DateTime.now().year,DateTime.now().month,DateTime.now().day+1);
+    final afterTwoDay = DateTime(DateTime.now().year,DateTime.now().month,DateTime.now().day+2);
     return Scaffold(
       appBar: AppBar(
         leading: IconButton(
@@ -25,22 +28,33 @@ class TaskScreen extends StatelessWidget {
           FocusButton(),
         ],
       ),
-      body: TodoList(),
-      // floatingActionButton: FloatingActionButton(
-      //   child: const Icon(Icons.add),
-      //   onPressed: () {
-      //     // This is fake add
-      //     TodoListController().removeAllTodo();
-      //     //int year, [int month = 1,int day = 1,int hour = 0,int minute = 0,int second = 0,int millisecond = 0,int microsecond = 0,]
-      //     // DateTime deadline = DateTime(2021, 12, 30, 15, 21);
-      //     // TodoListController().addTodo(Todo(
-      //     //   todoName: "Task",
-      //     //   type: TodoType.task,
-      //     //   deadline: deadline,
-      //     // ));
-      //     // TodoListController().addTodo(Todo(todoName: "Habit", type: TodoType.habit));
-      //   },
+      // body: Column(
+      //   children: [
+      //     Text(today.toString()),
+      //     Expanded(child: TodoList(day: today)),
+      //
+      //     Text(afterOneDay.toString()),
+      //     Expanded(child: TodoList(day: afterOneDay)),
+      //     Text(afterTwoDay.toString()),
+      //     Expanded(child: TodoList(day: afterTwoDay)),
+      //   ],
       // ),
+      body: TodoList(),
+      floatingActionButton: FloatingActionButton(
+        child: const Icon(Icons.add),
+        onPressed: () {
+          // This is fake add
+          TodoListController().removeAllTodo();
+          //int year, [int month = 1,int day = 1,int hour = 0,int minute = 0,int second = 0,int millisecond = 0,int microsecond = 0,]
+          // DateTime deadline = DateTime(2021, 12, 30, 15, 21);
+          // TodoListController().addTodo(Todo(
+          //   todoName: "Task",
+          //   type: TodoType.task,
+          //   deadline: deadline,
+          // ));
+          // TodoListController().addTodo(Todo(todoName: "Habit", type: TodoType.habit));
+        },
+      ),
     );
   }
 }

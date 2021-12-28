@@ -1,3 +1,4 @@
+
 import 'package:awesome_notifications/awesome_notifications.dart';
 import 'package:flutter/material.dart';
 
@@ -16,25 +17,31 @@ class NotificationService {
 
   Future<void> initialize() async {
     AwesomeNotifications().initialize(
-      'android/app/src/main/res/drawable/img.png',
+      null,
       [
         NotificationChannel(
-          channelKey: 'bird_schedule_channel',
+          channelKey: 'CheckBird_schedule_channel',
           channelName: 'CheckBird notification',
           defaultColor: Colors.lightBlueAccent,
           locked: true,
           importance: NotificationImportance.High,
           channelShowBadge: true,
+          soundSource: 'resource://raw/res_custom_notification_sound',
         ),
       ],
     );
+/*
+    AwesomeNotifications().requestPermissionToSendNotifications();
+*/
+
+
   }
 
   Future<void> createInstantNotification(String title, String body) async {
     await AwesomeNotifications().createNotification(
       content: NotificationContent(
         id: 0,
-        channelKey: 'CheckBird_test_channel',
+        channelKey: 'CheckBird_schedule_channel',
         title: title,
         body: body,
         notificationLayout: NotificationLayout.Default,
@@ -44,7 +51,7 @@ class NotificationService {
 
 
   Future<void> createScheduleNotification(int id, String title,
-      String body, DateTime dateTime, bool reapeat) async {
+      String body, DateTime dateTime, bool repeat) async {
     await AwesomeNotifications().createNotification(
       content: NotificationContent(
         id: id,
@@ -59,7 +66,7 @@ class NotificationService {
           label: 'Mark Done',
         ),
       ],
-      schedule: NotificationCalendar.fromDate(date: dateTime, repeats: reapeat),
+      schedule: NotificationCalendar.fromDate(date: dateTime, repeats: repeat),
     );
   }
 
