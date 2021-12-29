@@ -8,13 +8,20 @@ import 'package:ntp/ntp.dart';
 import 'package:uuid/uuid.dart';
 
 class PostsController {
-
   Stream<List<Post>> postsStream(String groupId) {
-    var ref = FirebaseFirestore.instance.collection('groups')
+    var ref = FirebaseFirestore.instance
+        .collection('groups')
         .doc(groupId)
         .collection('post')
         .orderBy('createdAt', descending: true);
-    return ref.snapshots().map((element) {
+    return ref.snapshots().distinct((oldDoc, newDoc){
+      var oldDocs = oldDoc.docs.toList();
+      var newDocs = newDoc.docs.toList();
+      if(newDocs[0].data()['posterId'] == Authentication.user!.uid) {
+        return false;
+      }
+      return true;
+    }).map((element) {
       return element.docs.map((post) {
         final data = post.data();
         return Post(
@@ -102,7 +109,7 @@ class PostsController {
         .doc(postId);
     var likerRef = ref.collection('liker').doc(Authentication.user!.uid);
     await FirebaseFirestore.instance.runTransaction(
-          (transaction) async {
+      (transaction) async {
         DocumentSnapshot likerSnapshot = await transaction.get(likerRef);
         DocumentSnapshot postSnapshot = await transaction.get(ref);
         final data = postSnapshot.data()! as Map<String, dynamic>;
