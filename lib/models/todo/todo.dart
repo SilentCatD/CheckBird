@@ -91,6 +91,11 @@ class Todo extends HiveObject {
     return type;
   }
 
+  DateTime getLastCompleted(){
+    return lastCompleted!;
+  }
+
+
 
   void toggleCompleted() {
     DateTime now = DateTime.now();
@@ -118,11 +123,16 @@ class Todo extends HiveObject {
     todoDescription = (newDescription) ?? todoDescription;
     backgroundColor = newBackgroundColor ?? backgroundColor;
     textColor = newTextColor ?? textColor;
-    // TODO: check for notification id change and reschedule
-    notification = newNotification ?? notification;
-    // notificationId =  ?? notificationId;
     deadline = newDeadline ?? deadline;
     weekdays = newWeekdays ?? weekdays;
+
+
+    if(newNotification!= notification){
+    //  TODO: reschedule here
+    //   notification ?
+    //   notificationId ?
+    }
+
     save();
   }
 
