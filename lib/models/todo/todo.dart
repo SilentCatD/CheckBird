@@ -80,22 +80,21 @@ class Todo extends HiveObject {
     delete();
   }
 
-  DateTime getDueTime(){
+  DateTime getDueTime() {
     return deadline!;
   }
 
-  List<bool> getNewWeekdays(){
+  List<bool> getNewWeekdays() {
     return weekdays!;
   }
-  TodoType getType(){
+
+  TodoType getType() {
     return type;
   }
 
-  DateTime getLastCompleted(){
+  DateTime getLastCompleted() {
     return lastCompleted!;
   }
-
-
 
   void toggleCompleted() {
     DateTime now = DateTime.now();
@@ -126,11 +125,10 @@ class Todo extends HiveObject {
     deadline = newDeadline ?? deadline;
     weekdays = newWeekdays ?? weekdays;
 
-
-    if(newNotification!= notification){
-    //  TODO: reschedule here
-    //   notification ?
-    //   notificationId ?
+    if (newNotification != notification) {
+      //  TODO: reschedule here
+      //   notification ?
+      //   notificationId ?
     }
 
     save();

@@ -42,7 +42,9 @@ class _CreateTodoScreenState extends State<CreateTodoScreen> {
       _textColor = Color(widget.todo!.textColor);
       _todoType = widget.todo!.type;
       _dueDate = widget.todo!.deadline;
-      _habitLoop = (widget.todo!.type == TodoType.habit) ? widget.todo!.weekdays! : _habitLoop;
+      _habitLoop = (widget.todo!.type == TodoType.habit)
+          ? widget.todo!.weekdays!
+          : _habitLoop;
     }
   }
 

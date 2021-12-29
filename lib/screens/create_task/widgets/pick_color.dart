@@ -2,7 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter_material_color_picker/flutter_material_color_picker.dart';
 
 class PickColor extends StatefulWidget {
-  const PickColor({Key? key, required this.backgroundColor, required this.textColor, required this.setBackgroundColor, required this.setTextColor}) : super(key: key);
+  const PickColor(
+      {Key? key,
+      required this.backgroundColor,
+      required this.textColor,
+      required this.setBackgroundColor,
+      required this.setTextColor})
+      : super(key: key);
   final Color backgroundColor;
   final Color textColor;
   final void Function(Color color) setBackgroundColor;
@@ -57,18 +63,24 @@ class _PickColorState extends State<PickColor> {
             children: [
               ListTile(
                 title: const Text("Background color"),
-                trailing: CircleColor(color: widget.backgroundColor, circleSize: 30,),
+                trailing: CircleColor(
+                  color: widget.backgroundColor,
+                  circleSize: 30,
+                ),
                 onTap: () async {
                   final color = await _pickColor(context);
-                  if(color != null) widget.setBackgroundColor(color);
+                  if (color != null) widget.setBackgroundColor(color);
                 },
               ),
               ListTile(
                 title: const Text("Text color"),
-                trailing: CircleColor(color: widget.textColor, circleSize: 30,),
+                trailing: CircleColor(
+                  color: widget.textColor,
+                  circleSize: 30,
+                ),
                 onTap: () async {
                   final color = await _pickColor(context);
-                  if(color != null) widget.setTextColor(color);
+                  if (color != null) widget.setTextColor(color);
                 },
               ),
               Align(
