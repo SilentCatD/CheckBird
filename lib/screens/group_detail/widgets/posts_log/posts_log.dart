@@ -28,13 +28,13 @@ class _PostsLogState extends State<PostsLog> {
       child: StreamBuilder(
         stream: PostsController().postsStream(widget.groupId),
         builder: (BuildContext context, AsyncSnapshot<List<Post>> snapshot) {
-          final posts = snapshot.data!;
           if (snapshot.connectionState == ConnectionState.waiting) {
             return const Center(
               child: CircularProgressIndicator(),
             );
           }
           // TODO: this is just temporary solution, in the future, please lookup `ListView.builder JUMPING WHEN SCROLL`
+          final posts = snapshot.data!;
           return SingleChildScrollView(
             child: Column(
               children: posts.map((element) {
