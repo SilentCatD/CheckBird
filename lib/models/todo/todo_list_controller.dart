@@ -38,6 +38,7 @@ class TodoListController {
     todo.id = id;
     todo.createdDate = now;
     todo.lastModified = now;
+    todo.notificationId = todo.id.hashCode;
     todoList.add(todo);
 
     if(todo.type == TodoType.task && todo.notification != null) {
@@ -46,7 +47,16 @@ class TodoListController {
       await NotificationService().createScheduleNotification(
           todo.id.hashCode, title, body, todo.notification!, false);
     }
+
+
+/*    if(todo.type == TodoType.task) {
+      String title = "Notification CheckBird";
+      String body = "Deadline: " + todo.deadline.toString();
+      await NotificationService().createScheduleNotification(
+          todo.notificationId!, title, body, now.add(Duration(seconds: 5)), false);
+    }*/
   }
+
 
   List<Todo> getHabitForWeekDays(int select) {
     List<Todo> todolist = [];

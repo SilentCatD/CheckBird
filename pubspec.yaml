@@ -54,6 +54,7 @@ dependencies:
   image_cropper: ^1.4.1
   table_calendar: ^3.0.3
   awesome_notifications: ^0.0.6+10
+  flutter_settings_screens: ^0.3.2-null-safety
 
 dev_dependencies:
   flutter_test:

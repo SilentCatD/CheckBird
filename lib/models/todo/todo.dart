@@ -1,6 +1,6 @@
 import 'package:check_bird/models/todo/todo_type.dart';
 import 'package:hive/hive.dart';
-
+import 'package:check_bird/services/notification.dart';
 part 'todo.g.dart';
 
 @HiveType(typeId: 0)
@@ -102,6 +102,11 @@ class Todo extends HiveObject {
     lastModified = now;
     save();
   }
+
+  Future<void>  toggleCancelNotification() async {
+    await NotificationService().cancelScheduledNotifications(this.notificationId!);
+  }
+
 
   void editTodo({
     String? newName,
