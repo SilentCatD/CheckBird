@@ -8,35 +8,35 @@ class Todo extends HiveObject {
   // you can use this if you want
   Todo({
     required this.todoName,
-    this.todoDescription,
+    required this.todoDescription,
     required this.type,
-    this.backgroundColor,
+    required this.backgroundColor,
     this.deadline,
     this.notification,
     this.weekdays,
     this.groupId,
     this.notificationId,
-    this.textColor,
+    required this.textColor,
   });
 
   // or use this to avoid confusion
   Todo.task({
     required this.todoName,
-    this.todoDescription,
+    required this.todoDescription,
     this.deadline,
     this.notification,
     this.groupId,
-    this.textColor,
-    this.backgroundColor,
+    required this.textColor,
+    required this.backgroundColor,
   }) {
     type = TodoType.task;
   }
 
   Todo.habit(
       {required this.todoName,
-      this.todoDescription,
-      this.textColor,
-      this.backgroundColor,
+      required this.todoDescription,
+      required this.textColor,
+      required this.backgroundColor,
       this.weekdays,
       this.groupId}) {
     type = TodoType.habit;
@@ -47,13 +47,13 @@ class Todo extends HiveObject {
   @HiveField(1)
   String todoName;
   @HiveField(2)
-  String? todoDescription;
+  String todoDescription;
   @HiveField(3)
   late final TodoType type;
   @HiveField(4)
-  int? backgroundColor;
+  int backgroundColor;
   @HiveField(5)
-  int? textColor;
+  int textColor;
   @HiveField(6)
   DateTime? deadline; // only if this is task
   @HiveField(7)
@@ -91,6 +91,11 @@ class Todo extends HiveObject {
     return type;
   }
 
+  DateTime getLastCompleted(){
+    return lastCompleted!;
+  }
+
+
 
   void toggleCompleted() {
     DateTime now = DateTime.now();
@@ -114,7 +119,6 @@ class Todo extends HiveObject {
     int? newBackgroundColor,
     int? newTextColor,
     DateTime? newNotification,
-    int? newNotificationId,
     DateTime? newDeadline,
     List<bool>? newWeekdays,
   }) {
@@ -124,10 +128,16 @@ class Todo extends HiveObject {
     todoDescription = (newDescription) ?? todoDescription;
     backgroundColor = newBackgroundColor ?? backgroundColor;
     textColor = newTextColor ?? textColor;
-    notification = newNotification ?? notification;
-    notificationId = notificationId ?? notificationId;
     deadline = newDeadline ?? deadline;
     weekdays = newWeekdays ?? weekdays;
+
+
+    if(newNotification!= notification){
+    //  TODO: reschedule here
+    //   notification ?
+    //   notificationId ?
+    }
+
     save();
   }
 

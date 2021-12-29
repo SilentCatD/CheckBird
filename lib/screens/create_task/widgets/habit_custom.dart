@@ -8,15 +8,21 @@ enum HabitLoopType {
 }
 
 class HabitCustom extends StatefulWidget {
-  const HabitCustom({Key? key,required this.onChanged}) : super(key: key);
+  const  HabitCustom({Key? key,required this.onChanged, this.habitDays}) : super(key: key);
   final void Function(List<bool> values) onChanged;
-
+  final List<bool>? habitDays;
   @override
   State<HabitCustom> createState() => _HabitCustomState();
 }
 
 class _HabitCustomState extends State<HabitCustom> {
   HabitLoopType _habitLoopType = HabitLoopType.everyday;
+
+  @override
+  void initState() {
+    super.initState();
+    if(widget.habitDays!=null) _habitLoopType = HabitLoopType.custom;
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -68,6 +74,7 @@ class _HabitCustomState extends State<HabitCustom> {
         ),
         const SizedBox(height: 10,),
         if (_habitLoopType == HabitLoopType.custom) WeekDayPicker(
+          initialValues: widget.habitDays,
           validate: (value){
             var hasVal = false;
             for(var i = 0; i < value.length; i ++) {

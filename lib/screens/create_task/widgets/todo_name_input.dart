@@ -1,12 +1,14 @@
 import 'package:flutter/material.dart';
 
 class TodoNameInput extends StatelessWidget {
-  const TodoNameInput({Key? key, required this.onSaved}) : super(key: key);
+  const TodoNameInput({Key? key, required this.onSaved, required this.todoName}) : super(key: key);
   final void Function(String value) onSaved;
+  final String todoName;
 
   @override
   Widget build(BuildContext context) {
     return TextFormField(
+      initialValue: todoName,
       key: const ValueKey("todo-name"),
       maxLines: 1,
       maxLength: 50,

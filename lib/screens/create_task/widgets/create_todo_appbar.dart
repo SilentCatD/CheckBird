@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 
 class CreateTodoAppbar extends StatelessWidget  implements PreferredSizeWidget{
-  const CreateTodoAppbar({Key? key, required this.appBar}) : super(key: key);
+  const CreateTodoAppbar({Key? key, required this.appBar, this.todoName}) : super(key: key);
   final AppBar appBar;
+  final String? todoName;
 
   @override
   Widget build(BuildContext context) {
@@ -11,7 +12,7 @@ class CreateTodoAppbar extends StatelessWidget  implements PreferredSizeWidget{
       backgroundColor: Theme.of(context).canvasColor,
       elevation: 0,
       title: Text(
-        "Create todo",
+        todoName == null ? "Create todo": todoName!,
         style: TextStyle(
             color: Theme.of(context).primaryColor, fontWeight: FontWeight.bold),
       ),

@@ -28,7 +28,7 @@ class TaskCustom extends StatefulWidget {
 }
 
 class _TaskCustomState extends State<TaskCustom> {
-  static final Map<Notification, String> _notiType = {
+  static final Map<Notification, String> _notificationType = {
     Notification.none: "Don't remind me",
     Notification.db1: "1 Day before",
     Notification.db2: "2 Day before",
@@ -39,6 +39,7 @@ class _TaskCustomState extends State<TaskCustom> {
   Notification _pickedNotificationType = Notification.none;
   @override
   Widget build(BuildContext context) {
+    if(widget.initialDate != null) _pickedDay = widget.initialDate!;
     return Column(
       children: [
         const ListTile(
@@ -84,22 +85,22 @@ class _TaskCustomState extends State<TaskCustom> {
           items: [
             // add function to generate more of this if you like
             DropdownMenuItem(
-              child: Text(_notiType[Notification.none]!),
+              child: Text(_notificationType[Notification.none]!),
               value: Notification.none,
             ),
             if (daysBetween(DateTime.now(), _pickedDay) >= 1)
               DropdownMenuItem(
-                child: Text(_notiType[Notification.db1]!),
+                child: Text(_notificationType[Notification.db1]!),
                 value: Notification.db1,
               ),
             if (daysBetween(DateTime.now(), _pickedDay) >= 2)
               DropdownMenuItem(
-                child: Text(_notiType[Notification.db2]!),
+                child: Text(_notificationType[Notification.db2]!),
                 value: Notification.db2,
               ),
             if (daysBetween(DateTime.now(), _pickedDay) >= 3)
               DropdownMenuItem(
-                child: Text(_notiType[Notification.db3]!),
+                child: Text(_notificationType[Notification.db3]!),
                 value: Notification.db3,
               ),
           ],
