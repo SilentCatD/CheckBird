@@ -1,5 +1,6 @@
 import 'package:check_bird/models/todo/todo.dart';
 import 'package:check_bird/models/todo/todo_type.dart';
+import 'package:check_bird/screens/create_task/create_todo_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
@@ -41,12 +42,14 @@ class TodoItem extends StatelessWidget {
               child: LayoutBuilder(
                 builder: (BuildContext context, BoxConstraints constraints) {
                   return Card(
-                    color: Color(todo.backgroundColor!),
+                    color: Color(todo.backgroundColor),
                     clipBehavior: Clip.antiAlias,
                     shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(25)),
                     child: InkWell(
-                      onTap: (){},
+                      onTap: (){
+                        Navigator.of(context).push(MaterialPageRoute(builder: (context) => CreateTodoScreen(todo: todo,)));
+                      },
                       child: Column(
                         children: [
                           Row(
@@ -92,7 +95,7 @@ class TodoItem extends StatelessWidget {
                                 todo.todoName,
                                 style: TextStyle(
                                   fontWeight: FontWeight.bold,
-                                  color: Color(todo.textColor!),
+                                  color: Color(todo.textColor),
                                 ),
                               ),
                             ),

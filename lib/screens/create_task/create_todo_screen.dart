@@ -11,9 +11,9 @@ import 'package:check_bird/screens/create_task/widgets/toggle_habit_task.dart';
 import 'package:flutter/material.dart';
 
 class CreateTodoScreen extends StatefulWidget {
-  const CreateTodoScreen({Key? key}) : super(key: key);
+  const CreateTodoScreen({Key? key, this.todo}) : super(key: key);
   static const routeName = 'create-todo-screen';
-
+  final Todo? todo;
   @override
   State<CreateTodoScreen> createState() => _CreateTodoScreenState();
 }
@@ -30,6 +30,18 @@ class _CreateTodoScreenState extends State<CreateTodoScreen> {
   List<bool> _habitLoop = List.filled(7, true);
   var _habitError = false; // phèn, mà hết cách rồi, nghĩ không ra
   bool _showWarning = false;
+
+  @override
+  void initState() {
+    super.initState();
+    if(widget.todo!=null){
+      _todoName = widget.todo!.todoName;
+      _todoDescription = widget.todo!.todoDescription;
+      _backgroundColor = Color(widget.todo!.backgroundColor);
+      _textColor = Color(widget.todo!.textColor);
+      _todoType = widget.todo!.type;
+    }
+  }
 
   void _submit() {
     FocusScope.of(context).unfocus();
@@ -98,6 +110,7 @@ class _CreateTodoScreenState extends State<CreateTodoScreen> {
       onTap: () => FocusManager.instance.primaryFocus?.unfocus(),
       child: Scaffold(
         appBar: CreateTodoAppbar(
+          todoName: _todoName.isEmpty ? null : _todoName,
           appBar: AppBar(),
         ),
         body: SingleChildScrollView(
@@ -108,7 +121,7 @@ class _CreateTodoScreenState extends State<CreateTodoScreen> {
               padding: const EdgeInsets.all(20.0),
               child: Column(
                 children: [
-                  TodoNameInput(onSaved: (value) {
+                  TodoNameInput(todoName: _todoName,onSaved: (value) {
                     _todoName = value;
                   }),
                   SizedBox(
@@ -116,7 +129,7 @@ class _CreateTodoScreenState extends State<CreateTodoScreen> {
                   ),
                   SizedBox(
                     height: size.height * 0.25,
-                    child: TodoDescriptionInput(onSaved: (value) {
+                    child: TodoDescriptionInput(todoDescription: _todoDescription,onSaved: (value) {
                       _todoDescription = value;
                     }),
                   ),

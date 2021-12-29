@@ -18,15 +18,15 @@ class TodoAdapter extends TypeAdapter<Todo> {
     };
     return Todo(
       todoName: fields[1] as String,
-      todoDescription: fields[2] as String?,
+      todoDescription: fields[2] as String,
       type: fields[3] as TodoType,
-      backgroundColor: fields[4] as int?,
+      backgroundColor: fields[4] as int,
       deadline: fields[6] as DateTime?,
       notification: fields[9] as DateTime?,
       weekdays: (fields[7] as List?)?.cast<bool>(),
       groupId: fields[13] as String?,
       notificationId: fields[10] as int?,
-      textColor: fields[5] as int?,
+      textColor: fields[5] as int,
     )
       ..id = fields[0] as String?
       ..lastCompleted = fields[8] as DateTime?

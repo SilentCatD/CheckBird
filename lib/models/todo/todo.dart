@@ -8,35 +8,35 @@ class Todo extends HiveObject {
   // you can use this if you want
   Todo({
     required this.todoName,
-    this.todoDescription,
+    required this.todoDescription,
     required this.type,
-    this.backgroundColor,
+    required this.backgroundColor,
     this.deadline,
     this.notification,
     this.weekdays,
     this.groupId,
     this.notificationId,
-    this.textColor,
+    required this.textColor,
   });
 
   // or use this to avoid confusion
   Todo.task({
     required this.todoName,
-    this.todoDescription,
+    required this.todoDescription,
     this.deadline,
     this.notification,
     this.groupId,
-    this.textColor,
-    this.backgroundColor,
+    required this.textColor,
+    required this.backgroundColor,
   }) {
     type = TodoType.task;
   }
 
   Todo.habit(
       {required this.todoName,
-      this.todoDescription,
-      this.textColor,
-      this.backgroundColor,
+      required this.todoDescription,
+      required this.textColor,
+      required this.backgroundColor,
       this.weekdays,
       this.groupId}) {
     type = TodoType.habit;
@@ -47,13 +47,13 @@ class Todo extends HiveObject {
   @HiveField(1)
   String todoName;
   @HiveField(2)
-  String? todoDescription;
+  String todoDescription;
   @HiveField(3)
   late final TodoType type;
   @HiveField(4)
-  int? backgroundColor;
+  int backgroundColor;
   @HiveField(5)
-  int? textColor;
+  int textColor;
   @HiveField(6)
   DateTime? deadline; // only if this is task
   @HiveField(7)
