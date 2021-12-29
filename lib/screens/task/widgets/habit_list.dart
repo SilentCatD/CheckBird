@@ -4,7 +4,6 @@ import 'package:check_bird/screens/task/widgets/todo_item.dart';
 import 'package:flutter/material.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 
-
 class HabitListScreen extends StatefulWidget {
   static const routeName = '/habit-list-screen';
 
@@ -45,99 +44,101 @@ class _HabitListScreenState extends State<HabitListScreen> {
   void initState() {
     super.initState();
     _pickedWeeklyType = Weekly.mo;
-    _selectedHabit = ValueNotifier(_controller.getHabitForWeekDays(_pickedWeeklyType.index));
+    _selectedHabit =
+        ValueNotifier(_controller.getHabitForWeekDays(_pickedWeeklyType.index));
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('Habit List'),
-      ),
-      body: Column(
-        children: [
-          Container(
-            padding: const EdgeInsets.all(10),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-              const Text(
-              "Day of Week: ",
-              style: TextStyle(fontSize: 15,fontWeight: FontWeight.bold),
-            ),
-            DropdownButton(
-                value: _pickedWeeklyType,
-                items: [
-                  DropdownMenuItem(
-                    child: Text(week.values.toList()[0]),
-                    value: Weekly.mo,
-                  ),
-                  DropdownMenuItem(
-                    child: Text(week.values.toList()[1]),
-                    value: Weekly.tu,
-                  ),
-                  DropdownMenuItem(
-                    child: Text(week.values.toList()[2]),
-                    value: Weekly.we,
-                  ),
-                  DropdownMenuItem(
-                    child: Text(week.values.toList()[3]),
-                    value: Weekly.th,
-                  ),
-                  DropdownMenuItem(
-                    child: Text(week.values.toList()[4]),
-                    value: Weekly.fr,
-                  ),
-                  DropdownMenuItem(
-                    child: Text(week.values.toList()[5]),
-                    value: Weekly.sa,
-                  ),
-                  DropdownMenuItem(
-                    child: Text(week.values.toList()[6]),
-                    value: Weekly.su,
-                  ),
-                  DropdownMenuItem(
-                    child: Text(week.values.toList()[7]),
-                    value: Weekly.al,
-                  ),
-                ],
-                onChanged: (Weekly? value) {
-                  setState(() {
-                    _pickedWeeklyType = value!;
-                  });
-                  if(_pickedWeeklyType.index == 7){
-                    _selectedHabit.value = _controller.getAllHabit();
-                  }
-                  else{
-                    _selectedHabit.value = _controller.getHabitForWeekDays(_pickedWeeklyType.index);
-                  }
-                }
-            )]
-            ),
-          ),
-          const SizedBox(height: 10.0),
-          Expanded(
-              child: ValueListenableBuilder(
-                valueListenable:   _selectedHabit,
-                builder: (context, List<Todo> box, _) {
-                  final todos = _selectedHabit.value;
-                  return ListView.builder(
-                    itemCount: todos.length,
-                    itemBuilder: (context, index) {
-                      return Dismissible(
-                          child: TodoItem(todo: todos[index],isCheck: false),
-                          background: Container(
-                            color: Colors.red,
-                            child: const Icon(Icons.cancel),
+        appBar: AppBar(
+          title: const Text('Habit List'),
+        ),
+        body: Column(
+          children: [
+            Container(
+              padding: const EdgeInsets.all(10),
+              child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    const Text(
+                      "Day of Week: ",
+                      style:
+                          TextStyle(fontSize: 15, fontWeight: FontWeight.bold),
+                    ),
+                    DropdownButton(
+                        value: _pickedWeeklyType,
+                        items: [
+                          DropdownMenuItem(
+                            child: Text(week.values.toList()[0]),
+                            value: Weekly.mo,
                           ),
-                          direction: DismissDirection.endToStart,
-                          key: UniqueKey(),
-                        confirmDismiss: (DismissDirection direction) async {
-                            return await showDialog(
-                                context: context,
-                                builder: (_) => AlertDialog(
+                          DropdownMenuItem(
+                            child: Text(week.values.toList()[1]),
+                            value: Weekly.tu,
+                          ),
+                          DropdownMenuItem(
+                            child: Text(week.values.toList()[2]),
+                            value: Weekly.we,
+                          ),
+                          DropdownMenuItem(
+                            child: Text(week.values.toList()[3]),
+                            value: Weekly.th,
+                          ),
+                          DropdownMenuItem(
+                            child: Text(week.values.toList()[4]),
+                            value: Weekly.fr,
+                          ),
+                          DropdownMenuItem(
+                            child: Text(week.values.toList()[5]),
+                            value: Weekly.sa,
+                          ),
+                          DropdownMenuItem(
+                            child: Text(week.values.toList()[6]),
+                            value: Weekly.su,
+                          ),
+                          DropdownMenuItem(
+                            child: Text(week.values.toList()[7]),
+                            value: Weekly.al,
+                          ),
+                        ],
+                        onChanged: (Weekly? value) {
+                          setState(() {
+                            _pickedWeeklyType = value!;
+                          });
+                          if (_pickedWeeklyType.index == 7) {
+                            _selectedHabit.value = _controller.getAllHabit();
+                          } else {
+                            _selectedHabit.value = _controller
+                                .getHabitForWeekDays(_pickedWeeklyType.index);
+                          }
+                        })
+                  ]),
+            ),
+            const SizedBox(height: 10.0),
+            Expanded(
+                child: ValueListenableBuilder(
+              valueListenable: _selectedHabit,
+              builder: (context, List<Todo> box, _) {
+                final todos = _selectedHabit.value;
+                return ListView.builder(
+                  itemCount: todos.length,
+                  itemBuilder: (context, index) {
+                    return Dismissible(
+                      child: TodoItem(todo: todos[index], isCheck: false),
+                      background: Container(
+                        color: Colors.red,
+                        child: const Icon(Icons.cancel),
+                      ),
+                      direction: DismissDirection.endToStart,
+                      key: UniqueKey(),
+                      confirmDismiss: (DismissDirection direction) async {
+                        return await showDialog(
+                            context: context,
+                            builder: (_) => AlertDialog(
                                   title: const Text("Are you sure?"),
-                                  content: const Text("You're about to delete habit?"),
+                                  content: const Text(
+                                      "You're about to delete habit?"),
                                   actions: [
                                     TextButton(
                                         onPressed: () {
@@ -152,15 +153,13 @@ class _HabitListScreenState extends State<HabitListScreen> {
                                         child: const Text("Yes")),
                                   ],
                                 ));
-                        },
-                      );
-                    },
-                  );
-                },
-              )
-          )
-        ],
-      )
-    );
+                      },
+                    );
+                  },
+                );
+              },
+            ))
+          ],
+        ));
   }
 }

@@ -1,4 +1,5 @@
 import 'package:check_bird/models/todo/todo_type.dart';
+import 'package:check_bird/services/notification.dart';
 import 'package:hive/hive.dart';
 
 part 'todo.g.dart';
@@ -107,6 +108,10 @@ class Todo extends HiveObject {
     save();
   }
 
+  Future<void> toggleCancelNotification() async {
+    await NotificationService().cancelScheduledNotifications(notificationId!);
+  }
+
   void editTodo({
     String? newName,
     String? newDescription,
@@ -126,11 +131,18 @@ class Todo extends HiveObject {
     weekdays = newWeekdays ?? weekdays;
 
     if (newNotification != notification) {
-      //  TODO: reschedule here
-      //   notification ?
-      //   notificationId ?
-    }
+      notification = newNotification;
+      if (notification == null) {
+        NotificationService().cancelScheduledNotifications(notificationId!);
+      }
+      if (type == TodoType.task && newNotification != null) {
+        String title = "Notification CheckBird";
+        String body = "Deadline: " + deadline.toString();
 
+        NotificationService().createScheduleNotification(
+            notificationId!, title, body, newNotification, false);
+      }
+    }
     save();
   }
 
