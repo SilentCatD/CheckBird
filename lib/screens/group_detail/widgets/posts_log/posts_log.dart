@@ -1,6 +1,7 @@
 import 'package:check_bird/screens/group_detail/models/post.dart';
 import 'package:check_bird/screens/group_detail/models/posts_controller.dart';
 import 'package:check_bird/screens/group_detail/widgets/posts_log/post_item.dart';
+import 'package:check_bird/services/authentication.dart';
 import 'package:flutter/material.dart';
 
 GlobalKey<_PostsLogState> postLogKey = GlobalKey();
@@ -14,11 +15,25 @@ class PostsLog extends StatefulWidget {
 }
 
 class _PostsLogState extends State<PostsLog> {
+  late dynamic newPostStream;
+  String? lastPostId;
 
   Future<void> refresh()async {
     setState(() {});
   }
 
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    newPostStream = PostsController().postsStream(widget.groupId).listen((event) {
+      if(event.first.posterId == Authentication.user!.uid && event.first.id != lastPostId){
+        setState(() {
+          lastPostId = event.first.id;
+        });
+      }
+    });
+  }
   @override
   Widget build(BuildContext context) {
     return RefreshIndicator(
@@ -35,7 +50,11 @@ class _PostsLogState extends State<PostsLog> {
             );
           }
           // TODO: this is just temporary solution, in the future, please lookup `ListView.builder JUMPING WHEN SCROLL`
-          final posts = snapshot.data!;
+          final posts = snapshot.data;
+          if(posts==null){
+            return const Center(child: Text("There are no post yet"),);
+          }
+          lastPostId = posts.first.id;
           return ListView.builder(
             addAutomaticKeepAlives: true,
             itemCount: posts.length,
