@@ -25,8 +25,9 @@ class _PostsLogState extends State<PostsLog> {
       onRefresh: () async {
         await refresh();
       },
-      child: StreamBuilder(
-        stream: PostsController().postsStream(widget.groupId),
+      child: FutureBuilder(
+        // stream: PostsController().postsStream(widget.groupId),
+        future: PostsController().postsFuture(widget.groupId),
         builder: (BuildContext context, AsyncSnapshot<List<Post>> snapshot) {
           if (snapshot.connectionState == ConnectionState.waiting) {
             return const Center(
@@ -35,16 +36,16 @@ class _PostsLogState extends State<PostsLog> {
           }
           // TODO: this is just temporary solution, in the future, please lookup `ListView.builder JUMPING WHEN SCROLL`
           final posts = snapshot.data!;
-          return SingleChildScrollView(
-            child: Column(
-              children: posts.map((element) {
-                return PostItem(
-                  postId: element.id!,
-                  groupId: widget.groupId,
-                  key: ValueKey(element.id!),
-                );
-              }).toList(),
-            ),
+          return ListView.builder(
+            itemCount: posts.length,
+            itemBuilder: (BuildContext context, int index) {
+              return PostItem(
+                postId: posts[index].id!,
+                groupId: widget.groupId,
+                key: ValueKey(posts[index].id!),
+              );
+            },
+
           );
         },
       ),
