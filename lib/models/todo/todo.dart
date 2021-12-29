@@ -91,6 +91,11 @@ class Todo extends HiveObject {
     return type;
   }
 
+  DateTime getLastCompleted(){
+    return lastCompleted!;
+  }
+
+
 
   void toggleCompleted() {
     DateTime now = DateTime.now();

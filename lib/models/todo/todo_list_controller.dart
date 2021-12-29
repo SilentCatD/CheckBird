@@ -48,6 +48,16 @@ class TodoListController {
     }
   }
 
+  List<Todo> getAllHabit() {
+    List<Todo> todolist = [];
+    for (int i = 0; i < getTodoList().length; i++) {
+      if (getTodoList().values.toList()[i].getType() == TodoType.habit) {
+          todolist.add(getTodoList().values.toList()[i]);
+      }
+    }
+    return todolist;
+  }
+
   List<Todo> getHabitForWeekDays(int select) {
     List<Todo> todolist = [];
     for (int i = 0; i < getTodoList().length; i++) {
