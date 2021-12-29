@@ -1,6 +1,7 @@
 import 'package:check_bird/models/todo/todo_type.dart';
 import 'package:hive/hive.dart';
 import 'package:check_bird/services/notification.dart';
+
 part 'todo.g.dart';
 
 @HiveType(typeId: 0)
@@ -80,22 +81,21 @@ class Todo extends HiveObject {
     delete();
   }
 
-  DateTime getDueTime(){
+  DateTime getDueTime() {
     return deadline!;
   }
 
-  List<bool> getNewWeekdays(){
+  List<bool> getNewWeekdays() {
     return weekdays!;
   }
-  TodoType getType(){
+
+  TodoType getType() {
     return type;
   }
 
-  DateTime getLastCompleted(){
+  DateTime getLastCompleted() {
     return lastCompleted!;
   }
-
-
 
   void toggleCompleted() {
     DateTime now = DateTime.now();
@@ -108,10 +108,10 @@ class Todo extends HiveObject {
     save();
   }
 
-  Future<void>  toggleCancelNotification() async {
-    await NotificationService().cancelScheduledNotifications(this.notificationId!);
+  Future<void> toggleCancelNotification() async {
+    await NotificationService()
+        .cancelScheduledNotifications(this.notificationId!);
   }
-
 
   void editTodo({
     String? newName,
@@ -131,13 +131,20 @@ class Todo extends HiveObject {
     deadline = newDeadline ?? deadline;
     weekdays = newWeekdays ?? weekdays;
 
+    if (newNotification != notification) {
+      notification = newNotification;
 
-    if(newNotification!= notification){
-    //  TODO: reschedule here
-    //   notification ?
-    //   notificationId ?
+      if (notification == null)
+        NotificationService().cancelScheduledNotifications(notificationId!);
+
+      if (type == TodoType.task && newNotification != null) {
+        String title = "Notification CheckBird";
+        String body = "Deadline: " + deadline.toString();
+
+        NotificationService().createScheduleNotification(
+            notificationId!, title, body, newNotification!, false);
+      }
     }
-
     save();
   }
 
