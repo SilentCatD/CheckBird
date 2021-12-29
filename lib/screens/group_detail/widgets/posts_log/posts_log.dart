@@ -37,6 +37,7 @@ class _PostsLogState extends State<PostsLog> {
           // TODO: this is just temporary solution, in the future, please lookup `ListView.builder JUMPING WHEN SCROLL`
           final posts = snapshot.data!;
           return ListView.builder(
+            addAutomaticKeepAlives: true,
             itemCount: posts.length,
             itemBuilder: (BuildContext context, int index) {
               return PostItem(
