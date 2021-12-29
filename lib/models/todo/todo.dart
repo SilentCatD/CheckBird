@@ -142,7 +142,7 @@ class Todo extends HiveObject {
         String body = "Deadline: " + deadline.toString();
 
         NotificationService().createScheduleNotification(
-            notificationId!, title, body, newNotification!, false);
+            notificationId!, title, body, newNotification, false);
       }
     }
     save();
