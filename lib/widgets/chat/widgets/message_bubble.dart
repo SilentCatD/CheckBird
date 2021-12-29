@@ -41,53 +41,6 @@ class _MessageBubbleState extends State<MessageBubble> {
     return sendTimeFormat.add_yMMMd().format(sendTime);
   }
 
-  Widget _buildMessageMainText(BoxConstraints constraint) {
-    return Container(
-      margin: widget.mediaType == MediaType.text
-          ? const EdgeInsets.symmetric(vertical: 4, horizontal: 8)
-          : null,
-      child: Material(
-        borderRadius: BorderRadius.circular(15),
-        color: widget.mediaType == MediaType.text
-            ? widget.isMe
-                ? Theme.of(context).colorScheme.secondary
-                : (showTime ? Colors.grey.shade400 : Colors.grey.shade300)
-            : null,
-        child: InkWell(
-          onTap: () {
-            setState(() {
-              showTime = !showTime;
-            });
-          },
-          borderRadius: BorderRadius.circular(15),
-          child: Container(
-            constraints: BoxConstraints(
-                maxWidth: widget.isMe
-                    ? constraint.maxWidth * 0.7
-                    : constraint.maxWidth * 0.6),
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(15),
-            ),
-            padding: const EdgeInsets.all(8),
-            margin: widget.mediaType == MediaType.text
-                ? const EdgeInsets.symmetric(vertical: 4, horizontal: 8)
-                : null,
-            child: widget.mediaType == MediaType.text
-                ? Text(
-                    widget.message,
-                    softWrap: true,
-                    style: TextStyle(
-                      color: widget.isMe ? Colors.white : Colors.black,
-                      fontSize: 16,
-                    ),
-                  )
-                : Image.network(widget.message),
-          ),
-        ),
-      ),
-    );
-  }
-
   @override
   Widget build(BuildContext context) {
     return LayoutBuilder(

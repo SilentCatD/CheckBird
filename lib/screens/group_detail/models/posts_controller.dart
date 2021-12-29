@@ -8,7 +8,32 @@ import 'package:ntp/ntp.dart';
 import 'package:uuid/uuid.dart';
 
 class PostsController {
-  Future<List<Post>> getPosts(String groupId) async {
+
+  Stream<List<Post>> postsStream(String groupId) {
+    var ref = FirebaseFirestore.instance.collection('groups')
+        .doc(groupId)
+        .collection('post')
+        .orderBy('createdAt', descending: true);
+    return ref.snapshots().map((element) {
+      return element.docs.map((post) {
+        final data = post.data();
+        return Post(
+          chatCount: data['chatCount'],
+          likeCount: data['likeCount'],
+          posterAvatarUrl: data['posterAvatarUrl'],
+          posterName: data['posterName'],
+          id: post.id,
+          posterEmail: data['posterEmail'],
+          posterId: data['posterId'],
+          createdAt: data['createdAt'],
+          posterImageUrl: data['posterImageUrl'],
+          postText: data['postText'],
+        );
+      }).toList();
+    });
+  }
+
+  Future<List<Post>> postsFuture(String groupId) async {
     QuerySnapshot querySnapshot = await FirebaseFirestore.instance
         .collection('groups')
         .doc(groupId)
@@ -77,7 +102,7 @@ class PostsController {
         .doc(postId);
     var likerRef = ref.collection('liker').doc(Authentication.user!.uid);
     await FirebaseFirestore.instance.runTransaction(
-      (transaction) async {
+          (transaction) async {
         DocumentSnapshot likerSnapshot = await transaction.get(likerRef);
         DocumentSnapshot postSnapshot = await transaction.get(ref);
         final data = postSnapshot.data()! as Map<String, dynamic>;

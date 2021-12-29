@@ -2,6 +2,7 @@ import 'package:check_bird/screens/group_detail/models/post.dart';
 import 'package:check_bird/screens/group_detail/models/posts_controller.dart';
 import 'package:check_bird/screens/group_detail/widgets/posts_log/like_button.dart';
 import 'package:check_bird/screens/group_detail/widgets/posts_log/post_chat_screen.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
@@ -11,31 +12,38 @@ class PostItem extends StatelessWidget {
   final String postId;
   final String groupId;
 
+  String createdAtStr(Timestamp createdAtTS) {
+    DateTime createdAt = DateTime.parse(createdAtTS.toDate().toString());
+    final now = DateTime.now();
+    final today = DateTime(now.year, now.month, now.day);
+    final sendDate = DateTime(createdAt.year, createdAt.month, createdAt.day);
+    DateFormat sendTimeFormat = DateFormat.Hm();
+    if (today == sendDate) {
+      return sendTimeFormat.format(createdAt);
+    } else {
+      return sendTimeFormat.add_yMMMd().format(createdAt);
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
-    return StreamBuilder<Post>(
-        stream: PostsController().postStream(groupId: groupId, postId: postId),
-        builder: (context, snapshot) {
-          if (snapshot.connectionState == ConnectionState.waiting) {
-            return const Center(
-              child: CircularProgressIndicator(),
-            );
-          }
-          Post post = snapshot.data!;
-          DateTime createdAt =
-              DateTime.parse(post.createdAt!.toDate().toString());
-          final now = DateTime.now();
-          final today = DateTime(now.year, now.month, now.day);
-          final sendDate =
-              DateTime(createdAt.year, createdAt.month, createdAt.day);
-          DateFormat sendTimeFormat = DateFormat.Hm();
-          late String createAtStr;
-          if (today == sendDate) {
-            createAtStr = sendTimeFormat.format(createdAt);
-          } else {
-            createAtStr = sendTimeFormat.add_yMMMd().format(createdAt);
-          }
-          return LayoutBuilder(builder: (context, constraints) {
+    return LayoutBuilder(builder: (context, constraints) {
+      return StreamBuilder<Post>(
+          stream:
+              PostsController().postStream(groupId: groupId, postId: postId),
+
+          builder: (context, snapshot) {
+            if (snapshot.connectionState == ConnectionState.waiting) {
+              return Center(
+                child: Card(
+                  child: SizedBox(
+                    width: constraints.maxWidth * 0.9,
+                    height: constraints.minHeight * 0.3,
+                  ),
+                ),
+              );
+            }
+            Post post = snapshot.data!;
             return Center(
               child: Card(
                 margin: const EdgeInsets.symmetric(vertical: 20),
@@ -64,7 +72,7 @@ class PostItem extends StatelessWidget {
                                 style: const TextStyle(
                                     fontWeight: FontWeight.bold),
                               ),
-                              Text(createAtStr),
+                              Text(createdAtStr(post.createdAt!)),
                             ],
                           ),
                         ],
@@ -149,6 +157,6 @@ class PostItem extends StatelessWidget {
               ),
             );
           });
-        });
+    });
   }
 }
