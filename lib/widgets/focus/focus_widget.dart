@@ -51,7 +51,7 @@ class _FocusPopupWidgetState extends State<FocusPopupWidget> {
   @override
   Widget build(BuildContext context) {
     return AlertDialog(
-      title: const Text("Choose task"),
+      title: const Text("Choose focus time"),
       content: Container(
         width: double.infinity,
         height: 350,

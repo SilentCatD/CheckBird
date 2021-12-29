@@ -2,6 +2,7 @@ import 'dart:io';
 
 import 'package:check_bird/screens/group_detail/models/posts_controller.dart';
 import 'package:check_bird/screens/group_detail/widgets/create_post/widgets/image_type_dialog.dart';
+import 'package:check_bird/screens/group_detail/widgets/posts_log/posts_log.dart';
 import 'package:check_bird/services/authentication.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';

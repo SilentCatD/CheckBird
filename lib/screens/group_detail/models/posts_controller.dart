@@ -8,7 +8,39 @@ import 'package:ntp/ntp.dart';
 import 'package:uuid/uuid.dart';
 
 class PostsController {
-  Future<List<Post>> getPosts(String groupId) async {
+  Stream<List<Post>> postsStream(String groupId) {
+    var ref = FirebaseFirestore.instance
+        .collection('groups')
+        .doc(groupId)
+        .collection('post')
+        .orderBy('createdAt', descending: true);
+    return ref.snapshots().distinct((oldDoc, newDoc){
+      var oldDocs = oldDoc.docs.toList();
+      var newDocs = newDoc.docs.toList();
+      if(newDocs[0].data()['posterId'] == Authentication.user!.uid) {
+        return false;
+      }
+      return true;
+    }).map((element) {
+      return element.docs.map((post) {
+        final data = post.data();
+        return Post(
+          chatCount: data['chatCount'],
+          likeCount: data['likeCount'],
+          posterAvatarUrl: data['posterAvatarUrl'],
+          posterName: data['posterName'],
+          id: post.id,
+          posterEmail: data['posterEmail'],
+          posterId: data['posterId'],
+          createdAt: data['createdAt'],
+          posterImageUrl: data['posterImageUrl'],
+          postText: data['postText'],
+        );
+      }).toList();
+    });
+  }
+
+  Future<List<Post>> postsFuture(String groupId) async {
     QuerySnapshot querySnapshot = await FirebaseFirestore.instance
         .collection('groups')
         .doc(groupId)

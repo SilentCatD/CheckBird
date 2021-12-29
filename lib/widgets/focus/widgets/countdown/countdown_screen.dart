@@ -67,7 +67,7 @@ class _CountDownScreenState extends State<CountDownScreen> {
           return const GiveUpDialog();
         });
     if (gaveUp) {
-      popScreens(2);
+      popScreens(1);
     } else {
       startTime(reset: false);
     }
@@ -97,7 +97,7 @@ class _CountDownScreenState extends State<CountDownScreen> {
                     isCompleted: duration.inSeconds == 0,
                     onAgain: startTime,
                     onExit: () {
-                      popScreens(2);
+                      popScreens(1);
                     },
                     onCancel: () {
                       showConfirmQuitDialog();
@@ -111,7 +111,7 @@ class _CountDownScreenState extends State<CountDownScreen> {
       ),
       onWillPop: () async {
         if (duration.inSeconds == 0) {
-          popScreens(2);
+          popScreens(1);
         } else {
           showConfirmQuitDialog();
         }
