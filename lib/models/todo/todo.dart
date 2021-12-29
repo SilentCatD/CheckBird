@@ -109,7 +109,6 @@ class Todo extends HiveObject {
     int? newBackgroundColor,
     int? newTextColor,
     DateTime? newNotification,
-    int? newNotificationId,
     DateTime? newDeadline,
     List<bool>? newWeekdays,
   }) {
@@ -119,8 +118,9 @@ class Todo extends HiveObject {
     todoDescription = (newDescription) ?? todoDescription;
     backgroundColor = newBackgroundColor ?? backgroundColor;
     textColor = newTextColor ?? textColor;
+    // TODO: check for notification id change and reschedule
     notification = newNotification ?? notification;
-    notificationId = notificationId ?? notificationId;
+    // notificationId =  ?? notificationId;
     deadline = newDeadline ?? deadline;
     weekdays = newWeekdays ?? weekdays;
     save();

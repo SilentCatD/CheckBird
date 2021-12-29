@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 class WeekDayPicker extends StatefulWidget {
   const WeekDayPicker({
     Key? key,
+    this.initialValues,
     this.unselected,
     this.selected,
     this.textUnSelected,
@@ -13,6 +14,7 @@ class WeekDayPicker extends StatefulWidget {
     this.validate,
   }) : super(key: key);
 
+  final List<bool>? initialValues;
   final Color? selected;
   final Color? unselected;
   final Color? textSelected;
@@ -28,16 +30,18 @@ class WeekDayPicker extends StatefulWidget {
 
 class _WeekDayPickerState extends State<WeekDayPicker> {
   final listOfDays = ['Mo', 'Tu', 'We', 'Th', 'Fr', 'Sa', 'Su'];
-  final onChangedReturn = [false, false, false, false, false, false, false];
+  var onChangedReturn = [false, false, false, false, false, false, false];
   late List<DayItem> days;
   String? errorText;
 
   @override
   void initState() {
     super.initState();
+    if(widget.initialValues!=null) onChangedReturn = widget.initialValues!;
     var dayHolder = <DayItem>[];
     for (var i = 0; i < listOfDays.length; i++) {
       dayHolder.add(DayItem(
+        initialValue: onChangedReturn[i],
         selected: widget.selected,
         unselected: widget.unselected,
         textSelected: widget.textSelected,

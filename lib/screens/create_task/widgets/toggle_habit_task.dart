@@ -5,7 +5,7 @@ class ToggleHabitTask extends StatelessWidget {
   const ToggleHabitTask(
       {Key? key, required this.todoType, required this.onChanged})
       : super(key: key);
-  final void Function(bool value) onChanged;
+  final void Function(bool value)? onChanged;
   final TodoType todoType;
 
   @override

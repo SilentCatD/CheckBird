@@ -14,6 +14,7 @@ class CreateTodoScreen extends StatefulWidget {
   const CreateTodoScreen({Key? key, this.todo}) : super(key: key);
   static const routeName = 'create-todo-screen';
   final Todo? todo;
+
   @override
   State<CreateTodoScreen> createState() => _CreateTodoScreenState();
 }
@@ -34,12 +35,14 @@ class _CreateTodoScreenState extends State<CreateTodoScreen> {
   @override
   void initState() {
     super.initState();
-    if(widget.todo!=null){
+    if (widget.todo != null) {
       _todoName = widget.todo!.todoName;
       _todoDescription = widget.todo!.todoDescription;
       _backgroundColor = Color(widget.todo!.backgroundColor);
       _textColor = Color(widget.todo!.textColor);
       _todoType = widget.todo!.type;
+      _dueDate = widget.todo!.deadline;
+      _habitLoop = (widget.todo!.type == TodoType.habit) ? widget.todo!.weekdays! : _habitLoop;
     }
   }
 
@@ -70,35 +73,40 @@ class _CreateTodoScreenState extends State<CreateTodoScreen> {
       return;
     }
     _formKey.currentState!.save();
-    // print(_todoName);
-    // print(_todoDescription);
-    // print(_backgroundColor);
-    // print(_textColor);
-    // print(_todoType);
-    // print(_dueDate);
-    // print(_notification);
-    // print(_habitLoop);
-    if (_todoType == TodoType.habit) {
-      TodoListController().addTodo(
-        Todo.habit(
-          todoName: _todoName,
-          todoDescription: _todoDescription,
-          textColor: _textColor.value,
-          backgroundColor: _backgroundColor.value,
-          weekdays: _habitLoop,
-        ),
+    if (widget.todo != null) {
+      widget.todo!.editTodo(
+        newName: _todoName,
+        newDescription: _todoDescription,
+        newBackgroundColor: _backgroundColor.value,
+        newTextColor: _textColor.value,
+        newDeadline: widget.todo!.type == TodoType.habit ? null : _dueDate,
+        newNotification:
+            widget.todo!.type == TodoType.habit ? null : _notification,
+        newWeekdays: widget.todo!.type == TodoType.task ? null : _habitLoop,
       );
-    }
-    if (_todoType == TodoType.task) {
-      TodoListController().addTodo(
-        Todo.task(
+    } else {
+      if (_todoType == TodoType.habit) {
+        TodoListController().addTodo(
+          Todo.habit(
             todoName: _todoName,
             todoDescription: _todoDescription,
             textColor: _textColor.value,
             backgroundColor: _backgroundColor.value,
-            deadline: _dueDate,
-            notification: _notification),
-      );
+            weekdays: _habitLoop,
+          ),
+        );
+      }
+      if (_todoType == TodoType.task) {
+        TodoListController().addTodo(
+          Todo.task(
+              todoName: _todoName,
+              todoDescription: _todoDescription,
+              textColor: _textColor.value,
+              backgroundColor: _backgroundColor.value,
+              deadline: _dueDate,
+              notification: _notification),
+        );
+      }
     }
     Navigator.of(context).pop();
   }
@@ -121,17 +129,21 @@ class _CreateTodoScreenState extends State<CreateTodoScreen> {
               padding: const EdgeInsets.all(20.0),
               child: Column(
                 children: [
-                  TodoNameInput(todoName: _todoName,onSaved: (value) {
-                    _todoName = value;
-                  }),
+                  TodoNameInput(
+                      todoName: _todoName,
+                      onSaved: (value) {
+                        _todoName = value;
+                      }),
                   SizedBox(
                     height: size.height * 0.02,
                   ),
                   SizedBox(
                     height: size.height * 0.25,
-                    child: TodoDescriptionInput(todoDescription: _todoDescription,onSaved: (value) {
-                      _todoDescription = value;
-                    }),
+                    child: TodoDescriptionInput(
+                        todoDescription: _todoDescription,
+                        onSaved: (value) {
+                          _todoDescription = value;
+                        }),
                   ),
                   PickColor(
                     backgroundColor: _backgroundColor,
@@ -148,17 +160,20 @@ class _CreateTodoScreenState extends State<CreateTodoScreen> {
                     },
                   ),
                   ToggleHabitTask(
-                      todoType: _todoType,
-                      onChanged: (_) {
-                        setState(() {
-                          FocusManager.instance.primaryFocus?.unfocus();
-                          if (_todoType == TodoType.habit) {
-                            _todoType = TodoType.task;
-                          } else {
-                            _todoType = TodoType.habit;
-                          }
-                        });
-                      }),
+                    todoType: _todoType,
+                    onChanged: widget.todo != null
+                        ? null
+                        : (_) {
+                            setState(() {
+                              FocusManager.instance.primaryFocus?.unfocus();
+                              if (_todoType == TodoType.habit) {
+                                _todoType = TodoType.task;
+                              } else {
+                                _todoType = TodoType.habit;
+                              }
+                            });
+                          },
+                  ),
                   if (_todoType == TodoType.task)
                     TaskCustom(
                       initialDate: _dueDate,
@@ -173,6 +188,7 @@ class _CreateTodoScreenState extends State<CreateTodoScreen> {
                     ),
                   if (_todoType == TodoType.habit)
                     HabitCustom(
+                      habitDays: widget.todo == null ? null : _habitLoop,
                       onChanged: (values) {
                         _habitLoop = values;
                       },

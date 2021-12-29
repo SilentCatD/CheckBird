@@ -10,8 +10,10 @@ class DayItem extends StatefulWidget {
     this.unselected,
     required this.index,
     required this.onChangedCaller,
+    this.initialValue,
   }) : super(key: key);
 
+  final bool? initialValue;
   final void Function(int index) onChangedCaller;
   final Color? selected;
   final Color? unselected;
@@ -31,6 +33,12 @@ class _DayItemState extends State<DayItem> {
     setState(() {
       _isSelected = !_isSelected;
     });
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    if(widget.initialValue != null) _isSelected = widget.initialValue!;
   }
 
   @override
