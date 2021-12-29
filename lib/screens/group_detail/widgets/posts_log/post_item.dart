@@ -31,7 +31,6 @@ class _PostItemState extends State<PostItem> with AutomaticKeepAliveClientMixin 
   }
   @override
   bool get wantKeepAlive => true;
-
   @override
   Widget build(BuildContext context) {
     return LayoutBuilder(builder: (context, constraints) {

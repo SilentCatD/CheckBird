@@ -18,6 +18,7 @@ class TaskScreen extends StatelessWidget {
     final afterTwoDay = DateTime(
         DateTime.now().year, DateTime.now().month, DateTime.now().day + 2);
     return Scaffold(
+      backgroundColor: Colors.grey.shade300,
       appBar: AppBar(
         leading: IconButton(
           onPressed: () {
