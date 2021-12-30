@@ -15,7 +15,7 @@ class EmptyToDo extends StatelessWidget {
           color:  Colors.blueAccent,
           ),
           child: const Text(
-          "You not to do this day",
+          "You have nothing to do today",
           style: TextStyle(fontSize: 15,fontWeight: FontWeight.bold,color: Colors.white),
           ),
         ),
