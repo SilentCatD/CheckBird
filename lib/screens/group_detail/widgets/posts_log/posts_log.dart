@@ -24,7 +24,6 @@ class _PostsLogState extends State<PostsLog> {
 
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
     newPostStream = PostsController().postsStream(widget.groupId).listen((event) {
       if(event.first.posterId == Authentication.user!.uid && event.first.id != lastPostId){

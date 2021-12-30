@@ -8,9 +8,11 @@ enum HabitLoopType {
 }
 
 class HabitCustom extends StatefulWidget {
-  const  HabitCustom({Key? key,required this.onChanged, this.habitDays}) : super(key: key);
+  const HabitCustom({Key? key, required this.onChanged, this.habitDays})
+      : super(key: key);
   final void Function(List<bool> values) onChanged;
   final List<bool>? habitDays;
+
   @override
   State<HabitCustom> createState() => _HabitCustomState();
 }
@@ -21,7 +23,7 @@ class _HabitCustomState extends State<HabitCustom> {
   @override
   void initState() {
     super.initState();
-    if(widget.habitDays!=null) _habitLoopType = HabitLoopType.custom;
+    if (widget.habitDays != null) _habitLoopType = HabitLoopType.custom;
   }
 
   @override
@@ -52,7 +54,7 @@ class _HabitCustomState extends State<HabitCustom> {
                 _habitLoopType = value!;
                 final todayWeekday = DateTime.now().weekday;
                 var values = List.filled(7, false);
-                values[todayWeekday-1] = true;
+                values[todayWeekday - 1] = true;
                 widget.onChanged(values);
               });
             },
@@ -72,24 +74,27 @@ class _HabitCustomState extends State<HabitCustom> {
             },
           ),
         ),
-        const SizedBox(height: 10,),
-        if (_habitLoopType == HabitLoopType.custom) WeekDayPicker(
-          initialValues: widget.habitDays,
-          validate: (value){
-            var hasVal = false;
-            for(var i = 0; i < value.length; i ++) {
-              if(value[i]) {
-                hasVal = true;
-                break;
+        const SizedBox(
+          height: 10,
+        ),
+        if (_habitLoopType == HabitLoopType.custom)
+          WeekDayPicker(
+            initialValues: widget.habitDays,
+            validate: (value) {
+              var hasVal = false;
+              for (var i = 0; i < value.length; i++) {
+                if (value[i]) {
+                  hasVal = true;
+                  break;
+                }
               }
-            }
-            if(hasVal) return null;
-            return "Must pick at least 1 day";
-          },
-          onChanged: (values) {
-            widget.onChanged(values);
-          },
-        )
+              if (hasVal) return null;
+              return "Must pick at least 1 day";
+            },
+            onChanged: (values) {
+              widget.onChanged(values);
+            },
+          )
       ],
     );
   }

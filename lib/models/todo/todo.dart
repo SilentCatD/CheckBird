@@ -1,8 +1,14 @@
 import 'package:check_bird/models/todo/todo_type.dart';
-import 'package:hive/hive.dart';
 import 'package:check_bird/services/notification.dart';
+import 'package:hive/hive.dart';
 
 part 'todo.g.dart';
+
+extension DateOnlyCompare on DateTime {
+  bool isSameDate(DateTime other) {
+    return year == other.year && month == other.month && day == other.day;
+  }
+}
 
 @HiveType(typeId: 0)
 class Todo extends HiveObject {
@@ -93,9 +99,6 @@ class Todo extends HiveObject {
     return type;
   }
 
-  DateTime getLastCompleted() {
-    return lastCompleted!;
-  }
 
   void toggleCompleted() {
     DateTime now = DateTime.now();
@@ -109,8 +112,7 @@ class Todo extends HiveObject {
   }
 
   Future<void> toggleCancelNotification() async {
-    await NotificationService()
-        .cancelScheduledNotifications(this.notificationId!);
+    await NotificationService().cancelScheduledNotifications(notificationId!);
   }
 
   void editTodo({
@@ -133,10 +135,9 @@ class Todo extends HiveObject {
 
     if (newNotification != notification) {
       notification = newNotification;
-
-      if (notification == null)
+      if (notification == null) {
         NotificationService().cancelScheduledNotifications(notificationId!);
-
+      }
       if (type == TodoType.task && newNotification != null) {
         String title = "Notification CheckBird";
         String body = "Deadline: " + deadline.toString();
@@ -151,6 +152,11 @@ class Todo extends HiveObject {
   bool get isCompleted {
     if (lastCompleted != null) {
       DateTime now = DateTime.now();
+      if(type == TodoType.habit && !now.isSameDate(lastCompleted!)){
+        lastCompleted = null;
+        save();
+        return false;
+      }
       return now.year == lastCompleted!.year &&
           now.month == lastCompleted!.month &&
           now.day == lastCompleted!.day;

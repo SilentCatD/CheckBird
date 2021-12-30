@@ -42,7 +42,9 @@ class _CreateTodoScreenState extends State<CreateTodoScreen> {
       _textColor = Color(widget.todo!.textColor);
       _todoType = widget.todo!.type;
       _dueDate = widget.todo!.deadline;
-      _habitLoop = (widget.todo!.type == TodoType.habit) ? widget.todo!.weekdays! : _habitLoop;
+      _habitLoop = (widget.todo!.type == TodoType.habit)
+          ? widget.todo!.weekdays!
+          : _habitLoop;
     }
   }
 
@@ -205,7 +207,7 @@ class _CreateTodoScreenState extends State<CreateTodoScreen> {
                     onPressed: () {
                       _submit();
                     },
-                    child: const Text("Add todo"),
+                    child: widget.todo == null ? const Text("Add todo") : const Text("Save"),
                   ),
                   SizedBox(
                     height: size.height * 0.05,

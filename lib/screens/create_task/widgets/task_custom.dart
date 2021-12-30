@@ -16,12 +16,14 @@ enum Notification {
 
 class TaskCustom extends StatefulWidget {
   const TaskCustom(
-      {Key? key, required this.initialDate, required this.onChangedDue, required this.onChangedNotification})
+      {Key? key,
+      required this.initialDate,
+      required this.onChangedDue,
+      required this.onChangedNotification})
       : super(key: key);
   final DateTime? initialDate;
   final void Function(String value) onChangedDue;
   final void Function(DateTime? dateTime) onChangedNotification;
-
 
   @override
   State<TaskCustom> createState() => _TaskCustomState();
@@ -37,9 +39,10 @@ class _TaskCustomState extends State<TaskCustom> {
 
   DateTime _pickedDay = DateTime.now();
   Notification _pickedNotificationType = Notification.none;
+
   @override
   Widget build(BuildContext context) {
-    if(widget.initialDate != null) _pickedDay = widget.initialDate!;
+    if (widget.initialDate != null) _pickedDay = widget.initialDate!;
     return Column(
       children: [
         const ListTile(
@@ -109,17 +112,15 @@ class _TaskCustomState extends State<TaskCustom> {
               _pickedNotificationType = value!;
             });
             Duration? daysDuration;
-            if(value == Notification.db1){
+            if (value == Notification.db1) {
               daysDuration = const Duration(days: 1);
-            }
-            else if(value == Notification.db2){
+            } else if (value == Notification.db2) {
               daysDuration = const Duration(days: 2);
-            }
-            else if(value == Notification.db3){
+            } else if (value == Notification.db3) {
               daysDuration = const Duration(days: 3);
             }
 
-            if(daysDuration == null) {
+            if (daysDuration == null) {
               widget.onChangedNotification(null);
             } else {
               widget.onChangedNotification(_pickedDay.subtract(daysDuration));

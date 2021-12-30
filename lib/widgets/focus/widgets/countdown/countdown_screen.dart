@@ -1,4 +1,6 @@
 import 'dart:async';
+
+import 'package:check_bird/services/notification.dart';
 import 'package:check_bird/widgets/focus/widgets/countdown/widgets/give_up_dialog.dart';
 import 'package:check_bird/widgets/focus/widgets/countdown/widgets/timer_button.dart';
 import 'package:check_bird/widgets/focus/widgets/countdown/widgets/timer_display.dart';
@@ -75,6 +77,11 @@ class _CountDownScreenState extends State<CountDownScreen> {
 
   @override
   Widget build(BuildContext context) {
+    if (duration.inSeconds == 0 && timer != null) {
+      NotificationService().createInstantNotification(
+          'Focus Time complete', "Sup, focus time is over, good job!");
+    }
+
     return WillPopScope(
       child: Scaffold(
         body: Stack(

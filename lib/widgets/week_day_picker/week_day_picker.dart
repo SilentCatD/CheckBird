@@ -12,9 +12,10 @@ class WeekDayPicker extends StatefulWidget {
     this.backgroundColor = Colors.transparent,
     this.onChanged,
     this.validate,
+    this.forcedOneDayOnly,
   }) : super(key: key);
-
-  final List<bool>? initialValues;
+  final bool? forcedOneDayOnly; //  forces one day only, should be used with at least 1 `true` in initialValues
+  final List<bool>? initialValues; // set initial value of the List<bool>
   final Color? selected;
   final Color? unselected;
   final Color? textSelected;
@@ -22,7 +23,7 @@ class WeekDayPicker extends StatefulWidget {
   final Color? backgroundColor;
   final String? Function(List<bool> values)? validate;
 
-  final void Function(List<bool> chosenDays)? onChanged;
+  final void Function(List<bool> chosenDays)? onChanged; // onChanged call back, fired when changed
 
   @override
   State<WeekDayPicker> createState() => _WeekDayPickerState();
@@ -37,33 +38,24 @@ class _WeekDayPickerState extends State<WeekDayPicker> {
   @override
   void initState() {
     super.initState();
-    if(widget.initialValues!=null) onChangedReturn = widget.initialValues!;
-    var dayHolder = <DayItem>[];
-    for (var i = 0; i < listOfDays.length; i++) {
-      dayHolder.add(DayItem(
-        initialValue: onChangedReturn[i],
-        selected: widget.selected,
-        unselected: widget.unselected,
-        textSelected: widget.textSelected,
-        textUnSelected: widget.textSelected,
-        text: listOfDays[i],
-        index: i,
-        onChangedCaller: onChangedCaller,
-      ));
-    }
-    days = dayHolder;
+    if (widget.initialValues != null) onChangedReturn = List.from(widget.initialValues!);
   }
 
   void onChangedCaller(index) {
-    onChangedReturn[index] = !onChangedReturn[index];
-    if (widget.onChanged != null) {
-      widget.onChanged!(onChangedReturn);
-    }
-    if(widget.validate != null){
-      setState(() {
+    setState(() {
+      if (widget.forcedOneDayOnly != null && widget.forcedOneDayOnly == true) {
+        for (var i = 0; i < onChangedReturn.length; i++) {
+          onChangedReturn[i] = false;
+        }
+      }
+      onChangedReturn[index] = !onChangedReturn[index];
+      if (widget.onChanged != null) {
+        widget.onChanged!(onChangedReturn);
+      }
+      if (widget.validate != null) {
         errorText = widget.validate!(onChangedReturn);
-      });
-    }
+      }
+    });
   }
 
   @override
@@ -79,13 +71,28 @@ class _WeekDayPickerState extends State<WeekDayPicker> {
             scrollDirection: Axis.horizontal,
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              children: days,
+              children: [
+                for (var i = 0; i < listOfDays.length; i++)
+                  DayItem(
+                    value: onChangedReturn[i],
+                    selected: widget.selected,
+                    unselected: widget.unselected,
+                    textSelected: widget.textSelected,
+                    textUnSelected: widget.textSelected,
+                    text: listOfDays[i],
+                    index: i,
+                    onChangedCaller: onChangedCaller,
+                  ),
+              ],
             ),
           ),
         ),
-        SizedBox(height: size.height* 0.02,),
+        SizedBox(
+          height: size.height * 0.02,
+        ),
         Text(
-          errorText ?? "", style: TextStyle(color: Theme.of(context).errorColor),
+          errorText ?? "",
+          style: TextStyle(color: Theme.of(context).errorColor),
         )
       ],
     );

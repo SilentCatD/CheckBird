@@ -1,6 +1,11 @@
 import 'package:check_bird/models/todo/todo_list_controller.dart';
+import 'package:check_bird/screens/task/widgets/empty_todo.dart';
+import 'package:check_bird/screens/task/widgets/habit_list.dart';
 import 'package:check_bird/screens/task/widgets/remove_all_item_ad.dart';
+import 'package:check_bird/screens/task/widgets/show_date.dart';
+import 'package:check_bird/screens/task/widgets/table_calendar_screen.dart';
 import 'package:check_bird/screens/task/widgets/todo_list.dart';
+import 'package:check_bird/screens/task/widgets/todo_list_main.dart';
 import 'package:check_bird/widgets/focus/focus_widget.dart';
 import 'package:flutter/material.dart';
 
@@ -11,12 +16,12 @@ class TaskScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+
+    final TodoListController _controller = TodoListController();
+
     final today =
         DateTime(DateTime.now().year, DateTime.now().month, DateTime.now().day);
-    final afterOneDay = DateTime(
-        DateTime.now().year, DateTime.now().month, DateTime.now().day + 1);
-    final afterTwoDay = DateTime(
-        DateTime.now().year, DateTime.now().month, DateTime.now().day + 2);
+
     return Scaffold(
       backgroundColor: Colors.grey.shade300,
       appBar: AppBar(
@@ -53,18 +58,7 @@ class TaskScreen extends StatelessWidget {
           ),
         ],
       ),
-      // body: Column(
-      //   children: [
-      //     Text(today.toString()),
-      //     Expanded(child: TodoList(day: today)),
-      //
-      //     Text(afterOneDay.toString()),
-      //     Expanded(child: TodoList(day: afterOneDay)),
-      //     Text(afterTwoDay.toString()),
-      //     Expanded(child: TodoList(day: afterTwoDay)),
-      //   ],
-      // ),
-      body: TodoList(),
+      body: ToDoListMain(today: today),
     );
   }
 }
