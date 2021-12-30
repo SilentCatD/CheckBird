@@ -3,7 +3,7 @@
 
     <uses-sdk
         android:minSdkVersion="21"
-        android:targetSdkVersion="31" />
+        android:targetSdkVersion="n31" />
 
     <application
         android:label="check_bird"
