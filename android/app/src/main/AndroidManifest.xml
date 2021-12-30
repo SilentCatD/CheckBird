@@ -6,7 +6,7 @@
         android:targetSdkVersion="31" />
 
     <application
-        android:label="check_bird"
+        android:label="Check Bird"
         android:icon="@mipmap/ic_launcher">
        <activity
            android:name="com.yalantis.ucrop.UCropActivity"
