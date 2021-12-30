@@ -116,20 +116,20 @@ class TodoListController {
 
   List<Todo> getTaskExcept3Day(DateTime day) {
     List<Todo> todolist = [];
-
+    DateTime after3day = day.add(const Duration(days: 3));
     for (int i = 0; i < getTodoList().length; i++) {
-      if(getTodoList().values.toList()[i].getType() == TodoType.task){
-        if (getTodoList().values.toList()[i].getDueTime().isSameDate(day)) {
+      if (getTodoList().values.toList()[i].getType() == TodoType.task &&
+          getTodoList().values.toList()[i].getDueTime().compareTo(after3day) == 1) {
           todolist.add(getTodoList().values.toList()[i]);
-        }
       }
     }
     return todolist;
   }
 
-  // int countTaskForever(DateTime day){
-  //
-  // }
+  int countTaskExcept3Day(DateTime day){
+    List<Todo> todoList = getTaskExcept3Day(day);
+    return todoList.length;
+  }
 
 
 

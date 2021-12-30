@@ -2,7 +2,9 @@ import 'package:check_bird/models/todo/todo_list_controller.dart';
 import 'package:check_bird/screens/task/widgets/empty_todo.dart';
 import 'package:check_bird/screens/task/widgets/habit_list.dart';
 import 'package:check_bird/screens/task/widgets/remove_all_item_ad.dart';
+import 'package:check_bird/screens/task/widgets/show_date.dart';
 import 'package:check_bird/screens/task/widgets/todo_list.dart';
+import 'package:check_bird/screens/task/widgets/todo_list_main.dart';
 import 'package:check_bird/widgets/focus/focus_widget.dart';
 import 'package:flutter/material.dart';
 
@@ -13,13 +15,12 @@ class TaskScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    Size size = MediaQuery.of(context).size;
+
     final TodoListController _controller = TodoListController();
 
     final today =
         DateTime(DateTime.now().year, DateTime.now().month, DateTime.now().day);
-    final tomorrow = today.add(const Duration(days: 1));
-    final after2day = today.add(const Duration(days: 2));
+
     return Scaffold(
       backgroundColor: Colors.grey.shade300,
       appBar: AppBar(
@@ -57,29 +58,7 @@ class TaskScreen extends StatelessWidget {
           ),
         ],
       ),
-      body: SingleChildScrollView(
-        child: Column(
-          children: [
-            const Text("Today"),
-            SizedBox(
-              height: size.width * 0.3 * _controller.countToDoForDay(today),
-              child: TodoList(day: today,isToday: true),
-            ),
-            const Text("Tomorrow"),
-            if(_controller.countTaskForDay(tomorrow) == 0) const EmptyToDo(),
-            SizedBox(
-              height: size.width *0.3 * _controller.countTaskForDay(tomorrow),
-              child: TodoList(day: tomorrow),
-            ),
-            const Text("After Tomorrow"),
-            if(_controller.countTaskForDay(after2day) == 0) const EmptyToDo(),
-            SizedBox(
-              height: size.width * 0.3 * _controller.countTaskForDay(after2day),
-              child: TodoList(day: after2day),
-            ),
-          ],
-        )
-      )
+      body: ToDoListMain(today: today),
     );
   }
 }

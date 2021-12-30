@@ -5,17 +5,23 @@ class EmptyToDo extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      padding: const EdgeInsets.symmetric(vertical: 20),
-      color: Colors.blue,
-      // decoration: const BoxDecoration(
-      //     borderRadius: BorderRadius.all(Radius.circular(10)),
-      //   color:  Colors.white,
-      // ),
-      child: const Text(
-        "Empty To Do",
-        style: TextStyle(fontSize: 15,fontWeight: FontWeight.bold,color: Colors.white),
-      ),
+    return Column(
+      children: [
+        const SizedBox(height: 10),
+        Container(
+          padding: const EdgeInsets.symmetric(vertical: 10,horizontal: 20),
+          decoration: const BoxDecoration(
+          borderRadius: BorderRadius.all(Radius.circular(10)),
+          color:  Colors.green,
+          ),
+          child: const Text(
+          "You not to do this day",
+          style: TextStyle(fontSize: 15,fontWeight: FontWeight.bold,color: Colors.white),
+          ),
+        ),
+        const SizedBox(height: 10),
+      ],
     );
+
   }
 }

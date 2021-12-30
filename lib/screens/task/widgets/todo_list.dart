@@ -10,10 +10,12 @@ class TodoList extends StatelessWidget {
     Key? key,
     this.day,
     this.isToday = false,
+    this.isMore = false,
   }) : super(key: key);
   final TodoListController _controller = TodoListController();
   final DateTime? day;
   final bool isToday;
+  final bool isMore;
 
   @override
   Widget build(BuildContext context) {
@@ -36,6 +38,21 @@ class TodoList extends StatelessWidget {
         valueListenable: _controller.getTodoList().listenable(),
         builder: (context, Box<Todo> box, _) {
           final todos =_controller.getToDoForDay(day!);
+          return ListView.builder(
+            physics: const NeverScrollableScrollPhysics(),
+            itemCount: todos.length,
+            itemBuilder: (context, index) {
+              return TodoItem(todo: todos[index]);
+            },
+          );
+        },
+      );
+    }
+    else if(isMore){
+      return ValueListenableBuilder(
+        valueListenable: _controller.getTodoList().listenable(),
+        builder: (context, Box<Todo> box, _) {
+          final todos =_controller.getTaskExcept3Day(day!);
           return ListView.builder(
             physics: const NeverScrollableScrollPhysics(),
             itemCount: todos.length,
