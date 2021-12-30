@@ -110,6 +110,7 @@ class _PickColorState extends State<PickColor> {
                             "Hello world",
                             style: TextStyle(
                               color: widget.textColor,
+                              fontWeight: FontWeight.bold,
                             ),
                           )),
                         ),

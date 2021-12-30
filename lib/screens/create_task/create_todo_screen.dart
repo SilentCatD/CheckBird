@@ -207,7 +207,7 @@ class _CreateTodoScreenState extends State<CreateTodoScreen> {
                     onPressed: () {
                       _submit();
                     },
-                    child: const Text("Add todo"),
+                    child: widget.todo == null ? const Text("Add todo") : const Text("Save"),
                   ),
                   SizedBox(
                     height: size.height * 0.05,

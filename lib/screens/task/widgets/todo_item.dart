@@ -91,11 +91,13 @@ class TodoItem extends StatelessWidget {
                           Expanded(
                             child: Padding(
                               padding: const EdgeInsets.all(8),
-                              child: Text(
-                                todo.todoName,
-                                style: TextStyle(
-                                  fontWeight: FontWeight.bold,
-                                  color: Color(todo.textColor),
+                              child: Center(
+                                child: Text(
+                                  todo.todoName,
+                                  style: TextStyle(
+                                    fontWeight: FontWeight.bold,
+                                    color: Color(todo.textColor),
+                                  ),
                                 ),
                               ),
                             ),
