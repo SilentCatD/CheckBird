@@ -38,7 +38,7 @@ class _WeekDayPickerState extends State<WeekDayPicker> {
   @override
   void initState() {
     super.initState();
-    if (widget.initialValues != null) onChangedReturn = widget.initialValues!;
+    if (widget.initialValues != null) onChangedReturn = List.from(widget.initialValues!);
   }
 
   void onChangedCaller(index) {
