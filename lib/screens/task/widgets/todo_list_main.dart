@@ -3,7 +3,6 @@ import 'package:check_bird/screens/task/widgets/empty_todo.dart';
 import 'package:check_bird/screens/task/widgets/show_date.dart';
 import 'package:check_bird/screens/task/widgets/todo_list.dart';
 import 'package:flutter/material.dart';
-import 'package:hive/hive.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:check_bird/models/todo/todo_list_controller.dart';
 
@@ -19,9 +18,7 @@ class ToDoListMain extends StatelessWidget {
   Widget build(BuildContext context) {
     final tomorrow = today.add(const Duration(days: 1));
     final after2day = today.add(const Duration(days: 2));
-    final Size size = MediaQuery
-        .of(context)
-        .size;
+    final Size size = MediaQuery.of(context).size;
     return ValueListenableBuilder(
         valueListenable: _controller.getTodoList().listenable(),
         builder: (context, Box<Todo> box, _) {
@@ -29,6 +26,8 @@ class ToDoListMain extends StatelessWidget {
               child: Column(
                   children: [
                     const ShowDate(text: "Today"),
+                    if(_controller.countToDoForDay(today) ==
+                        0) const EmptyToDo(),
                     SizedBox(
                       height: size.width * 0.3 *
                           _controller.countToDoForDay(today),

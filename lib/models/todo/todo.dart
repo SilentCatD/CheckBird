@@ -4,6 +4,12 @@ import 'package:hive/hive.dart';
 
 part 'todo.g.dart';
 
+extension DateOnlyCompare on DateTime {
+  bool isSameDate(DateTime other) {
+    return year == other.year && month == other.month && day == other.day;
+  }
+}
+
 @HiveType(typeId: 0)
 class Todo extends HiveObject {
   // you can use this if you want
@@ -93,9 +99,6 @@ class Todo extends HiveObject {
     return type;
   }
 
-  DateTime getLastCompleted() {
-    return lastCompleted!;
-  }
 
   void toggleCompleted() {
     DateTime now = DateTime.now();
@@ -149,6 +152,11 @@ class Todo extends HiveObject {
   bool get isCompleted {
     if (lastCompleted != null) {
       DateTime now = DateTime.now();
+      if(type == TodoType.habit && !now.isSameDate(lastCompleted!)){
+        lastCompleted = null;
+        save();
+        return false;
+      }
       return now.year == lastCompleted!.year &&
           now.month == lastCompleted!.month &&
           now.day == lastCompleted!.day;

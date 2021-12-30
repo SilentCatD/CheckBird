@@ -6,12 +6,6 @@ import 'todo_type.dart';
 import 'todo.dart';
 
 
-extension DateOnlyCompare on DateTime {
-  bool isSameDate(DateTime other) {
-    return year == other.year && month == other.month && day == other.day;
-  }
-}
-
 class TodoListController {
   Future<void> openBox() async {
     await Hive.openBox<Todo>('todos');
