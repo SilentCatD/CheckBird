@@ -92,6 +92,7 @@ class TodoListController {
     return todolist;
   }
 
+
   List<Todo> getToDoForDay(DateTime day) {
     List<Todo> todolist = [];
     todolist = getTaskForDay(day);
@@ -103,6 +104,32 @@ class TodoListController {
     return todolist;
   }
 
+  int countToDoForDay(DateTime day){
+    List<Todo> todoList = getToDoForDay(day);
+    return todoList.length;
+  }
+
+  int countTaskForDay(DateTime day){
+    List<Todo> todoList = getTaskForDay(day);
+    return todoList.length;
+  }
+
+  List<Todo> getTaskExcept3Day(DateTime day) {
+    List<Todo> todolist = [];
+
+    for (int i = 0; i < getTodoList().length; i++) {
+      if(getTodoList().values.toList()[i].getType() == TodoType.task){
+        if (getTodoList().values.toList()[i].getDueTime().isSameDate(day)) {
+          todolist.add(getTodoList().values.toList()[i]);
+        }
+      }
+    }
+    return todolist;
+  }
+
+  // int countTaskForever(DateTime day){
+  //
+  // }
 
 
 
