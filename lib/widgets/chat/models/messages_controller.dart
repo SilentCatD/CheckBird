@@ -70,6 +70,7 @@ class MessagesController {
         data: dowUrl,
         chatType: chatType,
         groupId: groupId,
+        topicId: topicId,
         mediaType: MediaType.image);
   }
 
