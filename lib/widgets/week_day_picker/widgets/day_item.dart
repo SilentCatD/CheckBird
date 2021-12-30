@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-class DayItem extends StatefulWidget {
+class DayItem extends StatelessWidget {
   const DayItem({
     Key? key,
     required this.text,
@@ -10,10 +10,9 @@ class DayItem extends StatefulWidget {
     this.unselected,
     required this.index,
     required this.onChangedCaller,
-    this.initialValue,
+    required this.value,
   }) : super(key: key);
 
-  final bool? initialValue;
   final void Function(int index) onChangedCaller;
   final Color? selected;
   final Color? unselected;
@@ -21,48 +20,35 @@ class DayItem extends StatefulWidget {
   final Color? textUnSelected;
   final int index;
   final String text;
+  final bool value;
 
-  @override
-  _DayItemState createState() => _DayItemState();
-}
+//   @override
+//   _DayItemState createState() => _DayItemState();
+// }
+//
+// class _DayItemState extends State<DayItem> {
+//   bool _isSelected = true;
 
-class _DayItemState extends State<DayItem> {
-  bool _isSelected = false;
-
-  void _toggleSelected() {
-    setState(() {
-      _isSelected = !_isSelected;
-    });
-  }
-
-  @override
-  void initState() {
-    super.initState();
-    if(widget.initialValue != null) _isSelected = widget.initialValue!;
-  }
 
   @override
   Widget build(BuildContext context) {
     return TextButton(
         style: TextButton.styleFrom(
           shape: const CircleBorder(),
-          backgroundColor: _isSelected
-              ? (widget.selected ?? Theme.of(context).primaryColor)
-              : (widget.unselected ?? Colors.grey.shade300),
+          backgroundColor: value
+              ? (selected ?? Theme.of(context).primaryColor)
+              : (unselected ?? Colors.grey.shade300),
         ),
         onPressed: () {
-          setState(() {
-            _toggleSelected();
-            widget.onChangedCaller(widget.index);
-          });
+            onChangedCaller(index);
         },
         child: Text(
-          widget.text,
+          text,
           style: TextStyle(
             fontWeight: FontWeight.bold,
-            color: _isSelected
-                ? (widget.textSelected ?? Colors.white)
-                : (widget.textUnSelected ?? Colors.black54),
+            color: value
+                ? (textSelected ?? Colors.white)
+                : (textUnSelected ?? Colors.black54),
           ),
         ));
   }
