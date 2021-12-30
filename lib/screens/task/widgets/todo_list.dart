@@ -1,5 +1,6 @@
 import 'package:check_bird/models/todo/todo.dart';
 import 'package:check_bird/screens/task/widgets/todo_item.dart';
+import 'package:check_bird/screens/task/widgets/todo_item_remove.dart';
 import 'package:flutter/material.dart';
 import 'package:hive/hive.dart';
 import 'package:hive_flutter/hive_flutter.dart';
@@ -42,7 +43,7 @@ class TodoList extends StatelessWidget {
             physics: const NeverScrollableScrollPhysics(),
             itemCount: todos.length,
             itemBuilder: (context, index) {
-              return TodoItem(todo: todos[index]);
+              return ToDoItemRemove(todos: todos,index: index);
             },
           );
         },
@@ -57,7 +58,7 @@ class TodoList extends StatelessWidget {
             physics: const NeverScrollableScrollPhysics(),
             itemCount: todos.length,
             itemBuilder: (context, index) {
-              return TodoItem(todo: todos[index]);
+              return ToDoItemRemove(todos: todos,index: index);
             },
           );
         },
@@ -72,7 +73,7 @@ class TodoList extends StatelessWidget {
             physics: const NeverScrollableScrollPhysics(),
             itemCount: todos.length,
             itemBuilder: (context, index) {
-              return TodoItem(todo: todos[index]);
+              return ToDoItemRemove(todos: todos,index: index);
             },
           );
         },

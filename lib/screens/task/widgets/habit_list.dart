@@ -1,6 +1,7 @@
 import 'package:check_bird/models/todo/todo.dart';
 import 'package:check_bird/models/todo/todo_list_controller.dart';
 import 'package:check_bird/screens/task/widgets/todo_item.dart';
+import 'package:check_bird/screens/task/widgets/todo_item_remove.dart';
 import 'package:check_bird/widgets/week_day_picker/week_day_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:hive_flutter/hive_flutter.dart';
@@ -53,37 +54,7 @@ class _HabitListScreenState extends State<HabitListScreen> {
                 return ListView.builder(
                   itemCount: todos.length,
                   itemBuilder: (context, index) {
-                    return Dismissible(
-                      child: TodoItem(todo: todos[index], isCheck: false),
-                      background: Container(
-                        color: Colors.red,
-                        child: const Icon(Icons.cancel),
-                      ),
-                      direction: DismissDirection.endToStart,
-                      key: UniqueKey(),
-                      confirmDismiss: (DismissDirection direction) async {
-                        return await showDialog(
-                            context: context,
-                            builder: (_) => AlertDialog(
-                                  title: const Text("Are you sure?"),
-                                  content: const Text(
-                                      "You're about to delete habit?"),
-                                  actions: [
-                                    TextButton(
-                                        onPressed: () {
-                                          Navigator.of(context).pop(false);
-                                        },
-                                        child: const Text("No")),
-                                    TextButton(
-                                        onPressed: () {
-                                          todos.removeAt(index).deleteTodo();
-                                          Navigator.of(context).pop(true);
-                                        },
-                                        child: const Text("Yes")),
-                                  ],
-                                ));
-                      },
-                    );
+                    return ToDoItemRemove(todos: todos,index: index,isCheck: false);
                   },
                 );
               },

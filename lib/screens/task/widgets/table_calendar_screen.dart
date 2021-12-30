@@ -1,7 +1,6 @@
 import 'package:check_bird/models/todo/todo.dart';
 import 'package:check_bird/models/todo/todo_list_controller.dart';
-import 'package:check_bird/models/todo/todo_type.dart';
-import 'package:check_bird/screens/task/widgets/todo_item.dart';
+import 'package:check_bird/screens/task/widgets/todo_item_remove.dart';
 import 'package:flutter/material.dart';
 import 'package:hive/hive.dart';
 import 'package:hive_flutter/hive_flutter.dart';
@@ -52,44 +51,49 @@ class _TableCalendarScreenState extends State<TableCalendarScreen> {
       appBar: AppBar(
         title: const Text('Task Calendar'),
       ),
-      body: Column(
-        children: [
-          TableCalendar(
-            firstDay: DateTime.utc(2020, 10, 16),
-            lastDay: DateTime.utc(2023, 3, 14),
-            focusedDay: _focusedDay,
-            selectedDayPredicate: (day) => isSameDay(_selectedDay, day),
-            calendarFormat: _calendarFormat,
-            eventLoader: _controller.getTaskForDay,
-            onDaySelected: _onDaySelected,
-            calendarStyle: const CalendarStyle(outsideDaysVisible: false),
-            onFormatChanged: (format) {
-              if (_calendarFormat != format) {
-                setState(() {
-                  _calendarFormat = format;
-                });
-              }
-            },
-            onPageChanged: (focusedDay) {
-              _focusedDay = focusedDay;
-            },
-          ),
-          const SizedBox(height: 10.0),
-          Expanded(
-              child: ValueListenableBuilder(
-                valueListenable: _controller.getTodoList().listenable(),
-                builder: (context, Box<Todo> box, _) {
-                  final todos = _selectedEvents.value;
-                  return ListView.builder(
-                    itemCount: todos.length,
-                    itemBuilder: (context, index) {
-                      return TodoItem(todo: todos[index]);
-                    },
-                  );
+      body:  ValueListenableBuilder(
+        valueListenable: _controller.getTodoList().listenable(),
+        builder: (context, Box<Todo> box, _) {
+          return Column(
+            children: [
+              TableCalendar(
+                firstDay: DateTime.utc(2020, 10, 16),
+                lastDay: DateTime.utc(2023, 3, 14),
+                focusedDay: _focusedDay,
+                selectedDayPredicate: (day) => isSameDay(_selectedDay, day),
+                calendarFormat: _calendarFormat,
+                eventLoader: _controller.getTaskForDay,
+                onDaySelected: _onDaySelected,
+                calendarStyle: const CalendarStyle(outsideDaysVisible: false),
+                onFormatChanged: (format) {
+                  if (_calendarFormat != format) {
+                    setState(() {
+                      _calendarFormat = format;
+                    });
+                  }
                 },
+                onPageChanged: (focusedDay) {
+                  _focusedDay = focusedDay;
+                },
+              ),
+              const SizedBox(height: 10.0),
+              Expanded(
+                  child: ValueListenableBuilder(
+                    valueListenable: _controller.getTodoList().listenable(),
+                    builder: (context, Box<Todo> box, _) {
+                      final todos = _selectedEvents.value;
+                      return ListView.builder(
+                        itemCount: todos.length,
+                        itemBuilder: (context, index) {
+                          return ToDoItemRemove(todos: todos,index: index);
+                        },
+                      );
+                    },
+                  )
               )
-          )
-        ],
+            ],
+          );
+        }
       ),
     );
   }

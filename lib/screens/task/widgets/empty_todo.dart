@@ -12,7 +12,7 @@ class EmptyToDo extends StatelessWidget {
           padding: const EdgeInsets.symmetric(vertical: 10,horizontal: 20),
           decoration: const BoxDecoration(
           borderRadius: BorderRadius.all(Radius.circular(10)),
-          color:  Colors.green,
+          color:  Colors.blueAccent,
           ),
           child: const Text(
           "You not to do this day",
