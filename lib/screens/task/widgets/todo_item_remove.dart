@@ -1,9 +1,6 @@
 import 'package:check_bird/models/todo/todo.dart';
-import 'package:check_bird/models/todo/todo_type.dart';
-import 'package:check_bird/screens/create_task/create_todo_screen.dart';
 import 'package:check_bird/screens/task/widgets/todo_item.dart';
 import 'package:flutter/material.dart';
-import 'package:intl/intl.dart';
 
 class ToDoItemRemove extends StatelessWidget {
   const ToDoItemRemove({Key? key, required this.todos,required this.index, this.isCheck = true})

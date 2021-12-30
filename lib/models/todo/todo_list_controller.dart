@@ -79,6 +79,25 @@ class TodoListController {
     return todolist;
   }
 
+  List<Todo> getHabitForMultiDays(List<bool> days){
+    List<Todo> todolist = getAllHabit();
+    for(int i = 0; i < todolist.length; i++){
+      bool check = true;
+      for(int j = 0; j < days.length;j++){
+        if(days[j] == true && todolist[i].getNewWeekdays()[j] == days[j]){
+          check = false;
+          break;
+        }
+      }
+      if(check){
+        todolist.removeAt(i);
+        i--;
+      }
+    }
+    return todolist;
+  }
+
+
   List<Todo> getTaskForDay(DateTime day) {
     List<Todo> todolist = [];
 

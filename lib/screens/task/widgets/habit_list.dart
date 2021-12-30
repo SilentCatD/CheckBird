@@ -1,6 +1,5 @@
 import 'package:check_bird/models/todo/todo.dart';
 import 'package:check_bird/models/todo/todo_list_controller.dart';
-import 'package:check_bird/screens/task/widgets/todo_item.dart';
 import 'package:check_bird/screens/task/widgets/todo_item_remove.dart';
 import 'package:check_bird/widgets/week_day_picker/week_day_picker.dart';
 import 'package:flutter/material.dart';
@@ -24,7 +23,7 @@ class _HabitListScreenState extends State<HabitListScreen> {
   @override
   void initState() {
     super.initState();
-    _selectedHabit = ValueNotifier(_controller.getHabitForWeekDays(0));
+    _selectedHabit = ValueNotifier(_controller.getHabitForMultiDays(_selectedDays));
   }
 
   @override
@@ -42,18 +41,19 @@ class _HabitListScreenState extends State<HabitListScreen> {
             WeekDayPicker(
                 onChanged: (days){
                   _selectedDays = days;
+                  _selectedHabit.value = _controller.getHabitForMultiDays(_selectedDays);
                 },
                 initialValues: _selectedDays
             ),
             const SizedBox(height: 10.0),
             Expanded(
                 child: ValueListenableBuilder(
-              valueListenable: _selectedHabit,
-              builder: (context, List<Todo> box, _) {
-                final todos = _selectedHabit.value;
-                return ListView.builder(
-                  itemCount: todos.length,
-                  itemBuilder: (context, index) {
+                  valueListenable: _selectedHabit,
+                  builder: (context, List<Todo> box, _) {
+                    final todos = _selectedHabit.value;
+                    return ListView.builder(
+                      itemCount: todos.length,
+                      itemBuilder: (context, index) {
                     return ToDoItemRemove(todos: todos,index: index,isCheck: false);
                   },
                 );

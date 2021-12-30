@@ -27,8 +27,7 @@ class TaskScreen extends StatelessWidget {
       appBar: AppBar(
         leading: IconButton(
           onPressed: () {
-            // Scaffold.of(context).openDrawer();
-            Navigator.of(context).pushNamed(HabitListScreen.routeName);
+            Scaffold.of(context).openDrawer();
           },
           icon: const Icon(Icons.menu),
         ),
