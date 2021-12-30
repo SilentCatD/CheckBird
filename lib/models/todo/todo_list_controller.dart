@@ -6,12 +6,6 @@ import 'todo_type.dart';
 import 'todo.dart';
 
 
-extension DateOnlyCompare on DateTime {
-  bool isSameDate(DateTime other) {
-    return year == other.year && month == other.month && day == other.day;
-  }
-}
-
 class TodoListController {
   Future<void> openBox() async {
     await Hive.openBox<Todo>('todos');
@@ -79,6 +73,25 @@ class TodoListController {
     return todolist;
   }
 
+  List<Todo> getHabitForMultiDays(List<bool> days){
+    List<Todo> todolist = getAllHabit();
+    for(int i = 0; i < todolist.length; i++){
+      bool check = true;
+      for(int j = 0; j < days.length;j++){
+        if(days[j] == true && todolist[i].getNewWeekdays()[j] == days[j]){
+          check = false;
+          break;
+        }
+      }
+      if(check){
+        todolist.removeAt(i);
+        i--;
+      }
+    }
+    return todolist;
+  }
+
+
   List<Todo> getTaskForDay(DateTime day) {
     List<Todo> todolist = [];
 
@@ -92,6 +105,7 @@ class TodoListController {
     return todolist;
   }
 
+
   List<Todo> getToDoForDay(DateTime day) {
     List<Todo> todolist = [];
     todolist = getTaskForDay(day);
@@ -103,6 +117,32 @@ class TodoListController {
     return todolist;
   }
 
+  int countToDoForDay(DateTime day){
+    List<Todo> todoList = getToDoForDay(day);
+    return todoList.length;
+  }
+
+  int countTaskForDay(DateTime day){
+    List<Todo> todoList = getTaskForDay(day);
+    return todoList.length;
+  }
+
+  List<Todo> getTaskExcept3Day(DateTime day) {
+    List<Todo> todolist = [];
+    DateTime after3day = day.add(const Duration(days: 3));
+    for (int i = 0; i < getTodoList().length; i++) {
+      if (getTodoList().values.toList()[i].getType() == TodoType.task &&
+          getTodoList().values.toList()[i].getDueTime().compareTo(after3day) == 1) {
+          todolist.add(getTodoList().values.toList()[i]);
+      }
+    }
+    return todolist;
+  }
+
+  int countTaskExcept3Day(DateTime day){
+    List<Todo> todoList = getTaskExcept3Day(day);
+    return todoList.length;
+  }
 
 
 
