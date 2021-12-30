@@ -14,8 +14,8 @@ class WeekDayPicker extends StatefulWidget {
     this.validate,
     this.forcedOneDayOnly,
   }) : super(key: key);
-  final bool? forcedOneDayOnly;
-  final List<bool>? initialValues;
+  final bool? forcedOneDayOnly; //  forces one day only, should be used with at least 1 `true` in initialValues
+  final List<bool>? initialValues; // set initial value of the List<bool>
   final Color? selected;
   final Color? unselected;
   final Color? textSelected;
@@ -23,7 +23,7 @@ class WeekDayPicker extends StatefulWidget {
   final Color? backgroundColor;
   final String? Function(List<bool> values)? validate;
 
-  final void Function(List<bool> chosenDays)? onChanged;
+  final void Function(List<bool> chosenDays)? onChanged; // onChanged call back, fired when changed
 
   @override
   State<WeekDayPicker> createState() => _WeekDayPickerState();
