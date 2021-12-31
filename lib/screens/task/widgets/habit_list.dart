@@ -29,9 +29,6 @@ class _HabitListScreenState extends State<HabitListScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(
-          title: const Text('Habit List'),
-        ),
         body: Column(
           children: [
             const Text(

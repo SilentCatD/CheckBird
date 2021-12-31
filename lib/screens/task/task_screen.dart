@@ -1,5 +1,7 @@
 import 'package:check_bird/models/todo/todo_list_controller.dart';
+import 'package:check_bird/screens/task/widgets/habit_list.dart';
 import 'package:check_bird/screens/task/widgets/remove_all_item_ad.dart';
+import 'package:check_bird/screens/task/widgets/table_calendar_screen.dart';
 import 'package:check_bird/screens/task/widgets/todo_list_main.dart';
 import 'package:check_bird/widgets/focus/focus_widget.dart';
 import 'package:flutter/material.dart';
@@ -24,9 +26,9 @@ class TaskScreen extends StatelessWidget {
           bottom: const TabBar(
             tabs: [
               // TODO: change icons here
-              Tab(icon: Icon(Icons.my_library_books)),
-              Tab(icon: Icon(Icons.chat_bubble_outlined)),
-              Tab(icon: Icon(Icons.info)),
+              Tab(icon: Icon(Icons.library_add_check)),
+              Tab(icon: Icon(Icons.image_aspect_ratio)),
+              Tab(icon: Icon(Icons.sync)),
             ],
           ),
           leading: IconButton(
@@ -65,8 +67,8 @@ class TaskScreen extends StatelessWidget {
         // TODO: add more screen here
         body: TabBarView(children: [
           ToDoListMain(today: today),
-          Text("second tab"),
-          Text("third tab"),
+          const TableCalendarScreen(),
+          const HabitListScreen(),
         ]),
       ),
     );
