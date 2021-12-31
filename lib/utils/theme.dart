@@ -55,7 +55,7 @@ Map<AppThemeKeys, ThemeData> _themes = {
       fontFamily: 'OpenSans',
       colorScheme: const ColorScheme.dark().copyWith(
         secondary: Colors.deepPurple,
-        primary: Colors.blue,
+        primary: Colors.white,
       )
   ),
 

@@ -48,9 +48,6 @@ class _TableCalendarScreenState extends State<TableCalendarScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('Task Calendar'),
-      ),
       body:  ValueListenableBuilder(
         valueListenable: _controller.getTodoList().listenable(),
         builder: (context, Box<Todo> box, _) {

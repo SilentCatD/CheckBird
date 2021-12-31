@@ -54,6 +54,8 @@ dependencies:
   awesome_notifications: ^0.0.6+10
   flutter_settings_screens: ^0.3.2-null-safety
   shared_preferences: ^2.0.11
+  video_player: ^2.2.10
+  chewie: ^1.1.0
 
 dev_dependencies:
   flutter_test:

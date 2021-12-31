@@ -69,7 +69,7 @@ class _HomeScreenState extends State<HomeScreen> {
         iconTheme: IconThemeData(
           color: Theme.of(context).primaryColor,
         ),
-        backgroundColor: Colors.white,
+        backgroundColor: Theme.of(context).backgroundColor,
         centerTitle: true,
         title: CircleAvatar(
           backgroundColor: Colors.white,
