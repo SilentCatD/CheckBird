@@ -1,10 +1,5 @@
 import 'package:check_bird/models/todo/todo_list_controller.dart';
-import 'package:check_bird/screens/task/widgets/empty_todo.dart';
-import 'package:check_bird/screens/task/widgets/habit_list.dart';
 import 'package:check_bird/screens/task/widgets/remove_all_item_ad.dart';
-import 'package:check_bird/screens/task/widgets/show_date.dart';
-import 'package:check_bird/screens/task/widgets/table_calendar_screen.dart';
-import 'package:check_bird/screens/task/widgets/todo_list.dart';
 import 'package:check_bird/screens/task/widgets/todo_list_main.dart';
 import 'package:check_bird/widgets/focus/focus_widget.dart';
 import 'package:flutter/material.dart';
@@ -16,49 +11,64 @@ class TaskScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-
     final TodoListController _controller = TodoListController();
 
     final today =
         DateTime(DateTime.now().year, DateTime.now().month, DateTime.now().day);
 
-    return Scaffold(
-      backgroundColor: Colors.grey.shade300,
-      appBar: AppBar(
-        leading: IconButton(
-          onPressed: () {
-            Scaffold.of(context).openDrawer();
-          },
-          icon: const Icon(Icons.menu),
-        ),
-        title: const Text("Task"),
-        actions: [
-          const FocusButton(),
-          PopupMenuButton(
-            onSelected: (item) async {
-              if (item == 0) {
-                final bool? agree = await showDialog(
-                    context: context,
-                    builder: (context) {
-                      return const RemoveAllItemAD();
-                    });
-                if (agree != null && agree == true) {
-                  TodoListController().removeAllTodo();
-                }
-              }
-            },
-            itemBuilder: (context) {
-              return [
-                const PopupMenuItem(
-                  child: Text("Remove all todo"),
-                  value: 0,
-                )
-              ];
-            },
+    return DefaultTabController(
+      initialIndex: 0,
+      length: 3,
+      child: Scaffold(
+        appBar: AppBar(
+          bottom: const TabBar(
+            tabs: [
+              // TODO: change icons here
+              Tab(icon: Icon(Icons.my_library_books)),
+              Tab(icon: Icon(Icons.chat_bubble_outlined)),
+              Tab(icon: Icon(Icons.info)),
+            ],
           ),
-        ],
+          leading: IconButton(
+            onPressed: () {
+              Scaffold.of(context).openDrawer();
+            },
+            icon: const Icon(Icons.menu),
+          ),
+          title: const Text("Task"),
+          actions: [
+            const FocusButton(),
+            PopupMenuButton(
+              onSelected: (item) async {
+                if (item == 0) {
+                  final bool? agree = await showDialog(
+                      context: context,
+                      builder: (context) {
+                        return const RemoveAllItemAD();
+                      });
+                  if (agree != null && agree == true) {
+                    TodoListController().removeAllTodo();
+                  }
+                }
+              },
+              itemBuilder: (context) {
+                return [
+                  const PopupMenuItem(
+                    child: Text("Remove all todo"),
+                    value: 0,
+                  )
+                ];
+              },
+            ),
+          ],
+        ),
+        // TODO: add more screen here
+        body: TabBarView(children: [
+          ToDoListMain(today: today),
+          Text("second tab"),
+          Text("third tab"),
+        ]),
       ),
-      body: ToDoListMain(today: today),
     );
   }
 }
