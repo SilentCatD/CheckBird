@@ -10,7 +10,6 @@ class SettingScreen extends StatefulWidget {
 
   @override
   _SettingScreenState createState() => _SettingScreenState();
-
 }
 
 class _SettingScreenState extends State<SettingScreen> {
@@ -29,7 +28,7 @@ class _SettingScreenState extends State<SettingScreen> {
                 buildLogout(),
               ],
             ),
-            const SizedBox(height:32),
+            const SizedBox(height: 32),
             SettingsGroup(
               title: "FEEDBACK",
               children: <Widget>[
@@ -44,47 +43,54 @@ class _SettingScreenState extends State<SettingScreen> {
     throw UnimplementedError();
   }
 
-  Widget buildLogout() =>SimpleSettingsTile(
-    title: "Logout",
-    subtitle: '',
-    leading:  Container(
-       padding: EdgeInsets.all(6),
-      decoration: BoxDecoration(
-        shape: BoxShape.circle,
-        color: Colors.cyan,
-      ),
-      child: Icon(Icons.logout,color: Colors.white,),
-    ),
-    onTap: ()=>null,
-  );
+  Widget buildLogout() => SimpleSettingsTile(
+        title: "Logout",
+        subtitle: '',
+        leading: Container(
+          padding: EdgeInsets.all(6),
+          decoration: BoxDecoration(
+            shape: BoxShape.circle,
+            color: Colors.cyan,
+          ),
+          child: Icon(
+            Icons.logout,
+            color: Colors.white,
+          ),
+        ),
+        onTap: () => null,
+      );
 
-  Widget buildFeedBack() =>SimpleSettingsTile(
-    title: "Send Feedback",
-    subtitle: '',
-    leading:  Container(
-      padding: EdgeInsets.all(6),
-      decoration: BoxDecoration(
-        shape: BoxShape.circle,
-        color: Colors.deepPurple,
-      ),
-      child: Icon(Icons.thumb_up_rounded,color: Colors.white,),
-    ),
-    onTap: ()=>null,
-  );
+  Widget buildFeedBack() => SimpleSettingsTile(
+        title: "Send Feedback",
+        subtitle: '',
+        leading: Container(
+          padding: EdgeInsets.all(6),
+          decoration: BoxDecoration(
+            shape: BoxShape.circle,
+            color: Colors.deepPurple,
+          ),
+          child: Icon(
+            Icons.thumb_up_rounded,
+            color: Colors.white,
+          ),
+        ),
+        onTap: () => null,
+      );
 
-
-  Widget buildReportBug() =>SimpleSettingsTile(
-    title: "Report bug",
-    subtitle: '',
-    leading:  Container(
-      padding: EdgeInsets.all(6),
-      decoration: BoxDecoration(
-        shape: BoxShape.circle,
-        color: Colors.teal,
-      ),
-      child: Icon(Icons.error_outline_rounded,color: Colors.white,),
-    ),
-    onTap: ()=>null,
-  );
-
+  Widget buildReportBug() => SimpleSettingsTile(
+        title: "Report bug",
+        subtitle: '',
+        leading: Container(
+          padding: EdgeInsets.all(6),
+          decoration: BoxDecoration(
+            shape: BoxShape.circle,
+            color: Colors.teal,
+          ),
+          child: Icon(
+            Icons.error_outline_rounded,
+            color: Colors.white,
+          ),
+        ),
+        onTap: () => null,
+      );
 }

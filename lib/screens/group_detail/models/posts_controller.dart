@@ -8,6 +8,9 @@ import 'package:ntp/ntp.dart';
 import 'package:uuid/uuid.dart';
 
 class PostsController {
+
+
+
   Stream<List<Post>> postsStream(String groupId) {
     var ref = FirebaseFirestore.instance
         .collection('groups')
