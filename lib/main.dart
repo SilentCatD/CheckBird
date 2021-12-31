@@ -20,6 +20,7 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:hive/hive.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:path_provider/path_provider.dart';
+import 'package:provider/provider.dart';
 import 'models/todo/todo_type.dart';
 import 'package:flutter_settings_screens/flutter_settings_screens.dart';
 import 'package:check_bird/screens/setting/setting_screen.dart';
@@ -39,7 +40,13 @@ void main() async{
   await loadLocalData();
   await NotificationService().initialize();
   await Settings.init(cacheProvider: SharePreferenceCache());
-  runApp(const MyApp());
+  var appTheme = AppTheme();
+  runApp(
+      ChangeNotifierProvider(
+        create: (_) =>  appTheme,
+        child: const MyApp(),
+      )
+  );
 }
 
 class MyApp extends StatelessWidget {
@@ -49,7 +56,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'CheckBird',
-      theme: appTheme,
+      theme: AppTheme.of(context, listen: true).getCurrentTheme(),
       initialRoute: WelcomeScreen.routeName,
       routes: {
         SettingScreen.routeName: (context) => const SettingScreen(),
