@@ -21,6 +21,7 @@ import 'package:hive/hive.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:path_provider/path_provider.dart';
 import 'models/todo/todo_type.dart';
+import 'package:flutter_settings_screens/flutter_settings_screens.dart';
 
 Future loadLocalData() async {
   await TodoListController().openBox();
@@ -36,6 +37,7 @@ void main() async{
   Hive.registerAdapter(TodoTypeAdapter());
   await loadLocalData();
   await NotificationService().initialize();
+  await Settings.init(cacheProvider: SharePreferenceCache());
   runApp(const MyApp());
 }
 
