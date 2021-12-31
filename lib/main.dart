@@ -22,6 +22,7 @@ import 'package:hive_flutter/hive_flutter.dart';
 import 'package:path_provider/path_provider.dart';
 import 'models/todo/todo_type.dart';
 import 'package:flutter_settings_screens/flutter_settings_screens.dart';
+import 'package:check_bird/screens/setting/setting_screen.dart';
 
 Future loadLocalData() async {
   await TodoListController().openBox();
@@ -51,6 +52,7 @@ class MyApp extends StatelessWidget {
       theme: appTheme,
       initialRoute: WelcomeScreen.routeName,
       routes: {
+        SettingScreen.routeName: (context) => const SettingScreen(),
         CreateTodoScreen.routeName: (context) => const CreateTodoScreen(),
         FlappyBirdScreen.routeName: (context) => const FlappyBirdScreen(),
         GroupScreen.routeName: (context) => const GroupScreen(),

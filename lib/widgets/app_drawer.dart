@@ -1,3 +1,4 @@
+import 'package:check_bird/screens/setting/setting_screen.dart';
 import 'package:check_bird/services/authentication.dart';
 import 'package:flutter/material.dart';
 
@@ -75,7 +76,7 @@ class AppDrawer extends StatelessWidget {
                   leading: const Icon(Icons.settings),
                   onTap: () {
                     Navigator.of(context).pop();
-                    Navigator.of(context).pushNamed('/TODO');
+                    Navigator.of(context).pushNamed(SettingScreen.routeName);
                   },
                 ),
                 ListTile(
