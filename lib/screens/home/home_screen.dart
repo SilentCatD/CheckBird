@@ -1,4 +1,7 @@
 import 'package:awesome_notifications/awesome_notifications.dart';
+import 'package:check_bird/screens/home/widgets/list_todo_today.dart';
+import 'package:check_bird/screens/home/widgets/quotes.dart';
+import 'package:check_bird/screens/task/widgets/show_date.dart';
 import 'package:check_bird/widgets/focus/focus_widget.dart';
 import 'package:flutter/material.dart';
 
@@ -81,9 +84,15 @@ class _HomeScreenState extends State<HomeScreen> {
           FocusButton(),
         ],
       ),
-      body: const Center(
-        child: Text("This is home screen"),
-      ),
+      body: SingleChildScrollView(
+        child: Column(
+          children: [
+            const QuotesAPI(),
+            const ShowDate(text: "To Do In Today"),
+            ToDoListToday(today: DateTime.now())
+          ],
+        ),
+      )
     );
   }
 }
