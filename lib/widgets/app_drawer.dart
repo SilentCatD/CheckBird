@@ -1,3 +1,4 @@
+import 'package:check_bird/screens/about/about_screen.dart';
 import 'package:check_bird/screens/setting/setting_screen.dart';
 import 'package:check_bird/services/authentication.dart';
 import 'package:flutter/material.dart';
@@ -77,6 +78,14 @@ class AppDrawer extends StatelessWidget {
                   onTap: () {
                     Navigator.of(context).pop();
                     Navigator.of(context).pushNamed(SettingScreen.routeName);
+                  },
+                ),
+                ListTile(
+                  title: const Text("About Us"),
+                  leading: const Icon(Icons.people_outline),
+                  onTap: () {
+                    Navigator.of(context).pop();
+                    Navigator.of(context).pushNamed(AboutScreen.routeName);
                   },
                 ),
                 ListTile(
