@@ -13,8 +13,6 @@ class TaskScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final TodoListController _controller = TodoListController();
-
     final today =
         DateTime(DateTime.now().year, DateTime.now().month, DateTime.now().day);
 
