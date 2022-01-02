@@ -56,6 +56,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'CheckBird',
+      debugShowCheckedModeBanner: false,
       theme: AppTheme.of(context, listen: true).getCurrentTheme(),
       initialRoute: WelcomeScreen.routeName,
       routes: {
