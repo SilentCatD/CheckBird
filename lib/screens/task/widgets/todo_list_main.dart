@@ -25,6 +25,7 @@ class ToDoListMain extends StatelessWidget {
           return SingleChildScrollView(
               child: Column(
                   children: [
+                    const SizedBox(height: 10),
                     const ShowDate(text: "Today"),
                     if(_controller.countToDoForDay(today) ==
                         0) const EmptyToDo(),

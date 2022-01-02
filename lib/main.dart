@@ -1,6 +1,7 @@
 import 'dart:io';
 import 'package:check_bird/models/todo/todo.dart';
 import 'package:check_bird/models/todo/todo_list_controller.dart';
+import 'package:check_bird/screens/about/about_screen.dart';
 import 'package:check_bird/screens/authentication/authenticate_screen.dart';
 import 'package:check_bird/screens/create_task/create_todo_screen.dart';
 import 'package:check_bird/screens/flappy_bird/flappy_bird_screen.dart';
@@ -19,6 +20,7 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:hive/hive.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:path_provider/path_provider.dart';
+import 'package:provider/provider.dart';
 import 'models/todo/todo_type.dart';
 import 'package:flutter_settings_screens/flutter_settings_screens.dart';
 import 'package:check_bird/screens/setting/setting_screen.dart';
@@ -38,7 +40,13 @@ void main() async{
   await loadLocalData();
   await NotificationService().initialize();
   await Settings.init(cacheProvider: SharePreferenceCache());
-  runApp(const MyApp());
+  var appTheme = AppTheme();
+  runApp(
+      ChangeNotifierProvider(
+        create: (_) =>  appTheme,
+        child: const MyApp(),
+      )
+  );
 }
 
 class MyApp extends StatelessWidget {
@@ -48,7 +56,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'CheckBird',
-      theme: appTheme,
+      theme: AppTheme.of(context, listen: true).getCurrentTheme(),
       initialRoute: WelcomeScreen.routeName,
       routes: {
         SettingScreen.routeName: (context) => const SettingScreen(),
@@ -61,6 +69,7 @@ class MyApp extends StatelessWidget {
         HomeScreen.routeName : (context) => const HomeScreen(),
         AuthenticateScreen.routeName : (context) => const AuthenticateScreen(),
         WelcomeScreen.routeName: (context) => const WelcomeScreen(),
+        AboutScreen.routeName: (context) => const AboutScreen(),
       },
       onUnknownRoute: (settings) {
         return MaterialPageRoute(builder: (context) {

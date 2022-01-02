@@ -15,7 +15,7 @@ class CreateTodoAppbar extends StatelessWidget implements PreferredSizeWidget {
       title: Text(
         todoName == null ? "Create todo" : "Edit todo",
         style: TextStyle(
-            color: Theme.of(context).primaryColor, fontWeight: FontWeight.bold),
+            fontWeight: FontWeight.bold),
       ),
       leading: IconButton(
         icon: const Icon(Icons.arrow_back),
