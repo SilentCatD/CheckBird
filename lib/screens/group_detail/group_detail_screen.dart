@@ -1,16 +1,15 @@
-import 'package:check_bird/models/group_detail_argument.dart';
 import 'package:check_bird/screens/group_detail/widgets/group_chat_tab.dart';
 import 'package:check_bird/screens/group_detail/widgets/group_info_tab.dart';
 import 'package:check_bird/screens/group_detail/widgets/group_topic_tab.dart';
+import 'package:check_bird/screens/groups/models/groups_controller.dart';
 import 'package:flutter/material.dart';
 
 class GroupDetailScreen extends StatelessWidget {
-  const GroupDetailScreen({Key? key}) : super(key: key);
+  const GroupDetailScreen({Key? key, required this.group}) : super(key: key);
   static const routeName = '/chat-detail-screen';
-
+  final Group group;
   @override
   Widget build(BuildContext context) {
-    final args = ModalRoute.of(context)!.settings.arguments as GroupDetailArgument;
     return DefaultTabController(
       initialIndex: 0,
       length: 3,
@@ -18,7 +17,7 @@ class GroupDetailScreen extends StatelessWidget {
         onTap: () => FocusManager.instance.primaryFocus?.unfocus(),
         child: Scaffold(
           appBar: AppBar(
-            title: const Text("Fake Group"),
+            title:  Text(group.groupName),
             bottom: const TabBar(
               tabs: [
                 Tab(icon: Icon(Icons.my_library_books)),
@@ -29,9 +28,9 @@ class GroupDetailScreen extends StatelessWidget {
           ),
           body: TabBarView(
             children: [
-              GroupTopicTab(groupId: args.groupId,),
-              GroupChatTab(groupId: args.groupId,),
-              GroupInfoTab(groupId: args.groupId,),
+              GroupTopicTab(groupId: group.groupId,),
+              GroupChatTab(groupId: group.groupId,),
+              GroupInfoTab(group: group,),
             ],
           ),
         ),

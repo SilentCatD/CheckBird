@@ -19,14 +19,16 @@ class _PostsLogState extends State<PostsLog> {
   String? lastPostId;
 
   Future<void> refresh()async {
-    setState(() {});
+    if(this.mounted) {
+      setState(() {});
+    }
   }
 
   @override
   void initState() {
     super.initState();
     newPostStream = PostsController().postsStream(widget.groupId).listen((event) {
-      if(event.first.posterId == Authentication.user!.uid && event.first.id != lastPostId){
+      if(event.isNotEmpty && event.first.posterId == Authentication.user!.uid && event.first.id != lastPostId && mounted){
         setState(() {
           lastPostId = event.first.id;
         });
@@ -50,7 +52,7 @@ class _PostsLogState extends State<PostsLog> {
           }
           // TODO: this is just temporary solution, in the future, please lookup `ListView.builder JUMPING WHEN SCROLL`
           final posts = snapshot.data;
-          if(posts==null){
+          if(posts == null || posts.isEmpty){
             return const Center(child: Text("There are no post yet"),);
           }
           lastPostId = posts.first.id;

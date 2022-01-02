@@ -11,10 +11,9 @@ class Group {
   String groupName;
   String? groupDescription;
   int numOfMember;
-  bool isJoined;
   String? groupsAvtUrl;
   List<Todo>? tasks;
-  late int numOfTasks;
+  int numOfTasks;
   Timestamp createdAt;
 
   Group({
@@ -22,13 +21,11 @@ class Group {
     required this.groupId,
     this.groupDescription,
     this.groupsAvtUrl,
-    required this.isJoined,
     this.tasks,
     required this.numOfMember,
     required this.createdAt,
-  }) {
-    numOfTasks = tasks == null ? 0 : tasks!.length;
-  }
+    required this.numOfTasks,
+  });
 }
 
 class GroupsController {
@@ -45,37 +42,30 @@ class GroupsController {
       results.add(Group(
         groupName: data['groupName'],
         groupId: group.id,
-        isJoined: await isJoined(groupId: group.id),
         numOfMember: data['numOfMember'],
         createdAt: data['createdAt'],
         groupsAvtUrl: data['groupsAvtUrl'],
         groupDescription: data['groupDescription'],
+        numOfTasks: data['numOfTasks'],
       ));
     }
     return results;
   }
 
-  Future<List<Group>> usersGroups() async {
-    final userId = Authentication.user!.uid;
+  Stream<DocumentSnapshot<Map<String, dynamic>>> groupStream(
+      {required String groupId}) {
     final db = FirebaseFirestore.instance;
-    final usersGroupId =
-        await db.collection('users').doc(userId).collection('groups').get();
-    final List<Group> results = [];
-    for (var element in usersGroupId.docs) {
-      final groupId = element.id;
-      final group = await db.collection('groups').doc(groupId).get();
-      final data = group.data()!;
-      results.add(Group(
-        groupName: data['groupName'],
-        groupId: element.id,
-        isJoined: await isJoined(groupId: element.id),
-        numOfMember: data['numOfMember'],
-        createdAt: data['createdAt'],
-        groupsAvtUrl: data['groupsAvtUrl'],
-        groupDescription: data['groupDescription'],
-      ));
-    }
-    return results;
+    return db.collection('groups').doc(groupId).snapshots();
+  }
+
+  Stream<QuerySnapshot<Map<String, dynamic>>> usersGroupsStream() {
+    final db = FirebaseFirestore.instance;
+    return db
+        .collection('users')
+        .doc(Authentication.user!.uid)
+        .collection('groups')
+        .orderBy('joined', descending: true)
+        .snapshots();
   }
 
   Future<bool> isJoined({required String groupId}) async {
@@ -97,6 +87,46 @@ class GroupsController {
     return dowUrl;
   }
 
+  Future<void> joinGroup(String groupId) async {
+    final db = FirebaseFirestore.instance;
+    final groupsDocUser = db
+        .collection('users')
+        .doc(Authentication.user!.uid)
+        .collection('groups')
+        .doc(groupId);
+    final groupDocGlobal = db.collection('groups').doc(groupId);
+    final joined = await isJoined(groupId: groupId);
+    if (!joined) {
+      db.runTransaction((transaction) async {
+        final data = await transaction.get(groupDocGlobal);
+        transaction.update(groupDocGlobal, {
+          'numOfMember': data['numOfMember'] + 1,
+        });
+        transaction.set(groupsDocUser, {
+          "joined": Timestamp.now(),
+        });
+      });
+    }
+  }
+
+  Future<void> unJoinGroup(String groupId) async {
+    final db = FirebaseFirestore.instance;
+    final groupDocUser = db
+        .collection('users')
+        .doc(Authentication.user!.uid)
+        .collection('groups')
+        .doc(groupId);
+    final groupDocGlobal = db.collection('groups').doc(groupId);
+    db.runTransaction((transaction) async {
+      final groupGlobalSnapshot = await transaction.get(groupDocGlobal);
+      final data = groupGlobalSnapshot.data();
+      transaction.delete(groupDocUser);
+      transaction.update(groupDocGlobal, {
+        'numOfMember': data?['numOfMember'] - 1,
+      });
+    });
+  }
+
   Future<void> createGroup(
       {required String groupName,
       String? groupDescription,
@@ -113,9 +143,10 @@ class GroupsController {
       "groupName": groupName,
       "groupDescription": groupDescription,
       "groupsAvtUrl": imgDownloadUrl,
-      "numOfMember": 0,
+      "numOfMember": 1,
       "createdAt": Timestamp.now(),
       "loweredGroupName": groupName.toLowerCase(),
+      "numOfTasks": tasks == null ? 0 : tasks.length,
     });
     // Add to users
     _db
