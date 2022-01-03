@@ -1,6 +1,4 @@
-import 'package:check_bird/screens/group_detail/widgets/group_info_tab.dart';
 import 'package:check_bird/screens/groups/models/groups_controller.dart';
-import 'package:check_bird/screens/groups/widgets/create_group/create_group_screen.dart';
 import 'package:check_bird/screens/groups/widgets/group_item.dart';
 import 'package:flutter/material.dart';
 
@@ -17,15 +15,15 @@ class _SearchGroupScreenState extends State<SearchGroupScreen> {
   String _searchQuery = "";
   final _groupController = GroupsController();
   bool _isSearching = false;
-  List<Group> _searchResults = [];
+  final List<Group> _searchResults = [];
 
   void _search() async {
     if (_searchQuery.trim().isEmpty) return;
     setState(() {
       _isSearching = true;
     });
-    final results = await _groupController.searchGroups(query: _searchQuery);
     _searchResults.clear();
+    final results = await _groupController.searchGroups(query: _searchQuery);
     _searchResults.addAll(results);
     setState(() {
       _isSearching = false;
@@ -61,7 +59,7 @@ class _SearchGroupScreenState extends State<SearchGroupScreen> {
             ),
             Expanded(
               child: _isSearching
-                  ?  Center(
+                  ? Center(
                       child: Column(
                         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                         children: const [
@@ -70,12 +68,19 @@ class _SearchGroupScreenState extends State<SearchGroupScreen> {
                         ],
                       ),
                     )
-                  : ListView.builder(
-                      itemCount: _searchResults.length,
-                      itemBuilder: (BuildContext context, int index) {
-                        return GroupItem(groupId: _searchResults[index].groupId, size: size,);
-                      },
-                    ),
+                  : _searchResults.isEmpty
+                      ? const Center(
+                          child: Text("No groups found... try again"),
+                        )
+                      : ListView.builder(
+                          itemCount: _searchResults.length,
+                          itemBuilder: (BuildContext context, int index) {
+                            return GroupItem(
+                              groupId: _searchResults[index].groupId,
+                              size: size,
+                            );
+                          },
+                        ),
               flex: 9,
             ),
           ],
