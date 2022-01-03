@@ -1,6 +1,7 @@
 import 'package:check_bird/screens/groups/models/groups_controller.dart';
 import 'package:check_bird/screens/groups/widgets/create_group/create_group_screen.dart';
 import 'package:check_bird/screens/groups/widgets/group_item.dart';
+import 'package:check_bird/screens/groups/widgets/search_group/search_group_screen.dart';
 import 'package:check_bird/services/authentication.dart';
 import 'package:check_bird/widgets/focus/focus_widget.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -44,7 +45,9 @@ class GroupScreen extends StatelessWidget {
                     flex: 1,
                     child: ListTile(
                       contentPadding: const EdgeInsets.symmetric(vertical: 8, horizontal: 16),
-                      onTap: () {},
+                      onTap: () {
+                        Navigator.of(context).push(MaterialPageRoute(builder: (context) => const SearchGroupScreen()));
+                      },
                       title:  TextField(
                         enabled: false,
                         decoration: InputDecoration(

@@ -232,15 +232,43 @@ class _CreateGroupScreenState extends State<CreateGroupScreen> {
                     });
                   },
                 ),
-                const SizedBox(height: 20,),
+                const SizedBox(
+                  height: 20,
+                ),
                 if (widget.group != null)
-                  ElevatedButton.icon(
-                      onPressed: () {
-                        GroupsController().unJoinGroup(widget.group!.groupId);
-                        Navigator.of(context).pop();
-                      },
-                      icon: const Icon(Icons.exit_to_app),
-                      label: const Text("Leave group"))
+                  FutureBuilder(
+                    future: GroupsController()
+                        .isJoined(groupId: widget.group!.groupId),
+                    builder:
+                        (BuildContext context, AsyncSnapshot<bool> snapshot) {
+                      if (snapshot.connectionState == ConnectionState.waiting) {
+                        return const Center(child: CircularProgressIndicator());
+                      }
+                      final isJoined = snapshot.data!;
+                      if (isJoined) {
+                        return ElevatedButton.icon(
+                          onPressed: () {
+                            GroupsController()
+                                .unJoinGroup(widget.group!.groupId);
+                            Navigator.of(context).pop();
+                          },
+                          icon: const Icon(Icons.exit_to_app),
+                          label: const Text("Leave group"),
+                        );
+                      }
+                      else {
+                        return ElevatedButton.icon(
+                          onPressed: () {
+                            GroupsController()
+                                .joinGroup(widget.group!.groupId);
+                            Navigator.of(context).pop();
+                          },
+                          icon: const Icon(Icons.add_box),
+                          label: const Text("Join group"),
+                        );
+                      }
+                    },
+                  ),
               ],
             ),
           ),

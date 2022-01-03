@@ -91,12 +91,14 @@ class GroupItem extends StatelessWidget {
                             const SizedBox(
                               width: 10,
                             ),
-                            SizedBox(
-                              width: size.width * 0.6,
-                              height: 40,
-                              child: Text(
-                                group.groupDescription!,
-                                softWrap: true,
+                            Center(
+                              child: SizedBox(
+                                width: size.width * 0.6,
+                                height: 40,
+                                child: Text(
+                                  group.groupDescription!,
+                                  softWrap: true,
+                                ),
                               ),
                             ),
                           ],
@@ -112,7 +114,7 @@ class GroupItem extends StatelessWidget {
                         )
                       ],
                     ),
-                    // TODO: check if joined
+                    // Check if joined
                     FutureBuilder(
                       future: GroupsController().isJoined(groupId: groupId),
                       builder:

@@ -1,4 +1,5 @@
 import 'package:check_bird/screens/group_detail/widgets/posts_log/posts_log.dart';
+import 'package:check_bird/screens/groups/models/groups_controller.dart';
 import 'package:flutter/material.dart';
 
 import 'create_post/create_post_screen.dart';
@@ -15,8 +16,23 @@ class _GroupTopicTabState extends State<GroupTopicTab> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: PostsLog(
-        groupId: widget.groupId,
+      body: FutureBuilder(
+        future: GroupsController().isJoined(groupId: widget.groupId),
+        builder: (BuildContext context, AsyncSnapshot<bool> snapshot) {
+          if (snapshot.connectionState == ConnectionState.waiting) {
+            return const Center(
+              child: CircularProgressIndicator(),
+            );
+          }
+          final isJoined = snapshot.data!;
+          if (isJoined) {
+            return PostsLog(groupId: widget.groupId);
+          } else {
+            return const Center(
+              child: Text("You must join this group first!"),
+            );
+          }
+        },
       ),
       floatingActionButton: FloatingActionButton(
         child: const Icon(Icons.add),
