@@ -68,6 +68,31 @@ class GroupsController {
         .snapshots();
   }
 
+  Future<List<Group>> usersGroupFuture() async {
+    /// Get user's groups at the moment requested
+    final db = FirebaseFirestore.instance;
+    final snapshot = await db
+        .collection('users')
+        .doc(Authentication.user!.uid)
+        .collection('groups')
+        .orderBy('joined', descending: true)
+        .get();
+    final data = snapshot.docs.toList();
+    final List<Group> groups = [];
+    for(var group in data){
+      groups.add(Group(
+        groupName: group['groupName'],
+        groupId: group.id,
+        numOfMember: group['numOfMember'],
+        createdAt: group['createdAt'],
+        groupsAvtUrl: group['groupsAvtUrl'],
+        groupDescription: group['groupDescription'],
+        numOfTasks: group['numOfTasks'],
+      ));
+    }
+    return groups;
+  }
+
   Future<bool> isJoined({required String groupId}) async {
     final groupDoc = await FirebaseFirestore.instance
         .collection('users')
