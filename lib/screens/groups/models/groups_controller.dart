@@ -159,7 +159,6 @@ class GroupsController {
       File? image}) async {
     String? imgDownloadUrl;
     if (image != null) {
-      // TODO
       imgDownloadUrl = await _sendImg(image: image);
     }
     // Add to groups
