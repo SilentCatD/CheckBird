@@ -46,7 +46,6 @@ class _QuotesAPISate extends State<QuotesAPI> {
     Size size = MediaQuery.of(context).size;
     return Container(
       margin: const EdgeInsets.only(
-        left: 10,
         top: 10,
         bottom: 20,
       ),
@@ -68,9 +67,10 @@ class _QuotesAPISate extends State<QuotesAPI> {
                         quote,
                         textAlign: TextAlign.center,
                         style: const TextStyle(
-                            letterSpacing: 0.8,
-                            fontSize: 18.0,
+                            letterSpacing: 3,
+                            fontSize: 25.0,
                             color: Colors.white,
+                            fontFamily: 'DancingScript',
                             fontWeight: FontWeight.bold)
                     )),
               );
@@ -79,9 +79,10 @@ class _QuotesAPISate extends State<QuotesAPI> {
                 "Waiting for love",
                 textAlign: TextAlign.center,
                 style:  TextStyle(
-                    letterSpacing: 0.8,
-                    fontSize: 18.0,
+                    letterSpacing: 3,
+                    fontSize: 25.0,
                     color: Colors.white,
+                    fontFamily: 'DancingScript',
                     fontWeight: FontWeight.bold)
             ));
           }),

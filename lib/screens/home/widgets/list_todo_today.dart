@@ -18,7 +18,7 @@ class ToDoListToday extends StatelessWidget {
   Widget build(BuildContext context) {
     final Size size = MediaQuery.of(context).size;
     return Container(
-      padding: const EdgeInsets.only(left: 26),
+      // padding: const EdgeInsets.only(left: 20),
       child: ValueListenableBuilder(
           valueListenable: _controller.getTodoList().listenable(),
           builder: (context, Box<Todo> box, _) {
