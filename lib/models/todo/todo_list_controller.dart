@@ -37,6 +37,7 @@ class TodoListController {
 
     if(todo.type == TodoType.task && todo.notification != null) {
 
+
       todo.notificationId = DateTime.now().millisecondsSinceEpoch.remainder(100000);
 
       String title = "Notification CheckBird";
