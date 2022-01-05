@@ -23,6 +23,7 @@ class _SearchGroupScreenState extends State<SearchGroupScreen> {
       _isSearching = true;
     });
     _searchResults.clear();
+    _searchQuery = _searchQuery.toLowerCase();
     final results = await _groupController.searchGroups(query: _searchQuery);
     _searchResults.addAll(results);
     setState(() {
