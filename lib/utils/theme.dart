@@ -50,6 +50,8 @@ Map<AppThemeKeys, ThemeData> _themes = {
 
       // this is color of text
       shadowColor: Colors.black,
+      indicatorColor: Colors.white,
+      splashColor: Colors.blue,
 
       // AppBar
       // this is button color in Appbar
@@ -63,7 +65,11 @@ Map<AppThemeKeys, ThemeData> _themes = {
       primarySwatch: Colors.purple,
 
       // this is color of text
+
       shadowColor:  Colors.white,
+      indicatorColor: Colors.purple,
+      splashColor: Colors.purple,
+
       fontFamily: 'OpenSans',
       colorScheme: const ColorScheme.dark().copyWith(
         secondary: Colors.deepPurple,

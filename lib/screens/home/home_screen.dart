@@ -1,15 +1,20 @@
 import 'package:awesome_notifications/awesome_notifications.dart';
+import 'package:check_bird/screens/home/widgets/group_item.dart';
+import 'package:check_bird/screens/home/widgets/group_list.dart';
 import 'package:check_bird/screens/home/widgets/list_todo_today.dart';
 import 'package:check_bird/screens/home/widgets/quotes.dart';
 import 'package:check_bird/screens/task/widgets/show_date.dart';
 import 'package:check_bird/utils/theme.dart';
+import 'package:check_bird/services/authentication.dart';
 import 'package:check_bird/widgets/focus/focus_widget.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/rendering.dart';
 
 class HomeScreen extends StatefulWidget {
   static const routeName = '/home-screen';
 
-  const HomeScreen({Key? key}) : super(key: key);
+  const HomeScreen({Key? key, this.changeTab}) : super(key: key);
+  final void Function(int index)? changeTab;
 
   @override
   _HomeScreenState createState() => _HomeScreenState();
@@ -72,6 +77,7 @@ class _HomeScreenState extends State<HomeScreen> {
     else {
       colorAppbar= Colors.white;
     }
+    Size size = MediaQuery.of(context).size;
 
     return Scaffold(
       appBar: AppBar(
@@ -100,10 +106,15 @@ class _HomeScreenState extends State<HomeScreen> {
       ),
       body: SingleChildScrollView(
         child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             const QuotesAPI(),
+            if(Authentication.user != null) Container(
+                margin: const EdgeInsets.only(
+                  left: 10,
+                ),
+                height: size.height * 0.17,
+                child: GroupList(changeTab: widget.changeTab!),
+              ),
             const ShowDate(text: "To Do In Today"),
             ToDoListToday(today: DateTime.now())
           ],

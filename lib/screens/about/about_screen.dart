@@ -61,21 +61,21 @@ class AboutScreen extends StatelessWidget {
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceAround,
                 children: const [
-                  MemberInformation(image: "assets/images/blue.jpg",name: "Nguyen Ngoc Phuoc\n" ,id: "19127519",isLeader: true),
+                  MemberInformation(image: "assets/images/phuoc.jpg",name: "Nguyen Ngoc Phuoc\n" ,id: "19127519",isLeader: true),
                 ],
               ),
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceAround,
                 children: const [
-                  MemberInformation(image: "assets/images/blue.jpg",name: "Ho Van Duy\n" ,id: "19127373", isMember: true),
-                  MemberInformation(image: "assets/images/blue.jpg",name: "Pham Le Ha\n" ,id: "19127385", isMember: true),
+                  MemberInformation(image: "assets/images/duy.jpg",name: "Ho Van Duy\n" ,id: "19127373", isMember: true),
+                  MemberInformation(image: "assets/images/ha.jpg",name: "Pham Le Ha\n" ,id: "19127385", isMember: true),
                 ],
               ),
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceAround,
                 children: const [
-                  MemberInformation(image: "assets/images/blue.jpg",name: "Nguyen Truong Giang\n" ,id: "19127384", isMember: true),
-                  MemberInformation(image: "assets/images/blue.jpg",name: "Le Minh Duc\n" ,id: "19127369", isMember: true),
+                  MemberInformation(image: "assets/images/giang.jpg",name: "Nguyen Truong Giang\n" ,id: "19127384", isMember: true),
+                  MemberInformation(image: "assets/images/duc.jpg",name: "Le Minh Duc\n" ,id: "19127369", isMember: true),
                 ],
               )
 
