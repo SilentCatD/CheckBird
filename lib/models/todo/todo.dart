@@ -84,6 +84,9 @@ class Todo extends HiveObject {
   }
 
   void deleteTodo() {
+    if(notification != null) {
+      NotificationService().cancelScheduledNotifications(notificationId!);
+    }
     delete();
   }
 
@@ -115,7 +118,7 @@ class Todo extends HiveObject {
     await NotificationService().cancelScheduledNotifications(notificationId!);
   }
 
-  void editTodo({
+  Future<void> editTodo ({
     String? newName,
     String? newDescription,
     int? newBackgroundColor,
@@ -123,7 +126,7 @@ class Todo extends HiveObject {
     DateTime? newNotification,
     DateTime? newDeadline,
     List<bool>? newWeekdays,
-  }) {
+  }) async {
     // remember to check if anything changed before call this function, if not dont call it
     // only these field are editable
     todoName = newName ?? todoName;
@@ -134,16 +137,23 @@ class Todo extends HiveObject {
     weekdays = newWeekdays ?? weekdays;
 
     if (newNotification != notification) {
-      notification = newNotification;
-      if (notification == null) {
-        NotificationService().cancelScheduledNotifications(notificationId!);
-      }
-      if (type == TodoType.task && newNotification != null) {
-        String title = "Notification CheckBird";
-        String body = "Deadline: " + deadline.toString();
 
-        NotificationService().createScheduleNotification(
+      if (notification != null) {
+        notification = null;
+        await NotificationService().cancelScheduledNotifications(notificationId!);
+      }
+
+      if (type == TodoType.task && newNotification != null ) {
+
+        notification = newNotification;
+        notificationId = DateTime.now().millisecondsSinceEpoch.remainder(100000);
+
+        String title = "Notification CheckBird";
+        String body = todoName + " Deadline : " + deadline.toString();
+
+        await NotificationService().createScheduleNotification(
             notificationId!, title, body, newNotification, false);
+
       }
     }
     save();
