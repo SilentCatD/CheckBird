@@ -61,7 +61,7 @@ class AboutScreen extends StatelessWidget {
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceAround,
                 children: const [
-                  MemberInformation(image: "assets/images/phuoc.jpg",name: "Nguyen Ngoc Phuoc\n" ,id: "19127519",isLeader: true),
+                  MemberInformation(image: "assets/images/Phuoc.jpg",name: "Nguyen Ngoc Phuoc\n" ,id: "19127519",isLeader: true),
                 ],
               ),
               Row(
