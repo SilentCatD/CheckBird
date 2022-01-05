@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:check_bird/screens/group_detail/widgets/create_post/widgets/image_type_dialog.dart';
 import 'package:check_bird/screens/groups/models/groups_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:image_cropper/image_cropper.dart';
@@ -149,7 +150,18 @@ class _CreateGroupScreenState extends State<CreateGroupScreen> {
                 GestureDetector(
                   onTap: widget.group == null
                       ? () async {
-                          await _pickImage(ImageSource.camera);
+                          final useCam = await showDialog(
+                              context: context,
+                              builder: (context) {
+                                return const ImageTypeDialog();
+                              });
+                          if(useCam==null)return;
+                          if(useCam){
+                            await _pickImage(ImageSource.camera);
+                          }
+                          else{
+                            await _pickImage(ImageSource.gallery);
+                          }
                           if (_image != null) {
                             await _cropImage();
                           }
@@ -255,12 +267,10 @@ class _CreateGroupScreenState extends State<CreateGroupScreen> {
                           icon: const Icon(Icons.exit_to_app),
                           label: const Text("Leave group"),
                         );
-                      }
-                      else {
+                      } else {
                         return ElevatedButton.icon(
                           onPressed: () {
-                            GroupsController()
-                                .joinGroup(widget.group!.groupId);
+                            GroupsController().joinGroup(widget.group!.groupId);
                             Navigator.of(context).pop();
                           },
                           icon: const Icon(Icons.add_box),
