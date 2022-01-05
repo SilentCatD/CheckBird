@@ -32,14 +32,18 @@ class TodoListController {
     todo.id = id;
     todo.createdDate = now;
     todo.lastModified = now;
-    todo.notificationId = todo.id.hashCode;
+
     todoList.add(todo);
-    print(todo.notification);
+
     if(todo.type == TodoType.task && todo.notification != null) {
+
+      todo.notificationId = DateTime.now().millisecondsSinceEpoch.remainder(100000);
+
       String title = "Notification CheckBird";
       String body = "Deadline: " + todo.deadline.toString();
+
       await NotificationService().createScheduleNotification(
-          todo.id.hashCode, title, body, todo.notification!, false);
+          todo.notificationId!, title, body, todo.notification!, false);
     }
 
 
@@ -55,7 +59,7 @@ class TodoListController {
     List<Todo> todolist = [];
     for (int i = 0; i < getTodoList().length; i++) {
       if (getTodoList().values.toList()[i].getType() == TodoType.habit) {
-          todolist.add(getTodoList().values.toList()[i]);
+        todolist.add(getTodoList().values.toList()[i]);
       }
     }
     return todolist;
@@ -133,7 +137,7 @@ class TodoListController {
     for (int i = 0; i < getTodoList().length; i++) {
       if (getTodoList().values.toList()[i].getType() == TodoType.task &&
           getTodoList().values.toList()[i].getDueTime().compareTo(after3day) == 1) {
-          todolist.add(getTodoList().values.toList()[i]);
+        todolist.add(getTodoList().values.toList()[i]);
       }
     }
     return todolist;
