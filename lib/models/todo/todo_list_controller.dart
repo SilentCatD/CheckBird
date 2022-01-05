@@ -34,7 +34,7 @@ class TodoListController {
     todo.lastModified = now;
     todo.notificationId = todo.id.hashCode;
     todoList.add(todo);
-
+    print(todo.notification);
     if(todo.type == TodoType.task && todo.notification != null) {
       String title = "Notification CheckBird";
       String body = "Deadline: " + todo.deadline.toString();
