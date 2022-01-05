@@ -4,22 +4,24 @@ import 'package:flutter/material.dart';
 int daysBetween(DateTime from, DateTime to) {
   from = DateTime(from.year, from.month, from.day);
   to = DateTime(to.year, to.month, to.day);
-  return (to.difference(from).inHours / 24).round();
+  return (to
+      .difference(from)
+      .inHours / 24).round();
 }
 
 enum Notification {
   none, // not set notification
+  att, // at that time
   db1, // 1 day before
   db2, // 2 day before
   db3, // 3 day before
 }
 
 class TaskCustom extends StatefulWidget {
-  const TaskCustom(
-      {Key? key,
-      required this.initialDate,
-      required this.onChangedDue,
-      required this.onChangedNotification})
+  const TaskCustom({Key? key,
+    required this.initialDate,
+    required this.onChangedDue,
+    required this.onChangedNotification})
       : super(key: key);
   final DateTime? initialDate;
   final void Function(String value) onChangedDue;
@@ -32,6 +34,7 @@ class TaskCustom extends StatefulWidget {
 class _TaskCustomState extends State<TaskCustom> {
   static final Map<Notification, String> _notificationType = {
     Notification.none: "Don't remind me",
+    Notification.att: "At at time",
     Notification.db1: "1 Day before",
     Notification.db2: "2 Day before",
     Notification.db3: "3 Day before",
@@ -57,7 +60,9 @@ class _TaskCustomState extends State<TaskCustom> {
               : widget.initialDate.toString(),
           type: DateTimePickerType.dateTimeSeparate,
           firstDate: DateTime.now(),
-          lastDate: DateTime(DateTime.now().year + 5),
+          lastDate: DateTime(DateTime
+              .now()
+              .year + 5),
           onChanged: (value) {
             setState(() {
               _pickedDay = DateTime.parse(value);
@@ -91,6 +96,10 @@ class _TaskCustomState extends State<TaskCustom> {
               child: Text(_notificationType[Notification.none]!),
               value: Notification.none,
             ),
+            DropdownMenuItem(
+              child: Text(_notificationType[Notification.att]!),
+              value: Notification.att,
+            ),
             if (daysBetween(DateTime.now(), _pickedDay) >= 1)
               DropdownMenuItem(
                 child: Text(_notificationType[Notification.db1]!),
@@ -112,7 +121,10 @@ class _TaskCustomState extends State<TaskCustom> {
               _pickedNotificationType = value!;
             });
             Duration? daysDuration;
-            if (value == Notification.db1) {
+
+            if(value == Notification.att){
+              daysDuration == const Duration(days: 0);
+            }else if (value == Notification.db1) {
               daysDuration = const Duration(days: 1);
             } else if (value == Notification.db2) {
               daysDuration = const Duration(days: 2);
