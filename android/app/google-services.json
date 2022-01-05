@@ -47,14 +47,6 @@
           }
         },
         {
-          "client_id": "483781811955-ni3pa2qi4iloffqhiq9375bl6suohdsi.apps.googleusercontent.com",
-          "client_type": 1,
-          "android_info": {
-            "package_name": "com.example.check_bird",
-            "certificate_hash": "0891fa7a31960c4f0e5ca0f32cd58b5db587ad61"
-          }
-        },
-        {
           "client_id": "483781811955-v9bb0qtk566vpflo3lm6s8lbseql83ca.apps.googleusercontent.com",
           "client_type": 3
         }

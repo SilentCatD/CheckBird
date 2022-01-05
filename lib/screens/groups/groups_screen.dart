@@ -51,10 +51,10 @@ class GroupScreen extends StatelessWidget {
                       title:  TextField(
                         enabled: false,
                         decoration: InputDecoration(
-                          icon: Icon(Icons.search, color: Theme.of(context).primaryColor,),
+                          icon: Icon(Icons.search, color: Theme.of(context).shadowColor,),
                           hintText: "Search for more groups...",
                           disabledBorder: OutlineInputBorder(
-                            borderSide: BorderSide(width: 1, color: Theme.of(context).primaryColor),
+                            borderSide: BorderSide(width: 1, color: Theme.of(context).shadowColor),
                           ),
                         ),
                       ),

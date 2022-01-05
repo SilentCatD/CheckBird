@@ -29,7 +29,7 @@ class _CreateTodoScreenState extends State<CreateTodoScreen> {
   DateTime? _dueDate;
   DateTime? _notification;
   List<bool> _habitLoop = List.filled(7, true);
-  var _habitError = false; // phèn, mà hết cách rồi, nghĩ không ra
+  var _habitError = false; //
   bool _showWarning = false;
 
   @override

@@ -32,11 +32,14 @@ class AppTheme extends ChangeNotifier {
 
   ThemeData? getCurrentTheme() => _themes[_themeKeys];
 
+  AppThemeKeys? getCurrentThemeKey() => _themeKeys;
+
   void setTheme(AppThemeKeys themeKey) {
     _themeKeys = themeKey;
     notifyListeners();
   }
 }
+
 
 enum AppThemeKeys { light, dark}
 Map<AppThemeKeys, ThemeData> _themes = {
@@ -44,6 +47,12 @@ Map<AppThemeKeys, ThemeData> _themes = {
       brightness: Brightness.light,
       primarySwatch: Colors.blue,
       fontFamily: 'OpenSans',
+
+      // this is color of text
+      shadowColor: Colors.black,
+
+      // AppBar
+      // this is button color in Appbar
       colorScheme: const ColorScheme.light().copyWith(
         secondary: Colors.lightBlue,
         primary: Colors.blue,
@@ -52,11 +61,15 @@ Map<AppThemeKeys, ThemeData> _themes = {
   AppThemeKeys.dark: ThemeData(
       brightness: Brightness.dark,
       primarySwatch: Colors.purple,
+
+      // this is color of text
+      shadowColor:  Colors.white,
       fontFamily: 'OpenSans',
       colorScheme: const ColorScheme.dark().copyWith(
         secondary: Colors.deepPurple,
-        primary: Colors.white,
+        primary: Colors.black,
       )
   ),
 
 };
+

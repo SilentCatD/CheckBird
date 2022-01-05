@@ -21,7 +21,7 @@ class NotImplementedScreen extends StatelessWidget {
                     Navigator.of(context).pop();
                   },
                   icon: const Icon(Icons.arrow_back_ios),
-                  label: const Text("Go back", style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),))
+                  label:  Text("Go back", style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold,color: Theme.of(context).shadowColor),))
             ],
           ),
         ),

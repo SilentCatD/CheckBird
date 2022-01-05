@@ -107,7 +107,7 @@ class _CreateGroupScreenState extends State<CreateGroupScreen> {
                 elevation: 0,
                 leading: IconButton(
                   icon: const Icon(Icons.arrow_back),
-                  color: Theme.of(context).primaryColor,
+                  color: Theme.of(context).shadowColor,
                   onPressed: () {
                     Navigator.of(context).pop();
                   },

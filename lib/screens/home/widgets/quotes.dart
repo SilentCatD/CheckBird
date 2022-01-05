@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'dart:convert';
 
+import 'package:check_bird/utils/theme.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart';
 
@@ -43,6 +44,20 @@ class _QuotesAPISate extends State<QuotesAPI> {
 
   @override
   Widget build(BuildContext context) {
+
+    AppThemeKeys? themeKey = AppTheme.of(context).getCurrentThemeKey();
+
+    late Color cText;
+    late Color cBox;
+
+    if(themeKey == AppThemeKeys.light) {
+        cText = Colors.black;
+    }
+    else {
+        cText = Colors.white;
+    }
+
+
     Size size = MediaQuery.of(context).size;
     return Container(
       margin: const EdgeInsets.only(
@@ -61,27 +76,27 @@ class _QuotesAPISate extends State<QuotesAPI> {
             if(snapshot.data != null){
               String quote = snapshot.data['content'].toString();
               return Padding(
-                padding: const EdgeInsets.all(4.0),
+                padding:  const EdgeInsets.all(4.0),
                 child: Center(
                     child: Text(
                         quote,
                         textAlign: TextAlign.center,
-                        style: const TextStyle(
+                        style:  TextStyle(
                             letterSpacing: 3,
                             fontSize: 25.0,
-                            color: Colors.white,
+                            color: cText,
                             fontFamily: 'DancingScript',
                             fontWeight: FontWeight.bold)
                     )),
               );
             }
-            return const Center(child: Text(
+            return Center(child: Text(
                 "Waiting for love",
                 textAlign: TextAlign.center,
                 style:  TextStyle(
                     letterSpacing: 3,
                     fontSize: 25.0,
-                    color: Colors.white,
+                    color: cText,
                     fontFamily: 'DancingScript',
                     fontWeight: FontWeight.bold)
             ));
