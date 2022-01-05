@@ -72,8 +72,8 @@ class GroupScreen extends StatelessWidget {
                           return const Center(
                               child: CircularProgressIndicator());
                         }
-                        final data = snapshot.data!.docs;
-                        if (data.isEmpty) {
+                        final data = snapshot.data?.docs;
+                        if (data == null || data.isEmpty) {
                           return const Center(
                             child: Text(
                                 "Join some groups first! Or create one..."),
