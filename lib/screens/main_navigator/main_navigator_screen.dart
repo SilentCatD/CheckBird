@@ -17,13 +17,24 @@ class MainNavigatorScreen extends StatefulWidget {
 }
 
 class _MainNavigatorScreenState extends State<MainNavigatorScreen> {
-  final List<Widget> _screen = const [
-    HomeScreen(),
-    TaskScreen(),
-    GroupScreen(),
-    ShopScreen(),
-  ];
+  late List<Widget> _screen;
 
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    _screen = [
+      HomeScreen(changeTab: changeTag),
+      const TaskScreen(),
+      const GroupScreen(),
+      const ShopScreen(),
+    ];
+  }
+  void changeTag(int index){
+    setState(() {
+      _selectedScreenIndex = index;
+    });
+  }
   int _selectedScreenIndex = 0;
 
   Widget _buildTabItem({required int index, required Icon icon}) {

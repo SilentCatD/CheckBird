@@ -120,6 +120,9 @@ flutter:
   # For details regarding fonts from package dependencies,
   # see https://flutter.dev/custom-fonts/#from-packages
   fonts:
+    - family: DancingScript
+      fonts:
+        - asset: assets/fonts/DancingScript-Regular.ttf
     - family: Engagement
       fonts:
         - asset: assets/fonts/Engagement-Regular.ttf
