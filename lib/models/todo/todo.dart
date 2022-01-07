@@ -1,6 +1,7 @@
 import 'package:check_bird/models/todo/todo_type.dart';
 import 'package:check_bird/services/notification.dart';
 import 'package:hive/hive.dart';
+import 'package:intl/intl.dart';
 
 part 'todo.g.dart';
 
@@ -148,8 +149,9 @@ class Todo extends HiveObject {
         notification = newNotification;
         notificationId = DateTime.now().millisecondsSinceEpoch.remainder(100000);
 
-        String title = "Notification CheckBird";
-        String body = todoName + " Deadline : " + deadline.toString();
+
+        String title = "CheckBird Notification";
+        String body = "Deadline: "+ todoName + DateFormat('yyyy-MM-dd – kk:mm').format(deadline!);
 
         await NotificationService().createScheduleNotification(
             notificationId!, title, body, newNotification, false);

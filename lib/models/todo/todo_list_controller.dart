@@ -1,5 +1,6 @@
 import 'package:check_bird/models/todo/todo_type.dart';
 import 'package:hive/hive.dart';
+import 'package:intl/intl.dart';
 import 'package:uuid/uuid.dart';
 import 'package:check_bird/services/notification.dart';
 import 'todo_type.dart';
@@ -40,8 +41,8 @@ class TodoListController {
 
       todo.notificationId = DateTime.now().millisecondsSinceEpoch.remainder(100000);
 
-      String title = "Notification CheckBird";
-      String body = "Deadline: " + todo.deadline.toString();
+      String title = "CheckBird Notification";
+      String body = "Deadline: "+ todo.todoName + DateFormat('yyyy-MM-dd – kk:mm').format(todo.deadline!);
 
       await NotificationService().createScheduleNotification(
           todo.notificationId!, title, body, todo.notification!, false);
