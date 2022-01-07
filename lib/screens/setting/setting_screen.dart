@@ -30,7 +30,6 @@ class _SettingScreenState extends State<SettingScreen> {
               title: 'GENERAL',
               children: <Widget>[
                 buildDarkMode(),
-                buildLogout(),
               ],
             ),
             const SizedBox(height:32),
@@ -45,19 +44,6 @@ class _SettingScreenState extends State<SettingScreen> {
         ),
       ),
     );
-
-  Widget buildLogout() =>SimpleSettingsTile(
-    title: "Logout",
-    subtitle: '',
-    leading:  Container(
-       padding: const EdgeInsets.all(6),
-      decoration: const BoxDecoration(
-        shape: BoxShape.circle,
-        color: Colors.cyan,
-      ),
-      child: const Icon(Icons.logout,color: Colors.white,),
-    ),
-  );
 
   Widget buildFeedBack() =>SimpleSettingsTile(
     title: "Send Feedback",
