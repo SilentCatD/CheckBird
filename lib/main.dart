@@ -17,7 +17,6 @@ import 'package:flutter/material.dart';
 import 'package:check_bird/utils/theme.dart';
 import 'package:flutter/services.dart';
 import 'package:firebase_core/firebase_core.dart';
-import 'package:hive/hive.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:provider/provider.dart';
@@ -29,7 +28,7 @@ Future loadLocalData() async {
   await TodoListController().openBox();
 }
 
-void main() async{
+void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
   await SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]);
@@ -41,12 +40,10 @@ void main() async{
   await NotificationService().initialize();
   await Settings.init(cacheProvider: SharePreferenceCache());
   var appTheme = AppTheme();
-  runApp(
-      ChangeNotifierProvider(
-        create: (_) =>  appTheme,
-        child: const MyApp(),
-      )
-  );
+  runApp(ChangeNotifierProvider(
+    create: (_) => appTheme,
+    child: const MyApp(),
+  ));
 }
 
 class MyApp extends StatelessWidget {
@@ -67,8 +64,8 @@ class MyApp extends StatelessWidget {
         ShopScreen.routeName: (context) => const ShopScreen(),
         TaskScreen.routeName: (context) => const TaskScreen(),
         MainNavigatorScreen.routeName: (context) => const MainNavigatorScreen(),
-        HomeScreen.routeName : (context) => const HomeScreen(),
-        AuthenticateScreen.routeName : (context) => const AuthenticateScreen(),
+        HomeScreen.routeName: (context) => const HomeScreen(),
+        AuthenticateScreen.routeName: (context) => const AuthenticateScreen(),
         WelcomeScreen.routeName: (context) => const WelcomeScreen(),
         AboutScreen.routeName: (context) => const AboutScreen(),
       },

@@ -16,7 +16,8 @@ class PostItem extends StatefulWidget {
   State<PostItem> createState() => _PostItemState();
 }
 
-class _PostItemState extends State<PostItem> with AutomaticKeepAliveClientMixin {
+class _PostItemState extends State<PostItem>
+    with AutomaticKeepAliveClientMixin {
   String createdAtStr(Timestamp createdAtTS) {
     DateTime createdAt = DateTime.parse(createdAtTS.toDate().toString());
     final now = DateTime.now();
@@ -29,14 +30,17 @@ class _PostItemState extends State<PostItem> with AutomaticKeepAliveClientMixin 
       return sendTimeFormat.add_yMMMd().format(createdAt);
     }
   }
+
   @override
   bool get wantKeepAlive => true;
+
   @override
   Widget build(BuildContext context) {
+    super.build(context);
     return LayoutBuilder(builder: (context, constraints) {
       return StreamBuilder<Post>(
-          stream:
-              PostsController().postStream(groupId: widget.groupId, postId: widget.postId),
+          stream: PostsController()
+              .postStream(groupId: widget.groupId, postId: widget.postId),
           builder: (context, snapshot) {
             if (snapshot.connectionState == ConnectionState.waiting) {
               return Center(
@@ -168,6 +172,4 @@ class _PostItemState extends State<PostItem> with AutomaticKeepAliveClientMixin 
           });
     });
   }
-
-
 }

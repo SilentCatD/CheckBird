@@ -1,5 +1,4 @@
 
-import 'package:check_bird/screens/groups/groups_screen.dart';
 import 'package:flutter/material.dart';
 
 class GroupMore extends StatelessWidget {
@@ -14,8 +13,8 @@ class GroupMore extends StatelessWidget {
         },
         child: SizedBox(
           width: size.width * 0.2,
-          child: Column(
-            children: const [
+          child: const Column(
+            children: [
                CircleAvatar(
                 radius: 37,
                 backgroundColor: Colors.blue,

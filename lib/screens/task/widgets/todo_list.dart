@@ -2,7 +2,6 @@ import 'package:check_bird/models/todo/todo.dart';
 import 'package:check_bird/screens/task/widgets/todo_item.dart';
 import 'package:check_bird/screens/task/widgets/todo_item_remove.dart';
 import 'package:flutter/material.dart';
-import 'package:hive/hive.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:check_bird/models/todo/todo_list_controller.dart';
 

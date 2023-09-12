@@ -90,27 +90,27 @@ class _TaskCustomState extends State<TaskCustom> {
           items: [
             // add function to generate more of this if you like
             DropdownMenuItem(
-              child: Text(_notificationType[Notification.none]!),
               value: Notification.none,
+              child: Text(_notificationType[Notification.none]!),
             ),
             DropdownMenuItem(
-              child: Text(_notificationType[Notification.att]!),
               value: Notification.att,
+              child: Text(_notificationType[Notification.att]!),
             ),
             if (daysBetween(DateTime.now(), _pickedDay) >= 1)
               DropdownMenuItem(
-                child: Text(_notificationType[Notification.db1]!),
                 value: Notification.db1,
+                child: Text(_notificationType[Notification.db1]!),
               ),
             if (daysBetween(DateTime.now(), _pickedDay) >= 2)
               DropdownMenuItem(
-                child: Text(_notificationType[Notification.db2]!),
                 value: Notification.db2,
+                child: Text(_notificationType[Notification.db2]!),
               ),
             if (daysBetween(DateTime.now(), _pickedDay) >= 3)
               DropdownMenuItem(
-                child: Text(_notificationType[Notification.db3]!),
                 value: Notification.db3,
+                child: Text(_notificationType[Notification.db3]!),
               ),
           ],
           onChanged: (value) {
@@ -118,10 +118,9 @@ class _TaskCustomState extends State<TaskCustom> {
               _pickedNotificationType = value!;
             });
             Duration? daysDuration;
-            if(value == Notification.att){
+            if (value == Notification.att) {
               daysDuration = const Duration();
-            }
-            else if (value == Notification.db1) {
+            } else if (value == Notification.db1) {
               daysDuration = const Duration(days: 1);
             } else if (value == Notification.db2) {
               daysDuration = const Duration(days: 2);

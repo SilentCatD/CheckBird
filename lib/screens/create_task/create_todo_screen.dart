@@ -198,7 +198,7 @@ class _CreateTodoScreenState extends State<CreateTodoScreen> {
                   if (_todoType == TodoType.habit && _habitError)
                     Text(
                       "Habit required to have at least 1 day",
-                      style: TextStyle(color: Theme.of(context).errorColor),
+                      style: TextStyle(color: Theme.of(context).colorScheme.error),
                     ),
                   SizedBox(
                     height: size.height * 0.05,

@@ -6,20 +6,18 @@ class AppTheme extends ChangeNotifier {
   static AppTheme of(BuildContext context, {bool listen = false}) =>
       Provider.of<AppTheme>(context, listen: listen);
 
-  AppTheme(){
-    _AppTheme();
+  AppTheme() {
+    _appTheme();
   }
 
-  _AppTheme() async {
-    prefs = await  SharedPreferences.getInstance();
+  _appTheme() async {
+    prefs = await SharedPreferences.getInstance();
     bool? boolValue = prefs?.getBool('isDarkMode');
-    if(boolValue==null) {
+    if (boolValue == null) {
       _themeKeys = AppThemeKeys.light;
-    }
-    else if(boolValue) {
+    } else if (boolValue) {
       _themeKeys = AppThemeKeys.dark;
-    }
-    else {
+    } else {
       _themeKeys = AppThemeKeys.light;
     }
     notifyListeners();
@@ -27,8 +25,6 @@ class AppTheme extends ChangeNotifier {
 
   AppThemeKeys? _themeKeys;
   SharedPreferences? prefs;
-
-
 
   ThemeData? getCurrentTheme() => _themes[_themeKeys];
 
@@ -40,8 +36,8 @@ class AppTheme extends ChangeNotifier {
   }
 }
 
+enum AppThemeKeys { light, dark }
 
-enum AppThemeKeys { light, dark}
 Map<AppThemeKeys, ThemeData> _themes = {
   AppThemeKeys.light: ThemeData(
       brightness: Brightness.light,
@@ -58,24 +54,19 @@ Map<AppThemeKeys, ThemeData> _themes = {
       colorScheme: const ColorScheme.light().copyWith(
         secondary: Colors.lightBlue,
         primary: Colors.blue,
-      )
-  ),
+      )),
   AppThemeKeys.dark: ThemeData(
       brightness: Brightness.dark,
       primarySwatch: Colors.purple,
 
       // this is color of text
 
-      shadowColor:  Colors.white,
+      shadowColor: Colors.white,
       indicatorColor: Colors.purple,
       splashColor: Colors.purple,
-
       fontFamily: 'OpenSans',
       colorScheme: const ColorScheme.dark().copyWith(
         secondary: Colors.deepPurple,
         primary: Colors.black,
-      )
-  ),
-
+      )),
 };
-

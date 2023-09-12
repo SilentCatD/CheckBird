@@ -12,7 +12,7 @@ class CountDownScreen extends StatefulWidget {
   final Duration countDownTime;
 
   @override
-  _CountDownScreenState createState() => _CountDownScreenState();
+  State<CountDownScreen> createState() => _CountDownScreenState();
 }
 
 class _CountDownScreenState extends State<CountDownScreen> {

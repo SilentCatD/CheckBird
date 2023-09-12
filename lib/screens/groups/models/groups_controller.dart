@@ -30,11 +30,11 @@ class Group {
 
 class GroupsController {
   Future<List<Group>> searchGroups({required String query}) async {
-    final _db = FirebaseFirestore.instance;
-    final searchResults = await _db
+    final db = FirebaseFirestore.instance;
+    final searchResults = await db
         .collection('groups')
         .where('loweredGroupName', isGreaterThanOrEqualTo: query)
-        .where('loweredGroupName', isLessThan: query + 'z')
+        .where('loweredGroupName', isLessThan: '${query}z')
         .get();
     List<Group> results = [];
     for (var group in searchResults.docs.toList()) {
@@ -161,8 +161,8 @@ class GroupsController {
       imgDownloadUrl = await _sendImg(image: image);
     }
     // Add to groups
-    var _db = FirebaseFirestore.instance;
-    final groupId = await _db.collection('groups').add({
+    var db = FirebaseFirestore.instance;
+    final groupId = await db.collection('groups').add({
       "groupName": groupName,
       "groupDescription": groupDescription,
       "groupsAvtUrl": imgDownloadUrl,
@@ -172,7 +172,7 @@ class GroupsController {
       "numOfTasks": tasks == null ? 0 : tasks.length,
     });
     // Add to users
-    _db
+    db
         .collection('users')
         .doc(Authentication.user!.uid)
         .collection('groups')

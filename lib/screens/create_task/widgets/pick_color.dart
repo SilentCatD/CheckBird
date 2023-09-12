@@ -15,7 +15,7 @@ class PickColor extends StatefulWidget {
   final void Function(Color color) setTextColor;
 
   @override
-  _PickColorState createState() => _PickColorState();
+  State<PickColor> createState() => _PickColorState();
 }
 
 class _PickColorState extends State<PickColor> {
