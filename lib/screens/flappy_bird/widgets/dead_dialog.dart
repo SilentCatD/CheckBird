@@ -41,7 +41,7 @@ class DeadDialog extends StatelessWidget {
             children: [
               ElevatedButton(
                 onPressed: goBack,
-                style: ElevatedButton.styleFrom(primary: Colors.white),
+                style: ElevatedButton.styleFrom(backgroundColor: Colors.white),
                 child: const Text(
                   "GO BACK",
                   style: TextStyle(color: Colors.brown, fontWeight: FontWeight.bold),
@@ -49,7 +49,7 @@ class DeadDialog extends StatelessWidget {
               ),
               ElevatedButton(
                 onPressed: resetGame,
-                style: ElevatedButton.styleFrom(primary: Colors.white),
+                style: ElevatedButton.styleFrom(backgroundColor: Colors.white),
                 child: const Text(
                   "PLAY AGAIN",
                   style: TextStyle(color: Colors.brown, fontWeight: FontWeight.bold),

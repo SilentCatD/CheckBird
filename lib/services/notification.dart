@@ -1,47 +1,41 @@
-
 import 'package:awesome_notifications/awesome_notifications.dart';
 import 'package:flutter/material.dart';
 
-
-// this is just for text
 class NotificationService {
-
   NotificationService._internal();
 
-  static final NotificationService _notificationService = NotificationService
-      ._internal();
+  static final NotificationService _notificationService =
+      NotificationService._internal();
 
-  factory NotificationService(){
+  factory NotificationService() {
     return _notificationService;
   }
+
+  final String _channelKey = 'CheckBird_schedule_channel';
 
   Future<void> initialize() async {
     AwesomeNotifications().initialize(
       null,
       [
         NotificationChannel(
-          channelKey: 'CheckBird_schedule_channel',
+          channelKey: _channelKey,
           channelName: 'CheckBird notification',
           defaultColor: Colors.lightBlueAccent,
           locked: true,
           importance: NotificationImportance.High,
           channelShowBadge: true,
           soundSource: 'resource://raw/res_custom_notification_sound',
+          channelDescription: 'CheckBird notification',
         ),
       ],
     );
-/*
-    AwesomeNotifications().requestPermissionToSendNotifications();
-*/
-
-
   }
 
   Future<void> createInstantNotification(String title, String body) async {
     await AwesomeNotifications().createNotification(
       content: NotificationContent(
         id: 0,
-        channelKey: 'CheckBird_schedule_channel',
+        channelKey: _channelKey,
         title: title,
         body: body,
         notificationLayout: NotificationLayout.Default,
@@ -49,13 +43,12 @@ class NotificationService {
     );
   }
 
-
-  Future<void> createScheduleNotification(int id, String title,
-      String body, DateTime dateTime, bool repeat) async {
+  Future<void> createScheduleNotification(
+      int id, String title, String body, DateTime dateTime, bool repeat) async {
     await AwesomeNotifications().createNotification(
       content: NotificationContent(
         id: id,
-        channelKey: 'CheckBird_schedule_channel',
+        channelKey: _channelKey,
         title: title,
         body: body,
         notificationLayout: NotificationLayout.Default,

@@ -42,42 +42,44 @@ class _MessageInputState extends State<MessageInput> {
   var focused = false;
 
   Future<File?> _cropImage(File image) async {
-    File? croppedFile = await ImageCropper.cropImage(
+    CroppedFile? croppedFile = await ImageCropper().cropImage(
         sourcePath: image.path,
         aspectRatioPresets: Platform.isAndroid
             ? [
-          CropAspectRatioPreset.square,
-          CropAspectRatioPreset.ratio3x2,
-          CropAspectRatioPreset.original,
-          CropAspectRatioPreset.ratio4x3,
-          CropAspectRatioPreset.ratio16x9
-        ]
+                CropAspectRatioPreset.square,
+                CropAspectRatioPreset.ratio3x2,
+                CropAspectRatioPreset.original,
+                CropAspectRatioPreset.ratio4x3,
+                CropAspectRatioPreset.ratio16x9
+              ]
             : [
-          CropAspectRatioPreset.original,
-          CropAspectRatioPreset.square,
-          CropAspectRatioPreset.ratio3x2,
-          CropAspectRatioPreset.ratio4x3,
-          CropAspectRatioPreset.ratio5x3,
-          CropAspectRatioPreset.ratio5x4,
-          CropAspectRatioPreset.ratio7x5,
-          CropAspectRatioPreset.ratio16x9
-        ],
-        androidUiSettings: const AndroidUiSettings(
+                CropAspectRatioPreset.original,
+                CropAspectRatioPreset.square,
+                CropAspectRatioPreset.ratio3x2,
+                CropAspectRatioPreset.ratio4x3,
+                CropAspectRatioPreset.ratio5x3,
+                CropAspectRatioPreset.ratio5x4,
+                CropAspectRatioPreset.ratio7x5,
+                CropAspectRatioPreset.ratio16x9
+              ],
+        uiSettings: [
+          AndroidUiSettings(
             toolbarTitle: 'Cropper',
             toolbarColor: Colors.deepOrange,
             toolbarWidgetColor: Colors.white,
             initAspectRatio: CropAspectRatioPreset.original,
-            lockAspectRatio: false),
-        iosUiSettings: const IOSUiSettings(
-          title: 'Cropper',
-        ));
+            lockAspectRatio: false,
+          ),
+          IOSUiSettings(
+            title: 'Cropper',
+          ),
+        ]);
     if (croppedFile != null) {
-      image = croppedFile;
+      image = File(croppedFile.path);
       return image;
     }
     return null;
   }
-
 
   void _pickImages(ImageSource imageSource) async {
     var picker = ImagePicker();
@@ -86,17 +88,20 @@ class _MessageInputState extends State<MessageInput> {
     if (pickedImage == null) return;
     File img = File(pickedImage.path);
     File? cropped = await _cropImage(img);
-    if(cropped== null) return;
-    Navigator.of(context).push(
-      MaterialPageRoute(
-        builder: (context) => PreviewImageScreen(
-          imagePath: cropped.path,
-          groupId: widget.chatScreenArguments.groupId,
-          topicId: widget.chatScreenArguments.topicId,
-          chatType: widget.chatScreenArguments.chatType,
+    if (cropped == null) return;
+
+    if (context.mounted) {
+      Navigator.of(context).push(
+        MaterialPageRoute(
+          builder: (context) => PreviewImageScreen(
+            imagePath: cropped.path,
+            groupId: widget.chatScreenArguments.groupId,
+            topicId: widget.chatScreenArguments.topicId,
+            chatType: widget.chatScreenArguments.chatType,
+          ),
         ),
-      ),
-    );
+      );
+    }
   }
 
   void _sendChat(String text) async {

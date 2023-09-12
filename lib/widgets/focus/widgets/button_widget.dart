@@ -20,11 +20,11 @@ class ButtonWidget extends StatelessWidget {
       )
           // padding: const EdgeInsets.only(left: 5),
           ),
+      onPressed: onClicked,
       child: Text(
         text,
         style: const TextStyle(fontSize: 30),
       ),
-      onPressed: onClicked,
     );
   }
 }

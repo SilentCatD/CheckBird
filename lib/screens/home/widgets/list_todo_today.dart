@@ -1,6 +1,5 @@
 import 'package:check_bird/models/todo/todo.dart';
 import 'package:check_bird/screens/task/widgets/empty_todo.dart';
-import 'package:check_bird/screens/task/widgets/show_date.dart';
 import 'package:check_bird/screens/task/widgets/todo_list.dart';
 import 'package:flutter/material.dart';
 import 'package:hive_flutter/hive_flutter.dart';

@@ -4,8 +4,6 @@ import 'package:check_bird/screens/group_detail/widgets/posts_log/post_item.dart
 import 'package:check_bird/services/authentication.dart';
 import 'package:flutter/material.dart';
 
-GlobalKey<_PostsLogState> postLogKey = GlobalKey();
-
 class PostsLog extends StatefulWidget {
   const PostsLog({Key? key, required this.groupId}) : super(key: key);
   final String groupId;
@@ -18,8 +16,8 @@ class _PostsLogState extends State<PostsLog> {
   late dynamic newPostStream;
   String? lastPostId;
 
-  Future<void> refresh()async {
-    if(this.mounted) {
+  Future<void> refresh() async {
+    if (mounted) {
       setState(() {});
     }
   }
@@ -27,14 +25,19 @@ class _PostsLogState extends State<PostsLog> {
   @override
   void initState() {
     super.initState();
-    newPostStream = PostsController().postsStream(widget.groupId).listen((event) {
-      if(event.isNotEmpty && event.first.posterId == Authentication.user!.uid && event.first.id != lastPostId && mounted){
+    newPostStream =
+        PostsController().postsStream(widget.groupId).listen((event) {
+      if (event.isNotEmpty &&
+          event.first.posterId == Authentication.user!.uid &&
+          event.first.id != lastPostId &&
+          mounted) {
         setState(() {
           lastPostId = event.first.id;
         });
       }
     });
   }
+
   @override
   Widget build(BuildContext context) {
     return RefreshIndicator(
@@ -52,8 +55,10 @@ class _PostsLogState extends State<PostsLog> {
           }
           // TODO: this is just temporary solution, in the future, please lookup `ListView.builder JUMPING WHEN SCROLL`
           final posts = snapshot.data;
-          if(posts == null || posts.isEmpty){
-            return const Center(child: Text("There are no post yet"),);
+          if (posts == null || posts.isEmpty) {
+            return const Center(
+              child: Text("There are no post yet"),
+            );
           }
           lastPostId = posts.first.id;
           return ListView.builder(
@@ -66,7 +71,6 @@ class _PostsLogState extends State<PostsLog> {
                 key: ValueKey(posts[index].id!),
               );
             },
-
           );
         },
       ),

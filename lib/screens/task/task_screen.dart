@@ -54,8 +54,8 @@ class TaskScreen extends StatelessWidget {
               itemBuilder: (context) {
                 return [
                   const PopupMenuItem(
-                    child: Text("Remove all todo"),
                     value: 0,
+                    child: Text("Remove all todo"),
                   )
                 ];
               },

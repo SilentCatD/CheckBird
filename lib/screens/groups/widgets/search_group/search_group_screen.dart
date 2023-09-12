@@ -6,7 +6,7 @@ class SearchGroupScreen extends StatefulWidget {
   const SearchGroupScreen({Key? key}) : super(key: key);
 
   @override
-  _SearchGroupScreenState createState() => _SearchGroupScreenState();
+  State<SearchGroupScreen> createState() => _SearchGroupScreenState();
 }
 
 class _SearchGroupScreenState extends State<SearchGroupScreen> {
@@ -42,6 +42,7 @@ class _SearchGroupScreenState extends State<SearchGroupScreen> {
         child: Column(
           children: [
             Expanded(
+              flex: 1,
               child: Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 16.0),
                 child: TextField(
@@ -56,14 +57,14 @@ class _SearchGroupScreenState extends State<SearchGroupScreen> {
                   },
                 ),
               ),
-              flex: 1,
             ),
             Expanded(
+              flex: 9,
               child: _isSearching
-                  ? Center(
+                  ? const Center(
                       child: Column(
                         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                        children: const [
+                        children: [
                           CircularProgressIndicator(),
                           Text("Searching..."),
                         ],
@@ -82,7 +83,6 @@ class _SearchGroupScreenState extends State<SearchGroupScreen> {
                             );
                           },
                         ),
-              flex: 9,
             ),
           ],
         ),

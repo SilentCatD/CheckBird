@@ -13,7 +13,7 @@ class PlayVideoURL extends StatefulWidget {
   }) : super(key: key);
 
   @override
-  _PlayVideoURLState createState() => _PlayVideoURLState();
+  State<PlayVideoURL> createState() => _PlayVideoURLState();
 }
 
 class _PlayVideoURLState extends State<PlayVideoURL> {
@@ -43,7 +43,7 @@ class _PlayVideoURLState extends State<PlayVideoURL> {
     Size size = MediaQuery.of(context).size;
     return Container(
       width: size.width * 0.9,
-      height: size.height * 0.3 ,
+      height: size.height * 0.3,
       padding: const EdgeInsets.all(8.0),
       child: Chewie(
         controller: _controller,

@@ -12,7 +12,6 @@ class ToDoItemRemove extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Dismissible(
-      child: TodoItem(todo: todos[index], isCheck: isCheck),
       background: Container(
         color: Colors.red,
         child: const Icon(Icons.cancel),
@@ -41,6 +40,7 @@ class ToDoItemRemove extends StatelessWidget {
               ],
             ));
       },
+      child: TodoItem(todo: todos[index], isCheck: isCheck),
     );
   }
 }

@@ -4,23 +4,20 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart';
 
-
 class QuotesAPI extends StatefulWidget {
   static const routeName = '/home-screen';
 
   const QuotesAPI({Key? key}) : super(key: key);
 
   @override
-  _QuotesAPISate createState() => _QuotesAPISate();
+  State<QuotesAPI> createState() => _QuotesAPISate();
 }
-
 
 class _QuotesAPISate extends State<QuotesAPI> {
   final String _url = "https://api.quotable.io/random";
   late StreamController _streamController;
   late Stream _stream;
   late Response response;
-
 
   @override
   void initState() {
@@ -34,7 +31,7 @@ class _QuotesAPISate extends State<QuotesAPI> {
     response = await get(Uri.parse(_url));
     Map<String, dynamic> quotes = json.decode(response.body);
 
-    while(int.parse(quotes['length'].toString()) > 80){
+    while (int.parse(quotes['length'].toString()) > 80) {
       response = await get(Uri.parse(_url));
       quotes = json.decode(response.body);
     }
@@ -54,38 +51,35 @@ class _QuotesAPISate extends State<QuotesAPI> {
         borderRadius: BorderRadius.all(Radius.circular(10)),
       ),
       width: size.width * 0.9,
-      height: size.height*0.2,
-      child:  StreamBuilder(
+      height: size.height * 0.2,
+      child: StreamBuilder(
           stream: _stream,
           builder: (BuildContext ctx, AsyncSnapshot snapshot) {
-            if(snapshot.data != null){
+            if (snapshot.data != null) {
               String quote = snapshot.data['content'].toString();
               return Padding(
-                padding:  const EdgeInsets.all(4.0),
+                padding: const EdgeInsets.all(4.0),
                 child: Center(
-                    child: Text(
-                        quote,
+                    child: Text(quote,
                         textAlign: TextAlign.center,
-                        style:  const TextStyle(
+                        style: const TextStyle(
                             letterSpacing: 3,
                             fontSize: 25.0,
                             color: Colors.white,
                             fontFamily: 'DancingScript',
-                            fontWeight: FontWeight.bold)
-                    )),
+                            fontWeight: FontWeight.bold))),
               );
             }
-            return const Center(child: Text(
-                "Waiting for love",
-                textAlign: TextAlign.center,
-                style:  TextStyle(
-                    letterSpacing: 3,
-                    fontSize: 25.0,
-                    color: Colors.white,
-                    fontFamily: 'DancingScript',
-                    fontWeight: FontWeight.bold)
-            ));
+            return const Center(
+                child: Text("Waiting for love",
+                    textAlign: TextAlign.center,
+                    style: TextStyle(
+                        letterSpacing: 3,
+                        fontSize: 25.0,
+                        color: Colors.white,
+                        fontFamily: 'DancingScript',
+                        fontWeight: FontWeight.bold)));
           }),
-      );
+    );
   }
 }

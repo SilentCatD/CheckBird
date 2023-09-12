@@ -9,7 +9,7 @@ class FlappyBirdScreen extends StatefulWidget {
   static const routeName = '/flappy-bird-screen';
 
   @override
-  _FlappyBirdScreenState createState() => _FlappyBirdScreenState();
+  State<FlappyBirdScreen> createState() => _FlappyBirdScreenState();
 }
 
 class _FlappyBirdScreenState extends State<FlappyBirdScreen> {
@@ -44,7 +44,7 @@ class _FlappyBirdScreenState extends State<FlappyBirdScreen> {
         });
   }
 
-  void goBack(){
+  void goBack() {
     resetGame();
     Navigator.of(context).pop();
   }
@@ -140,6 +140,7 @@ class _FlappyBirdScreenState extends State<FlappyBirdScreen> {
         body: Column(
           children: [
             Expanded(
+              flex: 3,
               child: Container(
                 color: Colors.blue,
                 child: Center(
@@ -188,7 +189,6 @@ class _FlappyBirdScreenState extends State<FlappyBirdScreen> {
                   ),
                 ),
               ),
-              flex: 3,
             ),
             Container(
               height: 15,

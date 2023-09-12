@@ -17,7 +17,7 @@ class CreateGroupScreen extends StatefulWidget {
   final Group? group;
 
   @override
-  _CreateGroupScreenState createState() => _CreateGroupScreenState();
+  State<CreateGroupScreen> createState() => _CreateGroupScreenState();
 }
 
 class _CreateGroupScreenState extends State<CreateGroupScreen> {
@@ -42,10 +42,10 @@ class _CreateGroupScreenState extends State<CreateGroupScreen> {
   }
 
   Future<void> _pickImage(ImageSource imageSource) async {
-    var _pickedImg = await ImagePicker().pickImage(source: imageSource);
-    if (_pickedImg != null) {
+    var pickedImg = await ImagePicker().pickImage(source: imageSource);
+    if (pickedImg != null) {
       setState(() {
-        _image = File(_pickedImg.path);
+        _image = File(pickedImg.path);
         state = AppState.picked;
       });
     }
@@ -59,26 +59,28 @@ class _CreateGroupScreenState extends State<CreateGroupScreen> {
   }
 
   Future<void> _cropImage() async {
-    File? croppedFile = await ImageCropper.cropImage(
+    CroppedFile? croppedFile = await ImageCropper().cropImage(
       sourcePath: _image!.path,
       cropStyle: CropStyle.rectangle,
       maxWidth: 180,
       maxHeight: 180,
       compressQuality: 50,
       aspectRatioPresets: [CropAspectRatioPreset.square],
-      androidUiSettings: const AndroidUiSettings(
-        toolbarTitle: 'Cropper',
-        toolbarColor: Colors.deepOrange,
-        toolbarWidgetColor: Colors.white,
-        initAspectRatio: CropAspectRatioPreset.square,
-        lockAspectRatio: true,
-      ),
-      iosUiSettings: const IOSUiSettings(
-        title: 'Cropper',
-      ),
+      uiSettings: [
+        AndroidUiSettings(
+          toolbarTitle: 'Cropper',
+          toolbarColor: Colors.deepOrange,
+          toolbarWidgetColor: Colors.white,
+          initAspectRatio: CropAspectRatioPreset.square,
+          lockAspectRatio: true,
+        ),
+        IOSUiSettings(
+          title: 'Cropper',
+        ),
+      ],
     );
     if (croppedFile != null) {
-      _image = croppedFile;
+      _image = File(croppedFile.path);
       setState(() {
         state = AppState.cropped;
       });
@@ -122,10 +124,10 @@ class _CreateGroupScreenState extends State<CreateGroupScreen> {
                 actions: [
                   TextButton(
                       style: TextButton.styleFrom(
+                          foregroundColor: Colors.black12,
                           backgroundColor: _hasContent
                               ? Theme.of(context).primaryColor
-                              : Colors.grey.shade300,
-                          primary: Colors.black12),
+                              : Colors.grey.shade300),
                       onPressed: _hasContent
                           ? () {
                               _submit();
@@ -155,11 +157,10 @@ class _CreateGroupScreenState extends State<CreateGroupScreen> {
                               builder: (context) {
                                 return const ImageTypeDialog();
                               });
-                          if(useCam==null)return;
-                          if(useCam){
+                          if (useCam == null) return;
+                          if (useCam) {
                             await _pickImage(ImageSource.camera);
-                          }
-                          else{
+                          } else {
                             await _pickImage(ImageSource.gallery);
                           }
                           if (_image != null) {
@@ -189,9 +190,9 @@ class _CreateGroupScreenState extends State<CreateGroupScreen> {
                     ),
                     child: widget.group == null
                         ? _image == null
-                            ? Row(
+                            ? const Row(
                                 mainAxisAlignment: MainAxisAlignment.center,
-                                children: const [
+                                children: [
                                   Text(
                                     "Take an image",
                                     style: TextStyle(

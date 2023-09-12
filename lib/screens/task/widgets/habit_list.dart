@@ -11,52 +11,54 @@ class HabitListScreen extends StatefulWidget {
   const HabitListScreen({Key? key}) : super(key: key);
 
   @override
-  _HabitListScreenState createState() => _HabitListScreenState();
+  State<HabitListScreen> createState() => _HabitListScreenState();
 }
 
 class _HabitListScreenState extends State<HabitListScreen> {
   final TodoListController _controller = TodoListController();
   final Box<Todo> box = TodoListController().getTodoList();
   late final ValueNotifier<List<Todo>> _selectedHabit;
-  List<bool> _selectedDays = [true,false,false,false,false,false,false];
+  List<bool> _selectedDays = [true, false, false, false, false, false, false];
 
   @override
   void initState() {
     super.initState();
-    _selectedHabit = ValueNotifier(_controller.getHabitForMultiDays(_selectedDays));
+    _selectedHabit =
+        ValueNotifier(_controller.getHabitForMultiDays(_selectedDays));
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
         body: Column(
-          children: [
-            const Text(
-                "Select days of week",
-              style: TextStyle(fontSize: 15),
-            ),
-            WeekDayPicker(
-                onChanged: (days){
-                  _selectedDays = days;
-                  _selectedHabit.value = _controller.getHabitForMultiDays(_selectedDays);
-                },
-                initialValues: _selectedDays
-            ),
-            const SizedBox(height: 10.0),
-            Expanded(
-                child: ValueListenableBuilder(
-                  valueListenable: _selectedHabit,
-                  builder: (context, List<Todo> box, _) {
-                    final todos = _selectedHabit.value;
-                    return ListView.builder(
-                      itemCount: todos.length,
-                      itemBuilder: (context, index) {
-                    return ToDoItemRemove(todos: todos,index: index,isCheck: false);
-                  },
-                );
+      children: [
+        const Text(
+          "Select days of week",
+          style: TextStyle(fontSize: 15),
+        ),
+        WeekDayPicker(
+            onChanged: (days) {
+              _selectedDays = days;
+              _selectedHabit.value =
+                  _controller.getHabitForMultiDays(_selectedDays);
+            },
+            initialValues: _selectedDays),
+        const SizedBox(height: 10.0),
+        Expanded(
+            child: ValueListenableBuilder(
+          valueListenable: _selectedHabit,
+          builder: (context, List<Todo> box, _) {
+            final todos = _selectedHabit.value;
+            return ListView.builder(
+              itemCount: todos.length,
+              itemBuilder: (context, index) {
+                return ToDoItemRemove(
+                    todos: todos, index: index, isCheck: false);
               },
-            ))
-          ],
-        ));
+            );
+          },
+        ))
+      ],
+    ));
   }
 }

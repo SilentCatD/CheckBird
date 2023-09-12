@@ -92,7 +92,7 @@ class _WeekDayPickerState extends State<WeekDayPicker> {
         ),
         Text(
           errorText ?? "",
-          style: TextStyle(color: Theme.of(context).errorColor),
+          style: TextStyle(color: Theme.of(context).colorScheme.error),
         )
       ],
     );

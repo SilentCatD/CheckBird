@@ -8,19 +8,15 @@ import 'package:ntp/ntp.dart';
 import 'package:uuid/uuid.dart';
 
 class PostsController {
-
-
-
   Stream<List<Post>> postsStream(String groupId) {
     var ref = FirebaseFirestore.instance
         .collection('groups')
         .doc(groupId)
         .collection('post')
         .orderBy('createdAt', descending: true);
-    return ref.snapshots().distinct((oldDoc, newDoc){
-      var oldDocs = oldDoc.docs.toList();
+    return ref.snapshots().distinct((oldDoc, newDoc) {
       var newDocs = newDoc.docs.toList();
-      if(newDocs[0].data()['posterId'] == Authentication.user!.uid) {
+      if (newDocs[0].data()['posterId'] == Authentication.user!.uid) {
         return false;
       }
       return true;
@@ -155,12 +151,12 @@ class PostsController {
   }
 
   Stream<Post> postStream({required String groupId, required String postId}) {
-    final _ref = FirebaseFirestore.instance
+    final ref = FirebaseFirestore.instance
         .collection('groups')
         .doc(groupId)
         .collection('post')
         .doc(postId);
-    return _ref.snapshots().map((snapshot) {
+    return ref.snapshots().map((snapshot) {
       var data = snapshot.data()!;
       return Post(
         chatCount: data['chatCount'],

@@ -151,7 +151,7 @@ class Todo extends HiveObject {
 
 
         String title = "CheckBird Notification";
-        String body = "Deadline: "+ todoName + DateFormat('yyyy-MM-dd – kk:mm').format(deadline!);
+        String body = "Deadline: $todoName${DateFormat('yyyy-MM-dd – kk:mm').format(deadline!)}";
 
         await NotificationService().createScheduleNotification(
             notificationId!, title, body, newNotification, false);

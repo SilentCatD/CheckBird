@@ -13,7 +13,7 @@ class MainNavigatorScreen extends StatefulWidget {
   const MainNavigatorScreen({Key? key}) : super(key: key);
 
   @override
-  _MainNavigatorScreenState createState() => _MainNavigatorScreenState();
+  State<MainNavigatorScreen> createState() => _MainNavigatorScreenState();
 }
 
 class _MainNavigatorScreenState extends State<MainNavigatorScreen> {
@@ -30,11 +30,13 @@ class _MainNavigatorScreenState extends State<MainNavigatorScreen> {
       const ShopScreen(),
     ];
   }
-  void changeTag(int index){
+
+  void changeTag(int index) {
     setState(() {
       _selectedScreenIndex = index;
     });
   }
+
   int _selectedScreenIndex = 0;
 
   Widget _buildTabItem({required int index, required Icon icon}) {
@@ -70,14 +72,17 @@ class _MainNavigatorScreenState extends State<MainNavigatorScreen> {
         child: _screen[_selectedScreenIndex],
       ),
       floatingActionButton: FloatingActionButton(
-        child: const Icon(Icons.add_task, size: 40,color: Colors.white,),
-
+        child: const Icon(
+          Icons.add_task,
+          size: 40,
+          color: Colors.white,
+        ),
         onPressed: () {
           Navigator.of(context).push(
             PageRouteBuilder(
                 pageBuilder: (BuildContext context, Animation<double> animation,
-                    Animation<double> secondaryAnimation) =>
-                const CreateTodoScreen(),
+                        Animation<double> secondaryAnimation) =>
+                    const CreateTodoScreen(),
                 transitionsBuilder:
                     (context, animation, secondaryAnimation, child) {
                   const begin = Offset(0.0, 1.0);
@@ -106,8 +111,8 @@ class _MainNavigatorScreenState extends State<MainNavigatorScreen> {
             _buildTabItem(index: 0, icon: const Icon(Icons.home_rounded)),
             _buildTabItem(index: 1, icon: const Icon(Icons.checklist_rounded)),
             const Opacity(
-              child: IconButton(onPressed: null, icon: Icon(Icons.add)),
               opacity: 0,
+              child: IconButton(onPressed: null, icon: Icon(Icons.add)),
             ), // dirty way to space items
             _buildTabItem(index: 2, icon: const Icon(Icons.groups_rounded)),
             _buildTabItem(
