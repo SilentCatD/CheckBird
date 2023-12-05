@@ -4,7 +4,7 @@ import 'package:check_bird/widgets/chat/chat_widget.dart';
 import 'package:flutter/material.dart';
 
 class PostChatScreen extends StatelessWidget {
-  const PostChatScreen({Key? key, required this.postId, required this.groupId, required this.posterName}) : super(key: key);
+  const PostChatScreen({super.key, required this.postId, required this.groupId, required this.posterName});
   final String groupId;
   final String postId;
   final String posterName;

@@ -8,7 +8,7 @@ import 'package:table_calendar/table_calendar.dart';
 class TableCalendarScreen extends StatefulWidget {
   static const routeName = '/task-calendar-screen';
 
-  const TableCalendarScreen({Key? key}) : super(key: key);
+  const TableCalendarScreen({super.key});
 
   @override
   State<TableCalendarScreen> createState() => _TableCalendarScreenState();

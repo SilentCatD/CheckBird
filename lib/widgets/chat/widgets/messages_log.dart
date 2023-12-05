@@ -5,10 +5,9 @@ import 'package:flutter/material.dart';
 
 class MessagesLog extends StatefulWidget {
   const MessagesLog(
-      {Key? key,
+      {super.key,
       required this.chatScreenArguments,
-      required this.messagesLogController})
-      : super(key: key);
+      required this.messagesLogController});
   final ChatScreenArguments chatScreenArguments;
   final ScrollController messagesLogController;
 

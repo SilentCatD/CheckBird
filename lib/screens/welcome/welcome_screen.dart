@@ -8,7 +8,7 @@ import 'package:flutter/material.dart';
 class WelcomeScreen extends StatelessWidget {
   static const routeName = '/welcome-screen';
 
-  const WelcomeScreen({Key? key}) : super(key: key);
+  const WelcomeScreen({super.key});
 
   /// A StreamBuilder shall be used here with FirebaseAuth as its stream, which
   /// will then determine the login-state of user and show HomePage or

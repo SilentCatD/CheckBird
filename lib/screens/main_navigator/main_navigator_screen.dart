@@ -10,7 +10,7 @@ import 'package:flutter/material.dart';
 class MainNavigatorScreen extends StatefulWidget {
   static const routeName = '/main-navigation-screen';
 
-  const MainNavigatorScreen({Key? key}) : super(key: key);
+  const MainNavigatorScreen({super.key});
 
   @override
   State<MainNavigatorScreen> createState() => _MainNavigatorScreenState();
@@ -21,7 +21,6 @@ class _MainNavigatorScreenState extends State<MainNavigatorScreen> {
 
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
     _screen = [
       HomeScreen(changeTab: changeTag),

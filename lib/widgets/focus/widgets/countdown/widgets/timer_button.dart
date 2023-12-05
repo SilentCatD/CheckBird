@@ -2,13 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:check_bird/widgets/focus/widgets/button_widget.dart';
 
 class TimerButton extends StatelessWidget {
-  const TimerButton({Key? key,
+  const TimerButton({super.key,
     required this.onCancel,
     required this.isRunning,
     required this.isCompleted,
     required this.onAgain,
-    required this.onExit})
-      : super(key: key);
+    required this.onExit});
   final bool isRunning;
   final bool isCompleted;
   final void Function() onAgain;

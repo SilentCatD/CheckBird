@@ -7,7 +7,7 @@ class SettingScreen extends StatefulWidget {
   static const keyLanguage = 'key-language';
   static const keyDarkMode = 'key-darkmode';
   static const routeName = '/setting-screen';
-  const SettingScreen({Key? key}) : super(key: key);
+  const SettingScreen({super.key});
 
   @override
   State<SettingScreen> createState() => _SettingScreenState();

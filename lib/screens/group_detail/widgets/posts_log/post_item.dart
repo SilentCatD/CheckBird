@@ -7,8 +7,7 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
 class PostItem extends StatefulWidget {
-  const PostItem({Key? key, required this.postId, required this.groupId})
-      : super(key: key);
+  const PostItem({super.key, required this.postId, required this.groupId});
   final String postId;
   final String groupId;
 

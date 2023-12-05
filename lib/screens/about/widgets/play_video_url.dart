@@ -9,8 +9,8 @@ class PlayVideoURL extends StatefulWidget {
   const PlayVideoURL({
     required this.videoPlayerController,
     this.looping = false,
-    Key? key,
-  }) : super(key: key);
+    super.key,
+  });
 
   @override
   State<PlayVideoURL> createState() => _PlayVideoURLState();

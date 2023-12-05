@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 class GiveUpDialog extends StatelessWidget {
-  const GiveUpDialog({Key? key}) : super(key: key);
+  const GiveUpDialog({super.key});
 
   @override
   Widget build(BuildContext context) {

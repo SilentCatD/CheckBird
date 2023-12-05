@@ -3,8 +3,7 @@ import 'package:flutter/material.dart';
 
 class ToggleHabitTask extends StatelessWidget {
   const ToggleHabitTask(
-      {Key? key, required this.todoType, required this.onChanged})
-      : super(key: key);
+      {super.key, required this.todoType, required this.onChanged});
   final void Function(bool value)? onChanged;
   final TodoType todoType;
 

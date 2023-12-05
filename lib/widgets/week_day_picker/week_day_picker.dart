@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 
 class WeekDayPicker extends StatefulWidget {
   const WeekDayPicker({
-    Key? key,
+    super.key,
     this.initialValues,
     this.unselected,
     this.selected,
@@ -13,7 +13,7 @@ class WeekDayPicker extends StatefulWidget {
     this.onChanged,
     this.validate,
     this.forcedOneDayOnly,
-  }) : super(key: key);
+  });
   final bool? forcedOneDayOnly; //  forces one day only, should be used with at least 1 `true` in initialValues
   final List<bool>? initialValues; // set initial value of the List<bool>
   final Color? selected;

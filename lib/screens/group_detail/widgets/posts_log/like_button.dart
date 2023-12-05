@@ -3,8 +3,7 @@ import 'package:flutter/material.dart';
 
 class LikeButton extends StatefulWidget {
   const LikeButton(
-      {Key? key, required this.postId, required this.groupId})
-      : super(key: key);
+      {super.key, required this.postId, required this.groupId});
   final String postId;
   final String groupId;
 

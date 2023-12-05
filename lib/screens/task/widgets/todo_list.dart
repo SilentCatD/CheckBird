@@ -7,11 +7,11 @@ import 'package:check_bird/models/todo/todo_list_controller.dart';
 
 class TodoList extends StatelessWidget {
   TodoList({
-    Key? key,
+    super.key,
     this.day,
     this.isToday = false,
     this.isMore = false,
-  }) : super(key: key);
+  });
   final TodoListController _controller = TodoListController();
   final DateTime? day;
   final bool isToday;

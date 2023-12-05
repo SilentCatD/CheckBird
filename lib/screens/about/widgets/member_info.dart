@@ -2,12 +2,12 @@ import 'package:flutter/material.dart';
 
 class MemberInformation extends StatelessWidget {
   const MemberInformation({
-    Key? key,
+    super.key,
     required this.image,
     required this.name,
     required this.id,
     this.isLeader = false,
-  }) : super(key: key);
+  });
 
   final bool isLeader;
   final String image;

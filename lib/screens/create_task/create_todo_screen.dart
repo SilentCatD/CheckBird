@@ -11,7 +11,7 @@ import 'package:check_bird/screens/create_task/widgets/toggle_habit_task.dart';
 import 'package:flutter/material.dart';
 
 class CreateTodoScreen extends StatefulWidget {
-  const CreateTodoScreen({Key? key, this.todo}) : super(key: key);
+  const CreateTodoScreen({super.key, this.todo});
   static const routeName = 'create-todo-screen';
   final Todo? todo;
 

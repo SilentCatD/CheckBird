@@ -5,7 +5,7 @@ import 'package:check_bird/services/authentication.dart';
 import 'package:flutter/material.dart';
 
 class PostsLog extends StatefulWidget {
-  const PostsLog({Key? key, required this.groupId}) : super(key: key);
+  const PostsLog({super.key, required this.groupId});
   final String groupId;
 
   @override

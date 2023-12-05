@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
 
 class TodoNameInput extends StatelessWidget {
-  const TodoNameInput({Key? key, required this.onSaved, required this.todoName})
-      : super(key: key);
+  const TodoNameInput({super.key, required this.onSaved, required this.todoName});
   final void Function(String value) onSaved;
   final String todoName;
 

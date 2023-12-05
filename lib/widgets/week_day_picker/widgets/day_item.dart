@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 
 class DayItem extends StatelessWidget {
   const DayItem({
-    Key? key,
+    super.key,
     required this.text,
     this.selected,
     this.textSelected,
@@ -11,7 +11,7 @@ class DayItem extends StatelessWidget {
     required this.index,
     required this.onChangedCaller,
     required this.value,
-  }) : super(key: key);
+  });
 
   final void Function(int index) onChangedCaller;
   final Color? selected;

@@ -3,7 +3,7 @@ import 'package:check_bird/screens/groups/widgets/create_group/create_group_scre
 import 'package:flutter/material.dart';
 
 class GroupInfoTab extends StatelessWidget {
-  const GroupInfoTab({Key? key, required this.group}) : super(key: key);
+  const GroupInfoTab({super.key, required this.group});
   final Group group;
   @override
   Widget build(BuildContext context) {

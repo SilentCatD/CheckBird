@@ -3,8 +3,7 @@ import 'package:flutter/material.dart';
 
 class TimerDisplay extends StatelessWidget {
   const TimerDisplay(
-      {Key? key, required this.countDownTime, required this.duration})
-      : super(key: key);
+      {super.key, required this.countDownTime, required this.duration});
   final Duration duration;
   final Duration countDownTime;
 

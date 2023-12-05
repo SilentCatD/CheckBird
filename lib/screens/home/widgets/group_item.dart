@@ -3,7 +3,7 @@ import 'package:check_bird/screens/groups/models/groups_controller.dart';
 import 'package:flutter/material.dart';
 
 class GroupItem extends StatelessWidget {
-  const GroupItem({Key? key, required this.group}) : super(key: key);
+  const GroupItem({super.key, required this.group});
   final Group group;
 
   @override

@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
 
 class DeadDialog extends StatelessWidget {
-  const DeadDialog({Key? key, required this.resetGame, required this.score, required this.goBack})
-      : super(key: key);
+  const DeadDialog({super.key, required this.resetGame, required this.score, required this.goBack});
   final Function() resetGame;
   final Function() goBack;
   final int score;

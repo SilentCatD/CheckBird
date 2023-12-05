@@ -7,7 +7,7 @@ import 'package:http/http.dart';
 class QuotesAPI extends StatefulWidget {
   static const routeName = '/home-screen';
 
-  const QuotesAPI({Key? key}) : super(key: key);
+  const QuotesAPI({super.key});
 
   @override
   State<QuotesAPI> createState() => _QuotesAPISate();

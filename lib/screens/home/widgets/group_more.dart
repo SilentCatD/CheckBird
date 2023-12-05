@@ -2,7 +2,7 @@
 import 'package:flutter/material.dart';
 
 class GroupMore extends StatelessWidget {
-  const GroupMore({Key? key,required this.changeTab}) : super(key: key);
+  const GroupMore({super.key,required this.changeTab});
   final void Function(int index) changeTab;
   @override
   Widget build(BuildContext context) {

@@ -8,8 +8,7 @@ enum HabitLoopType {
 }
 
 class HabitCustom extends StatefulWidget {
-  const HabitCustom({Key? key, required this.onChanged, this.habitDays})
-      : super(key: key);
+  const HabitCustom({super.key, required this.onChanged, this.habitDays});
   final void Function(List<bool> values) onChanged;
   final List<bool>? habitDays;
 

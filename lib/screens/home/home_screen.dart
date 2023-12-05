@@ -11,7 +11,7 @@ import 'package:flutter/material.dart';
 class HomeScreen extends StatefulWidget {
   static const routeName = '/home-screen';
 
-  const HomeScreen({Key? key, this.changeTab}) : super(key: key);
+  const HomeScreen({super.key, this.changeTab});
   final void Function(int index)? changeTab;
 
   @override

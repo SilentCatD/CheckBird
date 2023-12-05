@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 class EmptyToDo extends StatelessWidget {
-  const EmptyToDo({Key? key}) : super(key: key);
+  const EmptyToDo({super.key});
 
   @override
   Widget build(BuildContext context) {

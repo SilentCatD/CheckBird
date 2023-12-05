@@ -85,7 +85,7 @@ class Todo extends HiveObject {
   }
 
   void deleteTodo() {
-    if(notification != null) {
+    if (notification != null) {
       NotificationService().cancelScheduledNotifications(notificationId!);
     }
     delete();
@@ -103,7 +103,6 @@ class Todo extends HiveObject {
     return type;
   }
 
-
   void toggleCompleted() {
     DateTime now = DateTime.now();
     if (lastCompleted == null) {
@@ -119,7 +118,7 @@ class Todo extends HiveObject {
     await NotificationService().cancelScheduledNotifications(notificationId!);
   }
 
-  Future<void> editTodo ({
+  Future<void> editTodo({
     String? newName,
     String? newDescription,
     int? newBackgroundColor,
@@ -128,7 +127,7 @@ class Todo extends HiveObject {
     DateTime? newDeadline,
     List<bool>? newWeekdays,
   }) async {
-    // remember to check if anything changed before call this function, if not dont call it
+    // remember to check if anything changed before call this function, if not don't call it
     // only these field are editable
     todoName = newName ?? todoName;
     todoDescription = (newDescription) ?? todoDescription;
@@ -138,24 +137,23 @@ class Todo extends HiveObject {
     weekdays = newWeekdays ?? weekdays;
 
     if (newNotification != notification) {
-
       if (notification != null) {
         notification = null;
-        await NotificationService().cancelScheduledNotifications(notificationId!);
+        await NotificationService()
+            .cancelScheduledNotifications(notificationId!);
       }
 
-      if (type == TodoType.task && newNotification != null ) {
-
+      if (type == TodoType.task && newNotification != null) {
         notification = newNotification;
-        notificationId = DateTime.now().millisecondsSinceEpoch.remainder(100000);
-
+        notificationId =
+            DateTime.now().millisecondsSinceEpoch.remainder(100000);
 
         String title = "CheckBird Notification";
-        String body = "Deadline: $todoName${DateFormat('yyyy-MM-dd – kk:mm').format(deadline!)}";
+        String body =
+            "Deadline: $todoName${DateFormat('yyyy-MM-dd – kk:mm').format(deadline!)}";
 
         await NotificationService().createScheduleNotification(
             notificationId!, title, body, newNotification, false);
-
       }
     }
     save();
@@ -164,7 +162,7 @@ class Todo extends HiveObject {
   bool get isCompleted {
     if (lastCompleted != null) {
       DateTime now = DateTime.now();
-      if(type == TodoType.habit && !now.isSameDate(lastCompleted!)){
+      if (type == TodoType.habit && !now.isSameDate(lastCompleted!)) {
         lastCompleted = null;
         save();
         return false;

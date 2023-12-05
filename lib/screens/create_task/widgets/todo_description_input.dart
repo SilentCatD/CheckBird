@@ -2,8 +2,7 @@ import 'package:flutter/material.dart';
 
 class TodoDescriptionInput extends StatelessWidget {
   const TodoDescriptionInput(
-      {Key? key, required this.onSaved, required this.todoDescription})
-      : super(key: key);
+      {super.key, required this.onSaved, required this.todoDescription});
   final void Function(String value) onSaved;
   final String todoDescription;
 

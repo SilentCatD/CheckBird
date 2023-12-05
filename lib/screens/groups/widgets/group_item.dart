@@ -4,8 +4,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 
 class GroupItem extends StatelessWidget {
-  const GroupItem({Key? key, required this.groupId, required this.size})
-      : super(key: key);
+  const GroupItem({super.key, required this.groupId, required this.size});
   final String groupId;
   final Size size;
 

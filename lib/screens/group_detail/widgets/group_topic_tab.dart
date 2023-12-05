@@ -5,7 +5,7 @@ import 'package:flutter/material.dart';
 import 'create_post/create_post_screen.dart';
 
 class GroupTopicTab extends StatefulWidget {
-  const GroupTopicTab({Key? key, required this.groupId}) : super(key: key);
+  const GroupTopicTab({super.key, required this.groupId});
   final String groupId;
 
   @override

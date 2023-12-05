@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 class TimeCard extends StatelessWidget {
-  const TimeCard({Key? key, required this.time}) : super(key: key);
+  const TimeCard({super.key, required this.time});
   final String time;
 
   @override

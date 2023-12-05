@@ -2,12 +2,12 @@ import 'package:flutter/material.dart';
 
 class Barrier extends StatelessWidget {
   const Barrier({
-    Key? key,
+    super.key,
     required this.barrierHeight,
     required this.barrierWidth,
     required this.barrierX,
     required this.isBottomBarrier,
-  }) : super(key: key);
+  });
   final bool isBottomBarrier;
   final double barrierX;
   final double barrierHeight;

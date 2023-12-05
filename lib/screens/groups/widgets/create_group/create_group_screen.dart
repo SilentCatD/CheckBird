@@ -13,7 +13,7 @@ enum AppState {
 }
 
 class CreateGroupScreen extends StatefulWidget {
-  const CreateGroupScreen({Key? key, this.group}) : super(key: key);
+  const CreateGroupScreen({super.key, this.group});
   final Group? group;
 
   @override

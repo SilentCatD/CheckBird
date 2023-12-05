@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 class ImageTypeDialog extends StatelessWidget {
-  const ImageTypeDialog({Key? key}) : super(key: key);
+  const ImageTypeDialog({super.key});
 
   @override
   Widget build(BuildContext context) {

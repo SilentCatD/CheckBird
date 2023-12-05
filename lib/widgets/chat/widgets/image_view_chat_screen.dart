@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 class ImageViewChatScreen extends StatelessWidget {
-  const ImageViewChatScreen({Key? key, required this.imageUrl}) : super(key: key);
+  const ImageViewChatScreen({super.key, required this.imageUrl});
   final String imageUrl;
 
   @override

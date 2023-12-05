@@ -3,8 +3,7 @@ import 'package:check_bird/screens/task/widgets/todo_item.dart';
 import 'package:flutter/material.dart';
 
 class ToDoItemRemove extends StatelessWidget {
-  const ToDoItemRemove({Key? key, required this.todos,required this.index, this.isCheck = true})
-      : super(key: key);
+  const ToDoItemRemove({super.key, required this.todos,required this.index, this.isCheck = true});
 
   final List<Todo> todos;
   final int index;

@@ -3,7 +3,7 @@ import 'package:check_bird/screens/groups/widgets/group_item.dart';
 import 'package:flutter/material.dart';
 
 class SearchGroupScreen extends StatefulWidget {
-  const SearchGroupScreen({Key? key}) : super(key: key);
+  const SearchGroupScreen({super.key});
 
   @override
   State<SearchGroupScreen> createState() => _SearchGroupScreenState();

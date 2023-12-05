@@ -5,7 +5,7 @@ import 'package:check_bird/screens/flappy_bird/widgets/dead_dialog.dart';
 import 'package:flutter/material.dart';
 
 class FlappyBirdScreen extends StatefulWidget {
-  const FlappyBirdScreen({Key? key}) : super(key: key);
+  const FlappyBirdScreen({super.key});
   static const routeName = '/flappy-bird-screen';
 
   @override

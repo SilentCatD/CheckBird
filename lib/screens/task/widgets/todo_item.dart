@@ -5,8 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
 class TodoItem extends StatelessWidget {
-  const TodoItem({Key? key, required this.todo, this.isCheck = true})
-      : super(key: key);
+  const TodoItem({super.key, required this.todo, this.isCheck = true});
   final Todo todo;
   final bool isCheck;
 

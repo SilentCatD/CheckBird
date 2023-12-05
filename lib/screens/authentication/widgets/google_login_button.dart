@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:check_bird/services/authentication.dart';
 
 class GoogleLoginButton extends StatelessWidget {
-  const GoogleLoginButton({Key? key}) : super(key: key);
+  const GoogleLoginButton({super.key});
 
   @override
   Widget build(BuildContext context) {

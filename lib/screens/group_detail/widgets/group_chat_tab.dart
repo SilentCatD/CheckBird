@@ -5,7 +5,7 @@ import 'package:check_bird/widgets/chat/chat_widget.dart';
 import 'package:flutter/material.dart';
 
 class GroupChatTab extends StatelessWidget {
-  const GroupChatTab({Key? key, required this.groupId}) : super(key: key);
+  const GroupChatTab({super.key, required this.groupId});
   final String groupId;
 
   @override

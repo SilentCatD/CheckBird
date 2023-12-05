@@ -6,14 +6,14 @@ import 'package:intl/intl.dart';
 
 class MessageBubble extends StatefulWidget {
   const MessageBubble({
-    Key? key,
+    super.key,
     required this.message,
     required this.photoUrl,
     required this.isMe,
     required this.senderName,
     required this.sendAt,
     required this.mediaType,
-  }) : super(key: key);
+  });
 
   final MediaType mediaType;
   final Timestamp sendAt;
@@ -122,12 +122,11 @@ class _MessageBubbleState extends State<MessageBubble> {
 
 class ImageMedia extends StatelessWidget {
   const ImageMedia(
-      {Key? key,
+      {super.key,
       required this.isMe,
       required this.onPress,
       required this.constraints,
-      required this.imageUrl})
-      : super(key: key);
+      required this.imageUrl});
   final String imageUrl;
   final bool isMe;
   final Function() onPress;
@@ -156,13 +155,12 @@ class ImageMedia extends StatelessWidget {
 
 class TextMedia extends StatelessWidget {
   const TextMedia(
-      {Key? key,
+      {super.key,
       required this.constraints,
       required this.text,
       required this.onPress,
       required this.isMe,
-      required this.showTime})
-      : super(key: key);
+      required this.showTime});
   final BoxConstraints constraints;
   final String text;
   final Function() onPress;

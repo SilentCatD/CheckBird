@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 class RemoveAllItemAD extends StatelessWidget {
-  const RemoveAllItemAD({Key? key}) : super(key: key);
+  const RemoveAllItemAD({super.key});
 
   @override
   Widget build(BuildContext context) {

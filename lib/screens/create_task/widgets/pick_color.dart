@@ -3,12 +3,11 @@ import 'package:flutter_material_color_picker/flutter_material_color_picker.dart
 
 class PickColor extends StatefulWidget {
   const PickColor(
-      {Key? key,
+      {super.key,
       required this.backgroundColor,
       required this.textColor,
       required this.setBackgroundColor,
-      required this.setTextColor})
-      : super(key: key);
+      required this.setTextColor});
   final Color backgroundColor;
   final Color textColor;
   final void Function(Color color) setBackgroundColor;

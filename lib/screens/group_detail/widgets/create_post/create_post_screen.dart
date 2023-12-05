@@ -14,7 +14,7 @@ enum AppState {
 }
 
 class CreatePostScreen extends StatefulWidget {
-  const CreatePostScreen({Key? key, required this.groupId}) : super(key: key);
+  const CreatePostScreen({super.key, required this.groupId});
   final String groupId;
   @override
   State<CreatePostScreen> createState() => _CreatePostScreenState();

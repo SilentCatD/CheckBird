@@ -5,12 +5,11 @@ import 'dart:io';
 
 class PreviewImageScreen extends StatelessWidget {
   const PreviewImageScreen(
-      {Key? key,
+      {super.key,
       required this.imagePath,
       required this.chatType,
       required this.groupId,
-      required this.topicId})
-      : super(key: key);
+      required this.topicId});
   final String imagePath;
   final String groupId;
   final String? topicId;

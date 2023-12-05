@@ -4,7 +4,7 @@ import 'package:check_bird/widgets/focus/widgets/button_widget.dart';
 import 'package:check_bird/widgets/focus/widgets/countdown/countdown_screen.dart';
 
 class FocusPopupWidget extends StatefulWidget {
-  const FocusPopupWidget({Key? key}) : super(key: key);
+  const FocusPopupWidget({super.key});
 
   @override
   State<FocusPopupWidget> createState() => _FocusPopupWidgetState();
@@ -72,7 +72,7 @@ class _FocusPopupWidgetState extends State<FocusPopupWidget> {
 }
 
 class FocusButton extends StatelessWidget {
-  const FocusButton({Key? key}) : super(key: key);
+  const FocusButton({super.key});
 
   void _showPopupDialog(BuildContext context) async {
     await showDialog(

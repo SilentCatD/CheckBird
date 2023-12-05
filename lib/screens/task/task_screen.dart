@@ -9,7 +9,7 @@ import 'package:flutter/material.dart';
 class TaskScreen extends StatelessWidget {
   static const routeName = '/task-screen';
 
-  const TaskScreen({Key? key}) : super(key: key);
+  const TaskScreen({super.key});
 
   @override
   Widget build(BuildContext context) {

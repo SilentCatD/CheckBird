@@ -4,7 +4,7 @@ import 'package:check_bird/screens/home/widgets/group_more.dart';
 import 'package:flutter/material.dart';
 
 class GroupList extends StatelessWidget {
-  GroupList({Key? key, this.changeTab}) : super(key: key);
+  GroupList({super.key, this.changeTab});
   final GroupsController _groupsController = GroupsController();
 
   final void Function(int index)? changeTab;

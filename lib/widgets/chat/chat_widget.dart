@@ -4,7 +4,7 @@ import 'package:check_bird/widgets/chat/widgets/messages_log.dart';
 import 'package:flutter/material.dart';
 
 class ChatWidget extends StatelessWidget {
-  ChatWidget({Key? key, required this.args}) : super(key: key);
+  ChatWidget({super.key, required this.args});
   final ChatScreenArguments args;
   final _controller = ScrollController();
 

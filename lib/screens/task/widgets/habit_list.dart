@@ -8,7 +8,7 @@ import 'package:hive_flutter/hive_flutter.dart';
 class HabitListScreen extends StatefulWidget {
   static const routeName = '/habit-list-screen';
 
-  const HabitListScreen({Key? key}) : super(key: key);
+  const HabitListScreen({super.key});
 
   @override
   State<HabitListScreen> createState() => _HabitListScreenState();

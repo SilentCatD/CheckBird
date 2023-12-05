@@ -10,7 +10,7 @@ import 'package:flutter/material.dart';
 class GroupScreen extends StatelessWidget {
   static const routeName = '/groups-screen';
 
-  const GroupScreen({Key? key}) : super(key: key);
+  const GroupScreen({super.key});
 
   @override
   Widget build(BuildContext context) {

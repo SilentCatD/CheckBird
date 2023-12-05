@@ -7,35 +7,27 @@ import 'package:check_bird/models/todo/todo_list_controller.dart';
 
 class ToDoListToday extends StatelessWidget {
   ToDoListToday({
-    Key? key,
+    super.key,
     required this.today,
-  }) : super(key: key);
+  });
   final TodoListController _controller = TodoListController();
   final DateTime today;
 
   @override
   Widget build(BuildContext context) {
     final Size size = MediaQuery.of(context).size;
-    return Container(
-      // padding: const EdgeInsets.only(left: 20),
-      child: ValueListenableBuilder(
-          valueListenable: _controller.getTodoList().listenable(),
-          builder: (context, Box<Todo> box, _) {
-            return SingleChildScrollView(
-                child: Column(
-                    children: [
-                      if(_controller.countToDoForDay(today) ==
-                          0) const EmptyToDo(),
-                      SizedBox(
-                        height: size.width * 0.3 *
-                            _controller.countToDoForDay(today),
-                        child: TodoList(day: today, isToday: true),
-                      ),
-                    ]
-                )
-            );
-          }
-      )
+    return ValueListenableBuilder(
+      valueListenable: _controller.getTodoList().listenable(),
+      builder: (context, Box<Todo> box, _) {
+        return SingleChildScrollView(
+            child: Column(children: [
+          if (_controller.countToDoForDay(today) == 0) const EmptyToDo(),
+          SizedBox(
+            height: size.width * 0.3 * _controller.countToDoForDay(today),
+            child: TodoList(day: today, isToday: true),
+          ),
+        ]));
+      },
     );
   }
 }

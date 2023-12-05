@@ -17,11 +17,10 @@ enum Notification {
 
 class TaskCustom extends StatefulWidget {
   const TaskCustom(
-      {Key? key,
+      {super.key,
       required this.initialDate,
       required this.onChangedDue,
-      required this.onChangedNotification})
-      : super(key: key);
+      required this.onChangedNotification});
   final DateTime? initialDate;
   final void Function(String value) onChangedDue;
   final void Function(DateTime? dateTime) onChangedNotification;

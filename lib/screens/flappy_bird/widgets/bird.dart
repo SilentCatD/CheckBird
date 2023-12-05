@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 class Bird extends StatelessWidget {
-  const Bird({Key? key, required this.birdY, required this.birdHeight, required this.birdWidth}) : super(key: key);
+  const Bird({super.key, required this.birdY, required this.birdHeight, required this.birdWidth});
   final double birdWidth;
   final double birdHeight;
   final double birdY;

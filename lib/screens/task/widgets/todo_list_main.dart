@@ -8,9 +8,9 @@ import 'package:check_bird/models/todo/todo_list_controller.dart';
 
 class ToDoListMain extends StatelessWidget {
   ToDoListMain({
-    Key? key,
+    super.key,
     required this.today,
-  }) : super(key: key);
+  });
   final TodoListController _controller = TodoListController();
   final DateTime today;
 

@@ -5,7 +5,7 @@ import 'package:check_bird/screens/groups/models/groups_controller.dart';
 import 'package:flutter/material.dart';
 
 class GroupDetailScreen extends StatelessWidget {
-  const GroupDetailScreen({Key? key, required this.group}) : super(key: key);
+  const GroupDetailScreen({super.key, required this.group});
   static const routeName = '/chat-detail-screen';
   final Group group;
   @override

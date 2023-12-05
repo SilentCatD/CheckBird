@@ -7,8 +7,7 @@ import 'package:check_bird/widgets/focus/widgets/countdown/widgets/timer_display
 import 'package:flutter/material.dart';
 
 class CountDownScreen extends StatefulWidget {
-  const CountDownScreen({Key? key, required this.countDownTime})
-      : super(key: key);
+  const CountDownScreen({super.key, required this.countDownTime});
   final Duration countDownTime;
 
   @override
