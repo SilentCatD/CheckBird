@@ -1,3 +1,4 @@
+import 'package:check_bird/services/authentication.dart';
 import 'package:check_bird/utils/theme.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_settings_screens/flutter_settings_screens.dart';
@@ -35,7 +36,13 @@ class _SettingScreenState extends State<SettingScreen> {
                   buildFeedBack(),
                   buildReportBug(),
                 ],
-              )
+              ),
+              SettingsGroup(
+                title: "ACCOUNT",
+                children: <Widget>[
+                  buildDeleteAccount(),
+                ],
+              ),
             ],
           ),
         ),
@@ -71,6 +78,53 @@ class _SettingScreenState extends State<SettingScreen> {
             color: Colors.white,
           ),
         ),
+      );
+
+  Widget buildDeleteAccount() => SimpleSettingsTile(
+        title: "Delete Account",
+        leading: Container(
+          padding: const EdgeInsets.all(6),
+          decoration: const BoxDecoration(
+            shape: BoxShape.circle,
+            color: Colors.red,
+          ),
+          child: const Icon(
+            Icons.error_outline_rounded,
+            color: Colors.white,
+          ),
+        ),
+        onTap: () {
+          showDialog(
+            context: context,
+            builder: (contextDialog) {
+              return AlertDialog(
+                title: const Text('Delete your Account?'),
+                content: const Text(
+                    '''If you select Delete we will delete your account on our server.\nYour app data will also be deleted and you won't be able to retrieve it.'''),
+                actions: [
+                  TextButton(
+                    child: const Text('Cancel'),
+                    onPressed: () {
+                      Navigator.of(contextDialog).pop();
+                    },
+                  ),
+                  TextButton(
+                    child: const Text(
+                      'Delete',
+                      style: TextStyle(color: Colors.red),
+                    ),
+                    onPressed: () async {
+                      Navigator.of(contextDialog).pop();
+                      await Authentication.deleteUserAccount();
+                      if (!context.mounted) return;
+                      Navigator.of(context).pop();
+                    },
+                  ),
+                ],
+              );
+            },
+          );
+        },
       );
 
   Widget buildLanguages() => DropDownSettingsTile(

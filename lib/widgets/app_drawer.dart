@@ -6,7 +6,6 @@ import 'package:flutter/material.dart';
 class AppDrawer extends StatelessWidget {
   const AppDrawer({super.key});
 
-
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
@@ -27,7 +26,9 @@ class AppDrawer extends StatelessWidget {
                   child: CircleAvatar(
                     radius: 60,
                     backgroundColor: Colors.grey,
-                    backgroundImage: Authentication.user == null ? null : NetworkImage(Authentication.user!.photoURL!),
+                    backgroundImage: Authentication.user == null
+                        ? null
+                        : NetworkImage(Authentication.user!.photoURL!),
                   ),
                 ),
                 Container(
@@ -35,7 +36,9 @@ class AppDrawer extends StatelessWidget {
                     horizontal: 20,
                   ),
                   child: Text(
-                    Authentication.user == null ? "Not available" :Authentication.user!.displayName!,
+                    Authentication.user == null
+                        ? "Not available"
+                        : Authentication.user!.displayName!,
                     overflow: TextOverflow.fade,
                     style: const TextStyle(
                       fontSize: 25,
@@ -50,7 +53,9 @@ class AppDrawer extends StatelessWidget {
                     bottom: 10,
                   ),
                   child: Text(
-                    Authentication.user == null ? "Not available" : Authentication.user!.email!,
+                    Authentication.user == null
+                        ? "Not available"
+                        : Authentication.user!.email!,
                     overflow: TextOverflow.fade,
                     style: const TextStyle(
                       color: Colors.white,
@@ -64,14 +69,15 @@ class AppDrawer extends StatelessWidget {
           Expanded(
             child: ListView(
               children: [
-                ListTile(
-                  title: const Text("Profile"),
-                  leading: const Icon(Icons.account_circle_rounded),
-                  onTap: () {
-                    Navigator.of(context).pop();
-                    Navigator.of(context).pushNamed('/TODO');
-                  },
-                ),
+                // TODO: Profile Screen
+                // ListTile(
+                //   title: const Text("Profile"),
+                //   leading: const Icon(Icons.account_circle_rounded),
+                //   onTap: () {
+                //     Navigator.of(context).pop();
+                //     Navigator.of(context).pushNamed('/TODO');
+                //   },
+                // ),
                 ListTile(
                   title: const Text("Setting"),
                   leading: const Icon(Icons.settings),
