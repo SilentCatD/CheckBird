@@ -1,6 +1,7 @@
 import 'package:animations/animations.dart';
 import 'package:check_bird/screens/authentication/authenticate_screen.dart';
 import 'package:check_bird/screens/main_navigator/main_navigator_screen.dart';
+import 'package:check_bird/services/authentication.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
@@ -20,15 +21,21 @@ class WelcomeScreen extends StatelessWidget {
           if (snapshot.connectionState == ConnectionState.waiting) {
             return const Center(child: CircularProgressIndicator());
           }
+          if (snapshot.hasData) {
+            Authentication.user = snapshot.data;
+          }
           return PageTransitionSwitcher(
-            child: snapshot.hasData ? const MainNavigatorScreen() : const AuthenticateScreen(),
+            child: snapshot.hasData
+                ? const MainNavigatorScreen()
+                : const AuthenticateScreen(),
             transitionBuilder: (Widget child,
                 Animation<double> primaryAnimation,
                 Animation<double> secondaryAnimation) {
               const begin = Offset(1.0, 0);
               const end = Offset.zero;
               const curve = Curves.ease;
-              var tween = Tween(begin: begin, end: end).chain(CurveTween(curve: curve));
+              var tween =
+                  Tween(begin: begin, end: end).chain(CurveTween(curve: curve));
               return SlideTransition(
                 position: primaryAnimation.drive(tween),
                 child: child,
