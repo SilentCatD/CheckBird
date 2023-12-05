@@ -1,4 +1,4 @@
-package com.example.check_bird
+package com.techlosophy.check_bird
 
 import io.flutter.embedding.android.FlutterActivity
 
