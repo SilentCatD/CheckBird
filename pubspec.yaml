@@ -36,7 +36,7 @@ dependencies:
   cupertino_icons: ^1.0.2
   provider: ^6.0.1
   google_sign_in: ^6.1.5
-  intl: ^0.17.0
+  intl: ^0.18.0
   animations: ^2.0.2
   image_picker: ^1.0.4
   uuid: ^4.0.0
@@ -45,10 +45,9 @@ dependencies:
   hive_flutter: ^1.1.0
   path_provider: ^2.0.2
   flutter_material_color_picker: ^1.1.0+2
-  date_time_picker: ^2.1.0
   image_cropper: ^5.0.0
-  table_calendar: ^3.0.3
-  awesome_notifications: ^0.7.4+1
+  table_calendar: ^3.0.9
+  awesome_notifications: ^0.8.2
   flutter_settings_screens: ^0.3.2-null-safety
   shared_preferences: ^2.0.11
   video_player: ^2.2.10
@@ -71,7 +70,7 @@ dev_dependencies:
   # activated in the `analysis_options.yaml` file located at the root of your
   # package. See that file for information about deactivating specific lint
   # rules and activating additional ones.
-  flutter_lints: ^2.0.3
+  flutter_lints: ^3.0.1
   build_runner: ^2.1.7
   hive_generator: ^2.0.1
   flutter_launcher_icons: ^0.13.1

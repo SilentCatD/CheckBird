@@ -1,4 +1,4 @@
-import 'package:date_time_picker/date_time_picker.dart';
+import 'package:check_bird/widgets/date_time_picker/date_time_picker.dart';
 import 'package:flutter/material.dart';
 
 int daysBetween(DateTime from, DateTime to) {
@@ -67,7 +67,6 @@ class _TaskCustomState extends State<TaskCustom> {
             });
             widget.onChangedDue(value);
           },
-          errorInvalidText: "Test",
           validator: (value) {
             final pickedValue = DateTime.parse(value!);
             if (pickedValue.isBefore(DateTime.now())) {
