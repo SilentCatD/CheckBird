@@ -13,6 +13,13 @@ class NotificationService {
 
   final String _channelKey = 'CheckBird_schedule_channel';
 
+  Future<void> requestPermission() async {
+    final allowed = await AwesomeNotifications().isNotificationAllowed();
+    if (!allowed) {
+      AwesomeNotifications().requestPermissionToSendNotifications();
+    }
+  }
+
   Future<void> initialize() async {
     AwesomeNotifications().initialize(
       null,
