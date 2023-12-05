@@ -17,7 +17,8 @@ class AuthenticateScreen extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             GestureDetector(
-              onTap: () => Navigator.of(context).pushNamed(FlappyBirdScreen.routeName),
+              onTap: () =>
+                  Navigator.of(context).pushNamed(FlappyBirdScreen.routeName),
               child: Container(
                 height: size.height * 0.5,
                 margin: const EdgeInsets.symmetric(horizontal: 20),
@@ -38,25 +39,24 @@ class AuthenticateScreen extends StatelessWidget {
               ),
             ),
             const Spacer(),
-            GoogleLoginButton(
-              width: size.width * 0.8,
-            ),
+            const GoogleLoginButton(),
             SizedBox(
               height: size.height * 0.03,
             ),
-            TextButton(
-              onPressed: () {
-                Navigator.of(context).pushNamed('/TODO');
-              },
-              child: const Text(
-                "Continue without an account",
-                style: TextStyle(
-                  decoration: TextDecoration.underline,
-                  color: Colors.black,
-                  fontSize: 18,
-                ),
-              ),
-            ),
+            // NOTE: Disable login without an account feature
+            // TextButton(
+            //   onPressed: () {
+            //     Navigator.of(context).pushNamed('/TODO');
+            //   },
+            //   child: const Text(
+            //     "Continue without an account",
+            //     style: TextStyle(
+            //       decoration: TextDecoration.underline,
+            //       color: Colors.black,
+            //       fontSize: 18,
+            //     ),
+            //   ),
+            // ),
             SizedBox(
               height: size.height * 0.05,
             )

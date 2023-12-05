@@ -51,8 +51,8 @@ class _TableCalendarScreenState extends State<TableCalendarScreen> {
             return Column(
               children: [
                 TableCalendar(
-                  firstDay: DateTime.utc(2020, 10, 16),
-                  lastDay: DateTime.utc(2023, 3, 14),
+                  firstDay: DateTime.utc(1970, 1, 1),
+                  lastDay: DateTime.utc(2100, 1, 1),
                   focusedDay: _focusedDay,
                   selectedDayPredicate: (day) => isSameDay(_selectedDay, day),
                   calendarFormat: _calendarFormat,

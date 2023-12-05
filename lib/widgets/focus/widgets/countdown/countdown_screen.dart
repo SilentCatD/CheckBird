@@ -42,7 +42,7 @@ class _CountDownScreenState extends State<CountDownScreen> {
       resetTimer();
     }
 
-    timer = Timer.periodic(const Duration(milliseconds: 10), (_) => subTime());
+    timer = Timer.periodic(const Duration(seconds: 1), (_) => subTime());
   }
 
   void resetTimer() {

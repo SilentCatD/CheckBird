@@ -15,7 +15,6 @@ class _FocusPopupWidgetState extends State<FocusPopupWidget> {
 
   Widget dateTimePickerStart() {
     return SizedBox(
-      width: 300,
       height: 120,
       child: CupertinoTimerPicker(
         initialTimerDuration: _chosenTime,
@@ -55,7 +54,7 @@ class _FocusPopupWidgetState extends State<FocusPopupWidget> {
       content: Container(
         width: double.infinity,
         height: 350,
-        padding: const EdgeInsets.all(40.0),
+        padding: const EdgeInsets.symmetric(vertical: 40, horizontal: 20),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [

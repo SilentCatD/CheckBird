@@ -7,40 +7,39 @@ class MemberInformation extends StatelessWidget {
     required this.name,
     required this.id,
     this.isLeader = false,
-    this.isMember = false,
   }) : super(key: key);
+
   final bool isLeader;
-  final bool isMember;
   final String image;
   final String name;
   final String id;
   @override
   Widget build(BuildContext context) {
-    Size size = MediaQuery.of(context).size;
+    final size = MediaQuery.of(context).size;
+    const borderRadius = 10.0;
     return Container(
       margin: const EdgeInsets.only(
-        left: 10,
         top: 10,
         bottom: 20,
       ),
-      width: size.width * 0.4,
+      width: size.width * 0.45,
       child: Column(
         children: [
           Container(
-            width: size.width * 0.4,
             height: size.height * 0.2,
-            decoration: const BoxDecoration(
+            decoration: BoxDecoration(
               color: Colors.white,
-              borderRadius: BorderRadius.only(
-                  topLeft: Radius.circular(10),
-                  topRight: Radius.circular(10)),
-              boxShadow: [
+              borderRadius: const BorderRadius.only(
+                topLeft: Radius.circular(borderRadius),
+                topRight: Radius.circular(borderRadius),
+              ),
+              boxShadow: const [
                 BoxShadow(blurRadius: 3),
               ],
-            ),
-            child: Image.asset(
-              image,
-              fit: BoxFit.fill,
+              image: DecorationImage(
+                image: AssetImage(image),
+                fit: BoxFit.fill,
+              ),
             ),
           ),
           Container(
@@ -48,49 +47,53 @@ class MemberInformation extends StatelessWidget {
             decoration: const BoxDecoration(
               color: Colors.white,
               borderRadius: BorderRadius.only(
-                  bottomLeft: Radius.circular(10),
-                  bottomRight: Radius.circular(10)),
+                bottomLeft: Radius.circular(borderRadius),
+                bottomRight: Radius.circular(borderRadius),
+              ),
               boxShadow: [
                 BoxShadow(blurRadius: 3),
               ],
             ),
-            child: Row(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [
-                RichText(
-                    text: TextSpan(
-                      children: [
-                        if(isLeader)
-                          const TextSpan(
-                            text: "Leader\n",
-                            style: TextStyle(
-                              color: Colors.red,
-                              fontWeight: FontWeight.bold,
-                            )
-                        ),
-                        if(isMember)
-                          const TextSpan(
-                              text: "Member\n",
-                              style: TextStyle(
-                                color: Colors.green,
-                                fontWeight: FontWeight.bold,
-                              )
-                          ),
-                        TextSpan(
-                            text: name,
-                            style: const TextStyle(
-                              fontWeight: FontWeight.bold,
-                              color: Colors.black,
-                            )
-                        ),
-                        TextSpan(
-                          text: id,
-                          style: const TextStyle(
-                            fontWeight: FontWeight.bold,
-                            color: Colors.blue,
-                          ),
-                        )
-                      ],
-                    ))
+                if (isLeader)
+                  const Text(
+                    "Leader",
+                    style: TextStyle(
+                      color: Colors.red,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  )
+                else
+                  const Text(
+                    "Member",
+                    style: TextStyle(
+                      color: Colors.green,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                ConstrainedBox(
+                  constraints: const BoxConstraints(
+                    minHeight: 40,
+                  ),
+                  child: Text(
+                    name,
+                    style: const TextStyle(
+                      fontWeight: FontWeight.bold,
+                      color: Colors.black,
+                    ),
+                    maxLines: 2,
+                    overflow: TextOverflow.ellipsis,
+                  ),
+                ),
+                Text(
+                  id,
+                  style: const TextStyle(
+                    fontWeight: FontWeight.bold,
+                    color: Colors.blue,
+                  ),
+                )
               ],
             ),
           )

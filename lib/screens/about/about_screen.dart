@@ -60,7 +60,7 @@ class AboutScreen extends StatelessWidget {
               children: [
                 MemberInformation(
                     image: "assets/images/Phuoc.jpg",
-                    name: "Nguyen Ngoc Phuoc\n",
+                    name: "Nguyen Ngoc Phuoc",
                     id: "19127519",
                     isLeader: true),
               ],
@@ -69,30 +69,30 @@ class AboutScreen extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: [
                 MemberInformation(
-                    image: "assets/images/duy.jpg",
-                    name: "Ho Van Duy\n",
-                    id: "19127373",
-                    isMember: true),
+                  image: "assets/images/duy.jpg",
+                  name: "Ho Van Duy",
+                  id: "19127373",
+                ),
                 MemberInformation(
-                    image: "assets/images/ha.jpg",
-                    name: "Pham Le Ha\n",
-                    id: "19127385",
-                    isMember: true),
+                  image: "assets/images/ha.jpg",
+                  name: "Pham Le Ha",
+                  id: "19127385",
+                ),
               ],
             ),
             const Row(
               mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: [
                 MemberInformation(
-                    image: "assets/images/giang.jpg",
-                    name: "Nguyen Truong Giang\n",
-                    id: "19127384",
-                    isMember: true),
+                  image: "assets/images/giang.jpg",
+                  name: "Nguyen Truong Giang",
+                  id: "19127384",
+                ),
                 MemberInformation(
-                    image: "assets/images/duc.jpg",
-                    name: "Le Minh Duc\n",
-                    id: "19127369",
-                    isMember: true),
+                  image: "assets/images/duc.jpg",
+                  name: "Le Minh Duc",
+                  id: "19127369",
+                ),
               ],
             )
           ],
