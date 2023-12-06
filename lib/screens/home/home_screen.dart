@@ -3,7 +3,6 @@ import 'package:check_bird/screens/home/widgets/list_todo_today.dart';
 import 'package:check_bird/screens/home/widgets/quotes.dart';
 import 'package:check_bird/screens/task/widgets/show_date.dart';
 import 'package:check_bird/services/notification.dart';
-import 'package:check_bird/utils/theme.dart';
 import 'package:check_bird/services/authentication.dart';
 import 'package:check_bird/widgets/focus/focus_widget.dart';
 import 'package:flutter/material.dart';
@@ -27,16 +26,7 @@ class _HomeScreenState extends State<HomeScreen> {
 
   @override
   Widget build(BuildContext context) {
-    AppThemeKeys? currentThemeKey = AppTheme.of(context).getCurrentThemeKey();
-
-    final Color colorAppbar;
-    if (currentThemeKey == AppThemeKeys.dark) {
-      colorAppbar = Colors.deepPurple;
-    } else {
-      colorAppbar = Colors.white;
-    }
     Size size = MediaQuery.of(context).size;
-
     return Scaffold(
         appBar: AppBar(
           leading: IconButton(
@@ -45,14 +35,9 @@ class _HomeScreenState extends State<HomeScreen> {
             },
             icon: const Icon(Icons.menu),
           ),
-          iconTheme: IconThemeData(
-            color: Theme.of(context).primaryColor,
-          ),
-          backgroundColor: colorAppbar,
           centerTitle: true,
           title: CircleAvatar(
-            backgroundColor: colorAppbar,
-            foregroundColor: colorAppbar,
+            backgroundColor: Colors.transparent,
             child: Image.asset(
               'assets/images/checkbird-logo.png',
             ),

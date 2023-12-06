@@ -10,6 +10,7 @@ class GoogleLoginButton extends StatelessWidget {
     return ElevatedButton(
         style: ElevatedButton.styleFrom(
           backgroundColor: Theme.of(context).primaryColor,
+          foregroundColor: Colors.white,
           padding: const EdgeInsets.all(12),
           shape:
               RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),

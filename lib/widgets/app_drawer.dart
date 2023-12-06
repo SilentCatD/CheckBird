@@ -59,7 +59,6 @@ class AppDrawer extends StatelessWidget {
                     overflow: TextOverflow.fade,
                     style: const TextStyle(
                       color: Colors.white,
-                      decoration: TextDecoration.underline,
                     ),
                   ),
                 ),

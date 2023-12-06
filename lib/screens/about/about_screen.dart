@@ -18,31 +18,24 @@ class AboutScreen extends StatelessWidget {
         child: Column(
           children: [
             Container(
-              margin: const EdgeInsets.only(
-                left: 10,
-                top: 10,
-                bottom: 20,
-              ),
-              decoration: const BoxDecoration(
-                color: Colors.blueAccent,
-                borderRadius: BorderRadius.all(Radius.circular(10)),
+              margin: const EdgeInsets.all(20),
+              decoration: BoxDecoration(
+                color: Theme.of(context).colorScheme.primary,
+                borderRadius: const BorderRadius.all(Radius.circular(10)),
               ),
               width: size.width * 0.9,
               child: const Column(children: [
+                SizedBox(height: 8),
                 Icon(
                   Icons.people_alt,
                   size: 25,
-                  color: Colors.white,
                 ),
                 Text("Techlosophy",
-                    style: TextStyle(
-                        color: Colors.white,
-                        fontWeight: FontWeight.bold,
-                        fontSize: 30)),
+                    style:
+                        TextStyle(fontWeight: FontWeight.bold, fontSize: 30)),
                 Text(
                   "\nOur core values are to bring about happiness to everyone!\n",
                   style: TextStyle(
-                    color: Colors.white,
                     fontSize: 18,
                   ),
                   textAlign: TextAlign.center,

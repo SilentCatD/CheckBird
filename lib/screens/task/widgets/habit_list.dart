@@ -32,10 +32,12 @@ class _HabitListScreenState extends State<HabitListScreen> {
     return Scaffold(
         body: Column(
       children: [
+        const SizedBox(height: 12),
         const Text(
           "Select days of week",
           style: TextStyle(fontSize: 15),
         ),
+        const SizedBox(height: 4),
         WeekDayPicker(
             onChanged: (days) {
               _selectedDays = days;

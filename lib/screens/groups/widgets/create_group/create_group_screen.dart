@@ -106,28 +106,25 @@ class _CreateGroupScreenState extends State<CreateGroupScreen> {
       child: Scaffold(
         appBar: widget.group == null
             ? AppBar(
-                backgroundColor: Theme.of(context).canvasColor,
                 elevation: 0,
                 leading: IconButton(
                   icon: const Icon(Icons.arrow_back),
-                  color: Theme.of(context).shadowColor,
                   onPressed: () {
                     Navigator.of(context).pop();
                   },
                 ),
-                title: Text(
+                title: const Text(
                   "Create group",
-                  style: TextStyle(
-                      color: Theme.of(context).splashColor,
-                      fontWeight: FontWeight.bold),
+                  style: TextStyle(fontWeight: FontWeight.bold),
                 ),
                 actions: [
                   TextButton(
                       style: TextButton.styleFrom(
-                          foregroundColor: Colors.black12,
-                          backgroundColor: _hasContent
-                              ? Theme.of(context).primaryColor
-                              : Colors.grey.shade300),
+                        foregroundColor: Colors.black12,
+                        backgroundColor: _hasContent
+                            ? Theme.of(context).primaryColor
+                            : Theme.of(context).colorScheme.secondaryContainer,
+                      ),
                       onPressed: _hasContent
                           ? () {
                               _submit();
@@ -138,7 +135,9 @@ class _CreateGroupScreenState extends State<CreateGroupScreen> {
                         "Create group",
                         style: TextStyle(
                             fontWeight: FontWeight.bold,
-                            color: _hasContent ? Colors.white : null),
+                            color: _hasContent
+                                ? Theme.of(context).colorScheme.background
+                                : null),
                       )),
                 ],
               )
@@ -175,7 +174,7 @@ class _CreateGroupScreenState extends State<CreateGroupScreen> {
                     height: 180,
                     decoration: BoxDecoration(
                       shape: BoxShape.circle,
-                      color: Colors.grey,
+                      color: Theme.of(context).colorScheme.primaryContainer,
                       image: widget.group == null
                           ? _image != null
                               ? DecorationImage(

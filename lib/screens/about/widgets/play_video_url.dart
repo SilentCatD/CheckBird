@@ -31,7 +31,7 @@ class _PlayVideoURLState extends State<PlayVideoURL> {
         return Center(
           child: Text(
             errorMessage,
-            style: const TextStyle(color: Colors.white),
+            style: TextStyle(color: Theme.of(context).colorScheme.error),
           ),
         );
       },

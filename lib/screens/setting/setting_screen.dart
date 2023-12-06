@@ -21,7 +21,7 @@ class _SettingScreenState extends State<SettingScreen> {
             title: const Text("Settings"), automaticallyImplyLeading: true),
         body: SafeArea(
           child: ListView(
-            padding: const EdgeInsets.all(24),
+            padding: const EdgeInsets.symmetric(vertical: 24),
             children: [
               SettingsGroup(
                 title: 'GENERAL',
@@ -29,7 +29,7 @@ class _SettingScreenState extends State<SettingScreen> {
                   buildDarkMode(),
                 ],
               ),
-              const SizedBox(height: 32),
+              const SizedBox(height: 16),
               SettingsGroup(
                 title: "FEEDBACK",
                 children: <Widget>[
@@ -37,6 +37,7 @@ class _SettingScreenState extends State<SettingScreen> {
                   buildReportBug(),
                 ],
               ),
+              const SizedBox(height: 16),
               SettingsGroup(
                 title: "ACCOUNT",
                 children: <Widget>[
