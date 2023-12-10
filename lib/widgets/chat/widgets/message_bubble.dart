@@ -78,8 +78,9 @@ class _MessageBubbleState extends State<MessageBubble> {
                       if (!widget.isMe)
                         Text(
                           widget.senderName,
-                          style:
-                              const TextStyle(color: Colors.grey, fontSize: 13),
+                          style: TextStyle(
+                              color: Theme.of(context).colorScheme.onBackground,
+                              fontSize: 13),
                         ),
                       if (widget.mediaType == MediaType.text)
                         TextMedia(
@@ -140,7 +141,7 @@ class ImageMedia extends StatelessWidget {
         margin: const EdgeInsets.symmetric(vertical: 10, horizontal: 8),
         constraints: BoxConstraints(
             maxWidth:
-                isMe ? constraints.maxWidth *0.8: constraints.maxWidth * 0.7),
+                isMe ? constraints.maxWidth * 0.8 : constraints.maxWidth * 0.7),
         child: ClipRRect(
           borderRadius: BorderRadius.circular(20),
           child: Image.network(
@@ -174,8 +175,8 @@ class TextMedia extends StatelessWidget {
       child: Material(
         borderRadius: BorderRadius.circular(15),
         color: isMe
-            ? Theme.of(context).colorScheme.secondary
-            : (showTime ? Colors.grey.shade400 : Colors.grey.shade300),
+            ? Theme.of(context).colorScheme.primary
+            : Theme.of(context).colorScheme.secondaryContainer,
         child: InkWell(
           onTap: onPress,
           borderRadius: BorderRadius.circular(15),
@@ -193,7 +194,7 @@ class TextMedia extends StatelessWidget {
                 text,
                 softWrap: true,
                 style: TextStyle(
-                  color: isMe ? Colors.white : Colors.black,
+                  color: isMe ? Colors.white : null,
                   fontSize: 16,
                 ),
               )),

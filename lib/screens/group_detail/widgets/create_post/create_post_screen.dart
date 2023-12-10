@@ -101,11 +101,9 @@ class _CreatePostScreenState extends State<CreatePostScreen> {
         // extendBodyBehindAppBar: true,
         // backgroundColor: Colors.white,
         appBar: AppBar(
-          backgroundColor: Theme.of(context).canvasColor,
           elevation: 0,
           leading: IconButton(
             icon: const Icon(Icons.arrow_back),
-            color: Theme.of(context).primaryColor,
             onPressed: () {
               Navigator.of(context).pop();
             },
@@ -116,7 +114,7 @@ class _CreatePostScreenState extends State<CreatePostScreen> {
                     foregroundColor: Colors.black12,
                     backgroundColor: _hasContent
                         ? Theme.of(context).primaryColor
-                        : Colors.grey.shade300),
+                        : Theme.of(context).colorScheme.secondaryContainer),
                 onPressed: _hasContent
                     ? () {
                         PostsController().createPostInDB(
@@ -130,7 +128,9 @@ class _CreatePostScreenState extends State<CreatePostScreen> {
                   "Post",
                   style: TextStyle(
                       fontWeight: FontWeight.bold,
-                      color: _hasContent ? Colors.white : null),
+                      color: _hasContent
+                          ? Theme.of(context).colorScheme.background
+                          : null),
                 )),
           ],
         ),

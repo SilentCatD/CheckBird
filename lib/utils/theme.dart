@@ -2,15 +2,17 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
+enum AppThemeKeys { light, dark }
+
 class AppTheme extends ChangeNotifier {
   static AppTheme of(BuildContext context, {bool listen = false}) =>
       Provider.of<AppTheme>(context, listen: listen);
 
   AppTheme() {
-    _appTheme();
+    _init();
   }
 
-  _appTheme() async {
+  _init() async {
     prefs = await SharedPreferences.getInstance();
     bool? boolValue = prefs?.getBool('isDarkMode');
     if (boolValue == null) {
@@ -32,41 +34,30 @@ class AppTheme extends ChangeNotifier {
 
   void setTheme(AppThemeKeys themeKey) {
     _themeKeys = themeKey;
+    prefs?.setBool('isDarkMode', _themeKeys == AppThemeKeys.dark);
     notifyListeners();
   }
-}
 
-enum AppThemeKeys { light, dark }
-
-Map<AppThemeKeys, ThemeData> _themes = {
-  AppThemeKeys.light: ThemeData(
-      brightness: Brightness.light,
-      primarySwatch: Colors.blue,
-      fontFamily: 'OpenSans',
-
-      // this is color of text
-      shadowColor: Colors.black,
-      indicatorColor: Colors.white,
-      splashColor: Colors.blue,
-
-      // AppBar
-      // this is button color in Appbar
-      colorScheme: const ColorScheme.light().copyWith(
-        secondary: Colors.lightBlue,
+  final Map<AppThemeKeys, ThemeData> _themes = {
+    AppThemeKeys.light: ThemeData(
+      useMaterial3: true,
+      colorScheme: ColorScheme.fromSeed(
+        seedColor: Colors.blue,
         primary: Colors.blue,
-      )),
-  AppThemeKeys.dark: ThemeData(
-      brightness: Brightness.dark,
-      primarySwatch: Colors.purple,
-
-      // this is color of text
-
-      shadowColor: Colors.white,
-      indicatorColor: Colors.purple,
-      splashColor: Colors.purple,
-      fontFamily: 'OpenSans',
-      colorScheme: const ColorScheme.dark().copyWith(
-        secondary: Colors.deepPurple,
-        primary: Colors.black,
-      )),
-};
+        secondary: Colors.lightBlue,
+        brightness: Brightness.light,
+        primaryContainer: Colors.blue,
+      ),
+    ),
+    AppThemeKeys.dark: ThemeData(
+      useMaterial3: true,
+      colorScheme: ColorScheme.fromSeed(
+        seedColor: Colors.blue,
+        primary: Colors.blue,
+        secondary: Colors.lightBlue,
+        brightness: Brightness.dark,
+        primaryContainer: Colors.blue,
+      ),
+    ),
+  };
+}

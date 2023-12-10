@@ -13,8 +13,9 @@ class FocusPopupWidget extends StatefulWidget {
 class _FocusPopupWidgetState extends State<FocusPopupWidget> {
   Duration _chosenTime = const Duration(minutes: 5);
 
-  Widget dateTimePickerStart() {
+  Widget dateTimePickerStart(BuildContext context) {
     return SizedBox(
+      width: MediaQuery.sizeOf(context).width * 0.7,
       height: 120,
       child: CupertinoTimerPicker(
         initialTimerDuration: _chosenTime,
@@ -52,13 +53,12 @@ class _FocusPopupWidgetState extends State<FocusPopupWidget> {
     return AlertDialog(
       title: const Text("Choose focus time"),
       content: Container(
-        width: double.infinity,
-        height: 350,
         padding: const EdgeInsets.symmetric(vertical: 40, horizontal: 20),
         child: Column(
+          mainAxisSize: MainAxisSize.min,
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            dateTimePickerStart(),
+            dateTimePickerStart(context),
             const SizedBox(height: 50),
             ButtonWidget(
               text: "Start time",

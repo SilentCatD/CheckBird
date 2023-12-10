@@ -27,6 +27,12 @@ class _QuotesAPISate extends State<QuotesAPI> {
     getQuotes();
   }
 
+  @override
+  void dispose() {
+    _streamController.close();
+    super.dispose();
+  }
+
   getQuotes() async {
     response = await get(Uri.parse(_url));
     Map<String, dynamic> quotes = json.decode(response.body);
@@ -46,9 +52,9 @@ class _QuotesAPISate extends State<QuotesAPI> {
         top: 10,
         bottom: 20,
       ),
-      decoration: const BoxDecoration(
-        color: Colors.blueAccent,
-        borderRadius: BorderRadius.all(Radius.circular(10)),
+      decoration: BoxDecoration(
+        color: Theme.of(context).colorScheme.primary,
+        borderRadius: const BorderRadius.all(Radius.circular(10)),
       ),
       width: size.width * 0.9,
       height: size.height * 0.2,

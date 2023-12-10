@@ -42,7 +42,9 @@ class _MainNavigatorScreenState extends State<MainNavigatorScreen> {
     final isSelected = (index == _selectedScreenIndex);
     return IconTheme(
       data: IconThemeData(
-        color: isSelected ? Colors.white : Colors.white54,
+        color: isSelected
+            ? Theme.of(context).colorScheme.primary
+            : Theme.of(context).iconTheme.color,
       ),
       child: IconButton(
         iconSize: 30,
@@ -71,6 +73,8 @@ class _MainNavigatorScreenState extends State<MainNavigatorScreen> {
         child: _screen[_selectedScreenIndex],
       ),
       floatingActionButton: FloatingActionButton(
+        backgroundColor: Theme.of(context).colorScheme.primary,
+        shape: const CircleBorder(),
         child: const Icon(
           Icons.add_task,
           size: 40,
@@ -101,11 +105,10 @@ class _MainNavigatorScreenState extends State<MainNavigatorScreen> {
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
       bottomNavigationBar: BottomAppBar(
-        color: Theme.of(context).primaryColor,
         shape: const CircularNotchedRectangle(),
         notchMargin: 8,
         child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             _buildTabItem(index: 0, icon: const Icon(Icons.home_rounded)),
             _buildTabItem(index: 1, icon: const Icon(Icons.checklist_rounded)),

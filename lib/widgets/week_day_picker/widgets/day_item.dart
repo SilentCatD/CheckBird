@@ -29,18 +29,18 @@ class DayItem extends StatelessWidget {
 // class _DayItemState extends State<DayItem> {
 //   bool _isSelected = true;
 
-
   @override
   Widget build(BuildContext context) {
     return TextButton(
         style: TextButton.styleFrom(
           shape: const CircleBorder(),
           backgroundColor: value
-              ? (selected ?? Theme.of(context).primaryColor)
-              : (unselected ?? Colors.grey.shade300),
+              ? (selected ?? Theme.of(context).colorScheme.primary)
+              : (unselected ??
+                  Theme.of(context).colorScheme.secondaryContainer),
         ),
         onPressed: () {
-            onChangedCaller(index);
+          onChangedCaller(index);
         },
         child: Text(
           text,

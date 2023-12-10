@@ -28,7 +28,6 @@ class MemberInformation extends StatelessWidget {
           Container(
             height: size.height * 0.2,
             decoration: BoxDecoration(
-              color: Colors.white,
               borderRadius: const BorderRadius.only(
                 topLeft: Radius.circular(borderRadius),
                 topRight: Radius.circular(borderRadius),
@@ -44,13 +43,13 @@ class MemberInformation extends StatelessWidget {
           ),
           Container(
             padding: const EdgeInsets.all(10),
-            decoration: const BoxDecoration(
-              color: Colors.white,
-              borderRadius: BorderRadius.only(
+            decoration: BoxDecoration(
+              color: Theme.of(context).colorScheme.secondaryContainer,
+              borderRadius: const BorderRadius.only(
                 bottomLeft: Radius.circular(borderRadius),
                 bottomRight: Radius.circular(borderRadius),
               ),
-              boxShadow: [
+              boxShadow: const [
                 BoxShadow(blurRadius: 3),
               ],
             ),
@@ -81,7 +80,6 @@ class MemberInformation extends StatelessWidget {
                     name,
                     style: const TextStyle(
                       fontWeight: FontWeight.bold,
-                      color: Colors.black,
                     ),
                     maxLines: 2,
                     overflow: TextOverflow.ellipsis,
@@ -89,9 +87,9 @@ class MemberInformation extends StatelessWidget {
                 ),
                 Text(
                   id,
-                  style: const TextStyle(
+                  style: TextStyle(
                     fontWeight: FontWeight.bold,
-                    color: Colors.blue,
+                    color: Theme.of(context).colorScheme.primary,
                   ),
                 )
               ],

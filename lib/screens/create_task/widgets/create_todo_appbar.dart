@@ -13,13 +13,10 @@ class CreateTodoAppbar extends StatelessWidget implements PreferredSizeWidget {
       elevation: 0,
       title: Text(
         todoName == null ? "Create todo" : "Edit todo",
-        style:  TextStyle(
-          color: Theme.of(context).shadowColor,
-            fontWeight: FontWeight.bold),
+        style: const TextStyle(fontWeight: FontWeight.bold),
       ),
       leading: IconButton(
         icon: const Icon(Icons.arrow_back),
-        color: Theme.of(context).shadowColor,
         onPressed: () {
           Navigator.of(context).pop();
         },

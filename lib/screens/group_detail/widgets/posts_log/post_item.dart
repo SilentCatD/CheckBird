@@ -85,9 +85,9 @@ class _PostItemState extends State<PostItem>
                           ),
                         ],
                       ),
-                      const Divider(
+                      Divider(
                         thickness: 2,
-                        color: Colors.black54,
+                        color: Theme.of(context).colorScheme.onBackground,
                         indent: 20,
                         endIndent: 20,
                       ),
@@ -105,9 +105,9 @@ class _PostItemState extends State<PostItem>
                               height: 300,
                               child: Image.network(post.posterImageUrl!)),
                         ),
-                      const Divider(
+                      Divider(
                         thickness: 2,
-                        color: Colors.black54,
+                        color: Theme.of(context).colorScheme.onBackground,
                         indent: 20,
                         endIndent: 20,
                       ),

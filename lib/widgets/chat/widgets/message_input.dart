@@ -23,18 +23,16 @@ class _MessageInputState extends State<MessageInput> {
   final _controller = TextEditingController();
   final _focusNode = FocusNode();
   var _enteredMessages = "";
-  final _hintTextUnfocused = Text(
+  final _hintTextUnfocused = const Text(
     "Aa...",
     style: TextStyle(
-      color: Colors.grey.shade700,
       fontSize: 20,
       letterSpacing: 2,
     ),
   );
-  final _hintTextFocused = Text(
+  final _hintTextFocused = const Text(
     "Input messages to send...",
     style: TextStyle(
-      color: Colors.grey.shade700,
       fontSize: 13,
     ),
   );
@@ -143,7 +141,7 @@ class _MessageInputState extends State<MessageInput> {
   Widget build(BuildContext context) {
     return Container(
       padding: const EdgeInsets.all(8),
-      color: Theme.of(context).colorScheme.secondary,
+      color: Theme.of(context).colorScheme.secondaryContainer,
       child: Row(
         children: [
           Flexible(
@@ -166,16 +164,13 @@ class _MessageInputState extends State<MessageInput> {
                   hintStyle: focused
                       ? _hintTextFocused.style
                       : _hintTextUnfocused.style,
-                  border: const OutlineInputBorder(),
-                  enabledBorder: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(50),
-                    borderSide: const BorderSide(color: Colors.white),
-                  ),
-                  focusedBorder: OutlineInputBorder(
+                  border: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(10),
-                    borderSide: const BorderSide(color: Colors.white),
+                    borderSide: const BorderSide(
+                      width: 0,
+                      style: BorderStyle.none,
+                    ),
                   ),
-                  fillColor: Colors.white,
                   filled: true,
                   isDense: true,
                   contentPadding: const EdgeInsets.all(8), // Added this
@@ -189,7 +184,6 @@ class _MessageInputState extends State<MessageInput> {
                 _pickImages(ImageSource.camera);
               },
               icon: const Icon(Icons.camera_alt_rounded),
-              color: Colors.white,
             ),
           if (!focused)
             IconButton(
@@ -197,7 +191,6 @@ class _MessageInputState extends State<MessageInput> {
                 _pickImages(ImageSource.gallery);
               },
               icon: const Icon(Icons.image),
-              color: Colors.white,
             ),
           ElevatedButton(
             style: ElevatedButton.styleFrom(
@@ -224,14 +217,9 @@ class _MessageInputState extends State<MessageInput> {
                   },
             child: Padding(
               padding: const EdgeInsets.all(12.0),
-              child: focused
-                  ? const Icon(
-                      Icons.send,
-                    )
-                  : const Icon(
-                      Icons.check_box,
-                      color: Colors.white,
-                    ),
+              child: Icon(
+                focused ? Icons.send : Icons.check_box,
+              ),
             ),
           ),
         ],

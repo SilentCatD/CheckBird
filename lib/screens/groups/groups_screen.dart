@@ -16,7 +16,6 @@ class GroupScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
     return Scaffold(
-      backgroundColor: Colors.cyanAccent.withOpacity(0.1),
       appBar: AppBar(
         leading: IconButton(
           onPressed: () {
@@ -44,17 +43,20 @@ class GroupScreen extends StatelessWidget {
                   Expanded(
                     flex: 1,
                     child: ListTile(
-                      contentPadding: const EdgeInsets.symmetric(vertical: 8, horizontal: 16),
+                      contentPadding: const EdgeInsets.symmetric(
+                          vertical: 8, horizontal: 16),
                       onTap: () {
-                        Navigator.of(context).push(MaterialPageRoute(builder: (context) => const SearchGroupScreen()));
+                        Navigator.of(context).push(MaterialPageRoute(
+                            builder: (context) => const SearchGroupScreen()));
                       },
-                      title:  TextField(
+                      title: TextField(
                         enabled: false,
                         decoration: InputDecoration(
-                          icon: Icon(Icons.search, color: Theme.of(context).shadowColor,),
+                          icon: const Icon(Icons.search),
                           hintText: "Search for more groups...",
                           disabledBorder: OutlineInputBorder(
-                            borderSide: BorderSide(width: 1, color: Theme.of(context).shadowColor),
+                            borderSide: BorderSide(
+                                width: 1, color: Theme.of(context).shadowColor),
                           ),
                         ),
                       ),

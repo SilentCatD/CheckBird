@@ -35,7 +35,10 @@ class _GroupTopicTabState extends State<GroupTopicTab> {
         },
       ),
       floatingActionButton: FloatingActionButton(
-        child: const Icon(Icons.add),
+        child: const Icon(
+          Icons.add,
+          color: Colors.white,
+        ),
         onPressed: () async {
           await Navigator.of(context).push(
             PageRouteBuilder(
