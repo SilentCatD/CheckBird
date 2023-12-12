@@ -1,5 +1,6 @@
-import 'package:awesome_notifications/awesome_notifications.dart';
-import 'package:flutter/material.dart';
+import 'package:timezone/data/latest_all.dart' as tz;
+import 'package:timezone/timezone.dart' as tz;
+import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 
 class NotificationService {
   NotificationService._internal();
@@ -7,70 +8,65 @@ class NotificationService {
   static final NotificationService _notificationService =
       NotificationService._internal();
 
+  FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin =
+      FlutterLocalNotificationsPlugin();
+
+  static const AndroidNotificationDetails _androidNotificationDetails =
+      AndroidNotificationDetails(
+    'check_bird',
+    'CheckBird',
+    importance: Importance.max,
+    priority: Priority.high,
+    sound: RawResourceAndroidNotificationSound("res_custom_notification_sound"),
+  );
+
+  static const NotificationDetails _notificationDetails =
+      NotificationDetails(android: _androidNotificationDetails);
+
   factory NotificationService() {
     return _notificationService;
   }
 
-  final String _channelKey = 'CheckBird_schedule_channel';
-
   Future<void> requestPermission() async {
-    final allowed = await AwesomeNotifications().isNotificationAllowed();
-    if (!allowed) {
-      AwesomeNotifications().requestPermissionToSendNotifications();
-    }
+    flutterLocalNotificationsPlugin
+        .resolvePlatformSpecificImplementation<
+            AndroidFlutterLocalNotificationsPlugin>()
+        ?.requestNotificationsPermission();
   }
 
   Future<void> initialize() async {
-    AwesomeNotifications().initialize(
-      null,
-      [
-        NotificationChannel(
-          channelKey: _channelKey,
-          channelName: 'CheckBird notification',
-          defaultColor: Colors.lightBlueAccent,
-          locked: true,
-          importance: NotificationImportance.High,
-          channelShowBadge: true,
-          soundSource: 'resource://raw/res_custom_notification_sound',
-          channelDescription: 'CheckBird notification',
-        ),
-      ],
-    );
+    const AndroidInitializationSettings initializationSettingsAndroid =
+        AndroidInitializationSettings('mipmap/ic_launcher');
+    const InitializationSettings initializationSettings =
+        InitializationSettings(android: initializationSettingsAndroid);
+    await flutterLocalNotificationsPlugin.initialize(initializationSettings);
+    tz.initializeTimeZones();
   }
 
   Future<void> createInstantNotification(String title, String body) async {
-    await AwesomeNotifications().createNotification(
-      content: NotificationContent(
-        id: 0,
-        channelKey: _channelKey,
-        title: title,
-        body: body,
-        notificationLayout: NotificationLayout.Default,
-      ),
+    await flutterLocalNotificationsPlugin.show(
+      (title + body).hashCode,
+      title,
+      body,
+      _notificationDetails,
     );
   }
 
   Future<void> createScheduleNotification(
-      int id, String title, String body, DateTime dateTime, bool repeat) async {
-    await AwesomeNotifications().createNotification(
-      content: NotificationContent(
-        id: id,
-        channelKey: _channelKey,
-        title: title,
-        body: body,
-        notificationLayout: NotificationLayout.Default,
-      ),
-      actionButtons: [
-        NotificationActionButton(
-          key: 'MARK_DONE',
-          label: 'Mark Done',
-        ),
-      ],
-      schedule: NotificationCalendar.fromDate(date: dateTime, repeats: repeat),
+      int id, String title, String body, DateTime dateTime) async {
+    await flutterLocalNotificationsPlugin.zonedSchedule(
+      id,
+      title,
+      body,
+      tz.TZDateTime.from(dateTime, tz.local),
+      _notificationDetails,
+      androidScheduleMode: AndroidScheduleMode.exactAllowWhileIdle,
+      uiLocalNotificationDateInterpretation:
+          UILocalNotificationDateInterpretation.absoluteTime,
     );
   }
 
   Future<void> cancelScheduledNotifications(int id) async {
-    await AwesomeNotifications().cancel(id);
+    await flutterLocalNotificationsPlugin.cancel(id);
   }
 }
