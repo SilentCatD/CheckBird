@@ -1,0 +1,53 @@
+# This file contains the fastlane.tools configuration
+# You can find the documentation at https://docs.fastlane.tools
+#
+# For a list of all available actions, check out
+#
+#     https://docs.fastlane.tools/actions
+#
+# For a list of all available plugins, check out
+#
+#     https://docs.fastlane.tools/plugins/available-plugins
+#
+
+# Uncomment the line if you want fastlane to automatically update itself
+# update_fastlane
+
+default_platform(:android)
+
+apkPath = '../build/app/outputs/flutter-apk/app-release.apk'
+serviceCredentialsPath = "#{Dir.pwd.chomp("/fastlane")}/app/checkbird-d2804-aaf957dc5c82.json"
+
+platform :android do
+  desc "Build"
+  lane :build do
+    gradle(
+      task: "assemble",
+      build_type: "Release"
+    )
+  end
+
+  desc "Submit a new Build to FirebaseDistribute"
+  lane :distribute do
+    # increment_version
+    build
+    release = firebase_app_distribution(
+      app: "1:483781811955:android:6e47664e9580171d84a186",
+      service_credentials_file: serviceCredentialsPath,
+      testers: "hovanduy0501@gmail.com",
+      apk_path: apkPath,
+    )
+  end
+
+  desc "Increase Version"
+  lane :increment_version do
+    latest_release = firebase_app_distribution_get_latest_release(
+      app: "1:483781811955:android:6e47664e9580171d84a186",
+      service_credentials_file: serviceCredentialsPath,
+    )
+    increment_version_code({ 
+      gradle_file_path: "./app/build.gradle",
+      version_code: latest_release[:buildVersion].to_i + 1
+    })
+  end
+end
