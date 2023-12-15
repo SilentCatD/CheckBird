@@ -45,3 +45,10 @@ app.*.map.json
 /android/app/profile
 /android/app/release
 android/app/google-services.json
+
+# fastlane
+**/fastlane/report.xml
+**/fastlane/Preview.html
+**/fastlane/screenshots/**/*.png
+**/fastlane/test_output
+android/app/checkbird-d2804-aaf957dc5c82.json
