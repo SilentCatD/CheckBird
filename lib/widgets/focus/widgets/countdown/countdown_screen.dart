@@ -81,7 +81,8 @@ class _CountDownScreenState extends State<CountDownScreen> {
           'Focus Time complete', "Sup, focus time is over, good job!");
     }
 
-    return WillPopScope(
+    return PopScope(
+      canPop: false,
       child: Scaffold(
         body: Stack(
           children: [
@@ -115,13 +116,13 @@ class _CountDownScreenState extends State<CountDownScreen> {
           ],
         ),
       ),
-      onWillPop: () async {
+      onPopInvoked: (didPop) async {
+        if (didPop) return;
         if (duration.inSeconds == 0) {
           popScreens(1);
         } else {
           showConfirmQuitDialog();
         }
-        return false;
       },
     );
   }
