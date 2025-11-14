@@ -61,11 +61,9 @@ class _CreateGroupScreenState extends State<CreateGroupScreen> {
   Future<void> _cropImage() async {
     CroppedFile? croppedFile = await ImageCropper().cropImage(
       sourcePath: _image!.path,
-      cropStyle: CropStyle.rectangle,
       maxWidth: 180,
       maxHeight: 180,
       compressQuality: 50,
-      aspectRatioPresets: [CropAspectRatioPreset.square],
       uiSettings: [
         AndroidUiSettings(
           toolbarTitle: 'Cropper',
@@ -73,12 +71,17 @@ class _CreateGroupScreenState extends State<CreateGroupScreen> {
           toolbarWidgetColor: Colors.white,
           initAspectRatio: CropAspectRatioPreset.square,
           lockAspectRatio: true,
+          cropFrameColor: Colors.white,
+          showCropGrid: false,
         ),
         IOSUiSettings(
           title: 'Cropper',
+          aspectRatioLockEnabled: true,
+          resetAspectRatioEnabled: false,
         ),
       ],
     );
+
     if (croppedFile != null) {
       _image = File(croppedFile.path);
       setState(() {

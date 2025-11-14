@@ -44,19 +44,19 @@ class AuthenticateScreen extends StatelessWidget {
               height: size.height * 0.03,
             ),
             // NOTE: Disable login without an account feature
-            // TextButton(
-            //   onPressed: () {
-            //     Navigator.of(context).pushNamed('/TODO');
-            //   },
-            //   child: const Text(
-            //     "Continue without an account",
-            //     style: TextStyle(
-            //       decoration: TextDecoration.underline,
-            //       color: Colors.black,
-            //       fontSize: 18,
-            //     ),
-            //   ),
-            // ),
+            TextButton(
+              onPressed: () {
+                Navigator.of(context).pushNamed('/main-navigation-screen');
+              },
+              child: const Text(
+                "Continue without an account",
+                style: TextStyle(
+                  decoration: TextDecoration.underline,
+                  color: Colors.black,
+                  fontSize: 18,
+                ),
+              ),
+            ),
             SizedBox(
               height: size.height * 0.05,
             )
