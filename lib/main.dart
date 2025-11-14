@@ -12,38 +12,80 @@ import 'package:check_bird/screens/not_implemented/not_implemented_screen.dart';
 import 'package:check_bird/screens/shop/shop_screen.dart';
 import 'package:check_bird/screens/task/task_screen.dart';
 import 'package:check_bird/screens/welcome/welcome_screen.dart';
+import 'package:check_bird/screens/setting/setting_screen.dart';
 import 'package:check_bird/services/notification.dart';
 import 'package:flutter/material.dart';
-import 'package:check_bird/utils/theme.dart';
 import 'package:flutter/services.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:provider/provider.dart';
-import 'models/todo/todo_type.dart';
 import 'package:flutter_settings_screens/flutter_settings_screens.dart';
-import 'package:check_bird/screens/setting/setting_screen.dart';
+import 'models/todo/todo_type.dart';
+import 'utils/theme.dart';
+import 'firebase_options.dart';
 
-Future loadLocalData() async {
-  await TodoListController().openBox();
+Future<void> main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+
+  runApp(const AppInitializer());
 }
 
-void main() async {
-  WidgetsFlutterBinding.ensureInitialized();
-  await Firebase.initializeApp();
-  await SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]);
-  Directory directory = await getApplicationDocumentsDirectory();
-  await Hive.initFlutter(directory.path);
-  Hive.registerAdapter(TodoAdapter());
-  Hive.registerAdapter(TodoTypeAdapter());
-  await loadLocalData();
-  await NotificationService().initialize();
-  await Settings.init(cacheProvider: SharePreferenceCache());
-  var appTheme = AppTheme();
-  runApp(ChangeNotifierProvider(
-    create: (_) => appTheme,
-    child: const MyApp(),
-  ));
+class AppInitializer extends StatelessWidget {
+  const AppInitializer({super.key});
+
+  Future<void> _initializeApp() async {
+    // Initialize Firebase
+    await Firebase.initializeApp(
+      options: DefaultFirebaseOptions.currentPlatform,
+    );
+
+    // Lock portrait mode
+    await SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]);
+
+    // Hive setup
+    Directory directory = await getApplicationDocumentsDirectory();
+    await Hive.initFlutter(directory.path);
+    Hive.registerAdapter(TodoAdapter());
+    Hive.registerAdapter(TodoTypeAdapter());
+    await TodoListController().openBox();
+
+    // Notifications
+    await NotificationService().initialize();
+
+    // Settings
+    await Settings.init(cacheProvider: SharePreferenceCache());
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return FutureBuilder(
+      future: _initializeApp(),
+      builder: (context, snapshot) {
+        if (snapshot.connectionState == ConnectionState.waiting) {
+          return const MaterialApp(
+            home: Scaffold(
+              body: Center(child: CircularProgressIndicator()),
+            ),
+          );
+        } else if (snapshot.hasError) {
+          // Show error if initialization fails
+          return MaterialApp(
+            home: Scaffold(
+              body: Center(
+                  child:
+                      Text('Error during initialization:\n${snapshot.error}')),
+            ),
+          );
+        }
+
+        return ChangeNotifierProvider(
+          create: (_) => AppTheme(),
+          child: const MyApp(),
+        );
+      },
+    );
+  }
 }
 
 class MyApp extends StatelessWidget {
@@ -70,9 +112,8 @@ class MyApp extends StatelessWidget {
         AboutScreen.routeName: (context) => const AboutScreen(),
       },
       onUnknownRoute: (settings) {
-        return MaterialPageRoute(builder: (context) {
-          return const NotImplementedScreen();
-        });
+        return MaterialPageRoute(
+            builder: (context) => const NotImplementedScreen());
       },
     );
   }

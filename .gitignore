@@ -52,3 +52,6 @@ android/app/google-services.json
 **/fastlane/screenshots/**/*.png
 **/fastlane/test_output
 android/app/checkbird-d2804-aaf957dc5c82.json
+
+# FVM Version Cache
+.fvm/
